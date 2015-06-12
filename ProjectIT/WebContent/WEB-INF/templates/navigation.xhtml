@@ -4,19 +4,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
-	<div id="navbar">
-		<div>
-			<ul>
-				<h:form id="navigationForm">
+	<div class="navigation_div_wrap">
+	    <div class="navigation_div">
+			<ul class="navigation_ul">
+				<h:form class="navigation_form">
 					<ui:repeat value="#{navigationBean.navigation}" var="page">
-						<li class="navigation">
-						    <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />					       			
-					    </li>
+						<li class="navigation_li">
+					        <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />
+						</li>
 					</ui:repeat>
 				</h:form>
 			</ul>
 		</div>
+		<div class="language_div">	
+			<h:selectOneMenu styleClass="language_select" value="#{navigationBean.language}">
+                <f:selectItem itemLabel="English" />
+                <f:selectItem itemLabel="Deutsch" />
+                <f:selectItem itemLabel="Русский" />
+            </h:selectOneMenu>
+	        
+        </div>
 	</div>
-	
-		
+
+
 </ui:composition>

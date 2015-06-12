@@ -25,6 +25,7 @@ public class NavigationBean implements Serializable {
 	private HeaderBean headerBean;
 	
     private ArrayList<Page> navigation; 
+    private String language;
 
     public NavigationBean() {
         Navigation nav = new Navigation();
@@ -61,5 +62,12 @@ public class NavigationBean implements Serializable {
 		this.navigation = navigation;
 	}    
         
-	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 }

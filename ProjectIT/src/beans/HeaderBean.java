@@ -21,7 +21,7 @@ public class HeaderBean implements Serializable {
     private String title;
 
     public HeaderBean() {
-    	this.title = "Project|Main page";
+    	this.title = " Main page";
     }
     
 	public String getTitle() {
