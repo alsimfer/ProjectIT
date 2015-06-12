@@ -1,0 +1,71 @@
+/*  Variables are supported only by mozilla */
+:root {
+  --main-font-family: Verdana, Arial, sans-serif;
+  --main-font-size: 1em;
+  --main-font-weight: normal; 
+}
+
+
+html, body {
+    height: 100%;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 1em;
+    font-weight: normal;    
+}
+
+#orderDiv {
+	position: absolute;
+    right: 0px;
+    width: 300px;
+    text-align:right;
+}
+
+#search_form {
+	font-family: Verdana, Arial, sans-serif;
+    font-size: 1em;
+    font-weight: normal;    	
+}
+
+.ui-widget {
+	font-family: Verdana, Arial, sans-serif;
+    font-size: 1em;
+    font-weight: normal; 
+}
+
+table {
+   width: 100%;
+}
+
+table, th, td {
+/*   border: 1px solid black; */
+   border: none;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0, auto, 60px;
+    padding: 0, 0, 60px;
+}
+
+#footer {
+    height: 60px;
+    background-color: #E1E1E1;
+}
+#btn-debug {
+    position: absolute;
+}
+
+#console-debug {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 30%;
+    height: 700px;        
+    overflow-y: scroll;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 5px #CCCCCC;
+}
+
+#console-debug pre {
+}
