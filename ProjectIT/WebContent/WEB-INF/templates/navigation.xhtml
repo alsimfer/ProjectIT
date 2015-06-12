@@ -4,19 +4,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
-	<nav>
+	<div id="navbar">
 		<div>
 			<ul>
-				<h:form>
+				<h:form id="navigationForm">
 					<ui:repeat value="#{navigationBean.navigation}" var="page">
-						<li>
+						<li class="navigation">
 						    <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />					       			
 					    </li>
 					</ui:repeat>
 				</h:form>
 			</ul>
 		</div>
-	</nav>
+	</div>
 	
 		
 </ui:composition>

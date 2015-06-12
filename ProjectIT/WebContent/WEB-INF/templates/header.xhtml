@@ -5,12 +5,17 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0; charset=utf-8" http-equiv="Content-Type" />
-	<title>Dictionary</title>
+	<title>Project |
+	    <h:outputText value="#{headerBean.title}" />
+    </title>
+	
+	<!-- Icon on title -->
+	<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 	
 	<!-- CSS -->
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-	
+		
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />

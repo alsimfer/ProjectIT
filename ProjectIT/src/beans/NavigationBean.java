@@ -21,6 +21,9 @@ public class NavigationBean implements Serializable {
 	@ManagedProperty(value="#{contentBean}")
 	private ContentBean contentBean;
 	
+	@ManagedProperty(value="#{headerBean}")
+	private HeaderBean headerBean;
+	
     private ArrayList<Page> navigation; 
 
     public NavigationBean() {
@@ -30,6 +33,7 @@ public class NavigationBean implements Serializable {
     
     public String navigate(Page page) {
     	this.contentBean.setContent(page.getContent());
+    	this.headerBean.setTitle(page.getTitle());
     	return page.getSlug();
     }
     
@@ -39,6 +43,14 @@ public class NavigationBean implements Serializable {
 
 	public void setContentBean(ContentBean contentBean) {
 		this.contentBean = contentBean;
+	}
+
+	public HeaderBean getHeaderBean() {
+		return headerBean;
+	}
+
+	public void setHeaderBean(HeaderBean headerBean) {
+		this.headerBean = headerBean;
 	}
 
 	public ArrayList<Page> getNavigation() {
