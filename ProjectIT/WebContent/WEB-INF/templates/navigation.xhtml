@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<nav>
+		<div>
+			<ul>
+				<h:form>
+					<ui:repeat value="#{navigationBean.navigation}" var="page">
+						<li>
+						    <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />					       			
+					    </li>
+					</ui:repeat>
+				</h:form>
+			</ul>
+		</div>
+	</nav>
+	
+		
+</ui:composition>

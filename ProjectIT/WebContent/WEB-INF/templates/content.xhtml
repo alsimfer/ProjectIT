@@ -3,11 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-
-<div id="content" class="col-md-10 col-md-offset-1">
-	Content here
-</div>
-
-<ui:include src="/resources/js/postScripts.xhtml" />
-
+    <h:outputText value="#{contentBean.content}" /> 
+	
 </ui:composition>

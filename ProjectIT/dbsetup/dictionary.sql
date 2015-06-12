@@ -3,22 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2015 at 01:04 PM
+-- Generation Time: Jun 12, 2015 at 02:42 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
 -- Database: `dictionary`
 --
+CREATE DATABASE IF NOT EXISTS `dictionary` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `dictionary`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +22,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `dictionary`
 --
 
+DROP TABLE IF EXISTS `dictionary`;
 CREATE TABLE IF NOT EXISTS `dictionary` (
 `id` int(10) NOT NULL,
   `english` varchar(250) COLLATE utf8_bin NOT NULL,
@@ -39,17 +36,18 @@ CREATE TABLE IF NOT EXISTS `dictionary` (
 -- Table structure for table `navigation`
 --
 
+DROP TABLE IF EXISTS `navigation`;
 CREATE TABLE IF NOT EXISTS `navigation` (
 `id` int(10) unsigned NOT NULL,
   `title` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'title on tab',
   `link` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'button or link name',
   `content` text COLLATE utf8_bin NOT NULL COMMENT 'content of the page',
-  `title_de` varchar(50) COLLATE utf8_bin NOT NULL,
-  `link_de` varchar(50) COLLATE utf8_bin NOT NULL,
-  `content_de` text COLLATE utf8_bin NOT NULL,
-  `title_ru` varchar(50) COLLATE utf8_bin NOT NULL,
-  `link_ru` varchar(50) COLLATE utf8_bin NOT NULL,
-  `content_ru` text COLLATE utf8_bin NOT NULL
+  `title_de` varchar(50) CHARACTER SET utf8 COLLATE utf8_german2_ci NOT NULL,
+  `link_de` varchar(50) CHARACTER SET utf8 COLLATE utf8_german2_ci NOT NULL,
+  `content_de` text CHARACTER SET utf8 COLLATE utf8_german2_ci NOT NULL,
+  `title_ru` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `link_ru` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `content_ru` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
@@ -68,6 +66,7 @@ INSERT INTO `navigation` (`id`, `title`, `link`, `content`, `title_de`, `link_de
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `id` int(10) unsigned NOT NULL,
   `last_name` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -84,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Table structure for table `user_dictionary`
 --
 
+DROP TABLE IF EXISTS `user_dictionary`;
 CREATE TABLE IF NOT EXISTS `user_dictionary` (
   `user_id` int(10) NOT NULL,
   `dictionary_id` int(10) NOT NULL
@@ -130,6 +130,14 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 ALTER TABLE `user`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Add slugs for navigation
+UPDATE `navigation` SET `slug` = 'index.xhtml' WHERE `navigation`.`id` = 1; UPDATE `dictionary`.`navigation` SET `slug` = 'dictionary.xhtml' WHERE `navigation`.`id` = 2; UPDATE `dictionary`.`navigation` SET `slug` = 'test.xhtml' WHERE `navigation`.`id` = 3; UPDATE `dictionary`.`navigation` SET `slug` = 'login.xhtml' WHERE `navigation`.`id` = 4;
+
+-- To allow integer from id make it smaller
+ALTER TABLE `navigation` CHANGE `id` `id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dictionary` CHANGE `id` `id` INT(8) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user` CHANGE `id` `id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_dictionary` CHANGE `user_id` `user_id` INT(8) NOT NULL, CHANGE `dictionary_id` `dictionary_id` INT(8) NOT NULL;
+
+UPDATE `dictionary`.`navigation` SET `slug` = 'main.xhtml' WHERE `navigation`.`id` = 1;

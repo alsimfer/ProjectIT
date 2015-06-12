@@ -7,6 +7,11 @@
     <ui:include src="/WEB-INF/templates/header.xhtml" />
 </h:head> 
 <h:body>
-    <ui:include src="/WEB-INF/templates/body.xhtml" />    
+    <div id="content" class="col-md-10 col-md-offset-1">
+		<ui:include src="/WEB-INF/templates/navigation.xhtml" />
+		<ui:include src="/WEB-INF/templates/content.xhtml" />
+	</div>
+
+	<ui:include src="/resources/js/postScripts.xhtml" /> 
 </h:body>
 </html>
