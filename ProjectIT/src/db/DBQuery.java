@@ -106,7 +106,58 @@ public class DBQuery {
 		return slug;
 	}	
 	
+	//-------------------------------------------------- User -------------------------------------------------
+	public User getUserByEmailPassword(String email, String password) {
+		String query = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "'";
+		int id, status;
+		String firstName, lastName, language = "";
+		User user;
+		Object [][] resultData;
+		
+		this.dbc.query(query);
+		resultData = this.dbc.getResultData();
+		
+		if (resultData != null) {
+			id = (int) (long)  resultData[0][0];
+			lastName = (String) resultData[0][1];
+			firstName = (String) resultData[0][2];
+			language = (String) resultData[0][5];
+			status = (int) resultData[0][6];
+			
+			user = new User(id, status, firstName, lastName, email, password, language);		
+		} else {
+			user = null;
+		}
+		
+		return user;
+	}	
 	
+	
+	public int addUser(String lastname, String firstName, String email, String password, String language) {
+		String query = "INSERT INTO user ("
+				+ "`id`, "
+				+ "`last_name`, "
+				+ "`first_name`, "
+				+ "`email`, "
+				+ "`password`, "
+				+ "`language`, "
+				+ "`status`"
+				+ ") VALUES ("
+				+ "DEFAULT, "
+				+ "'" + lastname + "', "
+				+ "'" + firstName + "', "
+				+ "'" + email + "', "
+				+ "'" + password + "', "
+				+ "'" + language + "', "
+				+ "1)";				
+
+		this.dbc.query(query);
+						
+		return this.dbc.getUpdateResult();
+	}	
+	
+	
+	//-------------------------------------------------- Connection -------------------------------------------------
 	public void closeConnection()
 	{
 		this.dbc.disconnect();

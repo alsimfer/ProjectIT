@@ -10,6 +10,7 @@ public class DBConnection {
 	private String url;
 	private String user;
 	private String password;
+	private int updateResult;
 	private String[] columnNames;
 	private Object[][] resultData;
 
@@ -86,10 +87,11 @@ public class DBConnection {
     			}
     		} else {
     			int amount = stmt.getUpdateCount();
-    			System.out.println(amount + " rows were updated");
+//    			System.out.println(amount + " rows were updated");
+    			this.updateResult = amount;
     		}
     	} catch (SQLException e) {
-    		System.out.println("The query could not be processed\n" + e.toString());
+    		System.out.println("The query " + queryString + " could not be processed\n" + e.toString());
     	}
     }
     
@@ -120,6 +122,12 @@ public class DBConnection {
     				this.resultData[i][j] = this.result.getObject(j+1);
     			}
     		}
+    		
+    		if (rowsAmount == 0) {
+//    			System.out.println("No data found");
+    			this.resultData = null;
+    		}
+    		
 //    		System.out.println("The resultSet was successfully evaluated");
     	} catch (SQLException e) {
     		System.out.println("Can not evaluate the ResultSet\n" + e.toString());
@@ -140,6 +148,11 @@ public class DBConnection {
     public ResultSet getResultSet()
     {
     	return this.result;
+    }
+    
+    public int getUpdateResult() 
+    {
+    	return this.updateResult;
     }
     
     public int getRowCount(ResultSet resultSet)

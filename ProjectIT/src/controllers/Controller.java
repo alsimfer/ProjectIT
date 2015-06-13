@@ -1,4 +1,4 @@
-package beans;
+package controllers;
 
 import static util.UtilFunctions.*;
 
@@ -11,22 +11,12 @@ import javax.faces.bean.SessionScoped;
 
 import objects.*;
 
-@ManagedBean
-@SessionScoped
+// This class describes controllers. Naming conventions are here.
+public abstract class Controller implements Serializable {
 
-public class ContentBean implements Serializable {
- 
 	private static final long serialVersionUID = 1L;
-    
-    private String content;
-    
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
- 
-        
+	
+	// This function processes clickEvents.
+	public void getClickResult() {}
+	
 }

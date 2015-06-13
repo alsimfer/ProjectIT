@@ -8,9 +8,16 @@
 </h:head> 
 <h:body>
     <div class="page">
-		<ui:include src="/WEB-INF/templates/navigation.xhtml" />
-		<ui:include src="/WEB-INF/templates/content.xhtml" />
+	    <div class="navigation_div_wrap">
+			<ui:include src="/WEB-INF/templates/navigation.xhtml" />
+		</div>
+		
+		<div class="content">
+			<ui:include src="/WEB-INF/templates/content.xhtml" />			
+		</div>		
+		
 		<ui:include src="/WEB-INF/templates/footer.xhtml" />
+		
 	</div>
 
 	<ui:include src="/resources/js/postScripts.xhtml" /> 

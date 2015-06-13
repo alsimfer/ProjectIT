@@ -2,29 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
-
-	<div class="navigation_div_wrap">
-	    <div class="navigation_div">
-			<ul class="navigation_ul">
-				<h:form class="navigation_form">
-					<ui:repeat value="#{navigationBean.navigation}" var="page">
-						<li class="navigation_li">
-					        <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />
-						</li>
-					</ui:repeat>
-				</h:form>
-			</ul>
-		</div>
-		<div class="language_div">	
-			<h:selectOneMenu styleClass="language_select" value="#{navigationBean.language}">
-                <f:selectItem itemLabel="English" />
-                <f:selectItem itemLabel="Deutsch" />
-                <f:selectItem itemLabel="Русский" />
-            </h:selectOneMenu>
-	        
-        </div>
+	
+    <div class="navigation_div">
+		<ul class="navigation_ul">
+			<h:form class="navigation_form">
+				<ui:repeat value="#{navigationBean.navigation}" var="page">
+					<li class="navigation_li">
+				        <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />
+					</li>
+				</ui:repeat>
+			</h:form>
+		</ul>
 	</div>
-
+	<div class="language_div">
+	<!-- FIXME: should be done with flags and strings, check LanguageBean -->	
+		<h:selectOneMenu styleClass="language_select" value="#{navigationBean.language}">
+               <f:selectItem itemLabel="English" itemValue="english" />
+               <f:selectItem itemLabel="Deutsch" itemValue="german" />
+               <f:selectItem itemLabel="Русский" itemValue="russian" />
+           </h:selectOneMenu>
+        
+       </div>
 
 </ui:composition>
