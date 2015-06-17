@@ -108,7 +108,7 @@ label {
 	border-radius: 5px;
     border: 1px solid #8AC007;
     padding: 5px; 
-    width: 150px;
+    width: 100%;
     height:30px;
     line-height:30px;
     background:#f4f4f4;
@@ -130,9 +130,23 @@ input {
     font-size: 14px;
 }
 
+error {
+	background:#faa;
+}
+
 .loginButton {	
 	float: right;
 	background-color: #8AC007; 
+    text-align: center;
+    height: 30px;
+    vertical-align: middle;
+    font-size: 14px;   
+    font-weight: bold;   
+}
+
+.commandButton {  
+    float: right;
+    background-color: #8AC007; 
     text-align: center;
     height: 30px;
     vertical-align: middle;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import beans.*;
@@ -14,7 +15,7 @@ import objects.*;
 import db.*;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 
 public class LoginController extends Controller {	
     
@@ -30,6 +31,9 @@ public class LoginController extends Controller {
 	
 	@ManagedProperty(value="#{contentBean}")
 	private ContentBean contentBean;
+	
+	@ManagedProperty(value="#{activeUserBean}")
+	private ActiveUserBean activeUserBean;
 	
 	public LoginController() {
     	super();
@@ -47,7 +51,6 @@ public class LoginController extends Controller {
 
     	if (user != null) {
         	query.closeConnection();
-    		// If user was found we need to reload the page with the user language, dictionary and stats.
     	} else {   		
     		// else create new user.
     		int updatedRows = query.addUser(lastname, firstName, email, password, language);
@@ -56,7 +59,7 @@ public class LoginController extends Controller {
     			contentBean.setContent("Welcome, you are signed up under " + email);
     		}
     	}
-    	
+
     }
     
     public String refreshPage() {
@@ -85,6 +88,14 @@ public class LoginController extends Controller {
 
 	public void setContentBean(ContentBean contentBean) {
 		this.contentBean = contentBean;
+	}
+
+	public ActiveUserBean getActiveUserBean() {
+		return activeUserBean;
+	}
+
+	public void setActiveUserBean(ActiveUserBean activeUserBean) {
+		this.activeUserBean = activeUserBean;
 	}
     
 }

@@ -51,9 +51,9 @@ public class DBQuery {
 		String query = "SELECT"
 				+ "	id,"
 				+ " slug,"
-				+ " title,"
-				+ " link,"
-				+ " content,"
+				+ " title_en,"
+				+ " link_en,"
+				+ " content_en,"
 				+ " title_de,"
 				+ " link_de,"
 				+ " content_de,"
@@ -62,7 +62,7 @@ public class DBQuery {
 				+ " content_ru"
 				+ " FROM navigation";
 		int id;
-		String slug, title, link, content, title_de, link_de, content_de, title_ru, link_ru, content_ru = "";
+		String slug, title_en, link_en, content_en, title_de, link_de, content_de, title_ru, link_ru, content_ru = "";
 		Object [][] resultData;
 		ArrayList<Page> navigation = new ArrayList<Page> ();
 		
@@ -71,9 +71,9 @@ public class DBQuery {
 		for (int i = 0; i < resultData.length; i++) {
 			id = (int) (long)  resultData[i][0];
 			slug = (String) resultData[i][1];
-			title = (String) resultData[i][2];
-			link = (String) resultData[i][3];
-			content = (String) resultData[i][4];
+			title_en = (String) resultData[i][2];
+			link_en = (String) resultData[i][3];
+			content_en = (String) resultData[i][4];
 			title_de = (String) resultData[i][5];
 			link_de = (String) resultData[i][6];
 			content_de = (String) resultData[i][7];
@@ -81,7 +81,7 @@ public class DBQuery {
 			link_ru = (String) resultData[i][9];
 			content_ru = (String) resultData[i][10];
 			
-			Page page = new Page(id, slug, title, link, content, title_de, link_de, content_de, title_ru, link_ru, content_ru);
+			Page page = new Page(id, slug, title_en, link_en, content_en, title_de, link_de, content_de, title_ru, link_ru, content_ru);
 			navigation.add(page);
 		}
 		
@@ -89,7 +89,7 @@ public class DBQuery {
 	}		
 	
 	
-	public String getSlugByID(int id) {
+	public String getSlugById(int id) {
 		String query = "SELECT" 
 				+ " slug"
 				+ " FROM navigation"
@@ -132,6 +132,17 @@ public class DBQuery {
 		return user;
 	}	
 	
+	public int updateUserById(int id, String lastName, String firstName, String language) {
+		String query = "UPDATE user SET "
+				+ "last_name = '" + lastName + "', "
+				+ "first_name = '" + firstName + "', "
+				+ "language = '" + language + "' "
+				+ " WHERE id = " + id;				
+
+		this.dbc.query(query);
+						
+		return this.dbc.getUpdateResult();
+	}	
 	
 	public int addUser(String lastname, String firstName, String email, String password, String language) {
 		String query = "INSERT INTO user ("

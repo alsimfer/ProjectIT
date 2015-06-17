@@ -4,6 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
     
 	<!-- Make a form to sign up / sign in. Use table to align accurately --> 
+    <h:outputText value="#{loginBean.topMessage}" />
 	<h:form id="login_form" class="login_form" name="login_form">
         <h:panelGrid columns="3" columnClasses="">
             <h:outputLabel id="lastNameLabel" for="lastName" value="Last name: " />
@@ -14,21 +15,32 @@
 	        <h:inputText id="firstName" value="#{loginBean.firstName}" />
 	        <h:panelGroup />
 	    
+            <h:outputLabel id="languageLabel" for="language" value="Preferred language: " />
+            
+            <h:selectOneMenu id="languageSelect" styleClass="language_select" value="#{loginBean.language}">
+                <f:selectItem itemLabel="English" itemValue="english" />
+                <f:selectItem itemLabel="Deutsch" itemValue="german" />
+                <f:selectItem itemLabel="Русский" itemValue="russian" />
+            </h:selectOneMenu>
+        
+            <h:panelGroup />
+        
 	        <h:outputLabel id="emailLabel" for="email" value="e-mail*: " />
-	        <h:inputText id="email" value="#{loginBean.email}" required="true" requiredMessage="e-mail is required!"/>
+	        <h:inputText id="email" value="#{loginBean.email}" required="true" requiredMessage="e-mail is required!"
+                styleClass="#{component.valid ? '' : 'error'}">
+                <f:ajax event="mouseout" render="m1" />
+            </h:inputText>
 	        <h:message id="m1" for="email" style="color:red"/>
 	    
 	        <h:outputLabel id="passwordLabel" for="password" value="Password*: " />
-	        <h:inputSecret id="password" value="#{loginBean.password}" required="true" requiredMessage="password is required!" />
-	        <h:message id="m2" for="password" />
+	        <h:inputSecret id="password" value="#{loginBean.password}" required="true" requiredMessage="password is required!"
+                styleClass="#{component.valid ? '' : 'error'}">
+                <f:ajax event="mouseout" render="m2" />
+            </h:inputSecret>
+	        <h:message id="m2" for="password" style="color:red"/>
 
 	        <h:panelGroup />
-	        <h:commandButton id="loginButton" styleClass="loginButton" value="Login" action="#{loginController.refreshPage}">
-	            <f:ajax 
-	               event="click" 
-	               execute="login_form:lastName login_form:firstName login_form:email login_form:password" 
-	               listener="#{loginController.getClickResult}" />
-	        </h:commandButton>
+	        <h:commandButton id="loginButton" styleClass="loginButton" value="Login" action="#{loginBean.login}" />	            
 	        <h:panelGroup />
         </h:panelGrid>
 	</h:form>

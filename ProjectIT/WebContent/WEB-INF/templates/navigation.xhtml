@@ -8,20 +8,13 @@
 			<h:form class="navigation_form">
 				<ui:repeat value="#{navigationBean.navigation}" var="page">
 					<li class="navigation_li">
-				        <h:commandLink action="#{navigationBean.navigate(page)}" value="#{page.link}" />
+				        <h:link value="#{page.link}" outcome="#{page.slug}">
+                                                       
+                         </h:link>
 					</li>
 				</ui:repeat>
 			</h:form>
 		</ul>
 	</div>
-	<div class="language_div">
-	<!-- FIXME: should be done with flags and strings, check LanguageBean -->	
-		<h:selectOneMenu styleClass="language_select" value="#{navigationBean.language}">
-               <f:selectItem itemLabel="English" itemValue="english" />
-               <f:selectItem itemLabel="Deutsch" itemValue="german" />
-               <f:selectItem itemLabel="Русский" itemValue="russian" />
-           </h:selectOneMenu>
-        
-       </div>
 
 </ui:composition>
