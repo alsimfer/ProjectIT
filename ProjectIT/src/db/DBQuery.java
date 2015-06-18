@@ -162,4 +162,12 @@ public class DBQuery {
 	{
 		this.dbc.disconnect();
 	}
+
+	public DBConnection getDbc() {
+		return dbc;
+	}
+
+	public void setDbc(DBConnection dbc) {
+		this.dbc = dbc;
+	}
 }

@@ -18,6 +18,8 @@ public class LoginBean implements Serializable {
  
 	private static final long serialVersionUID = 1L;
     
+	private User user;
+	
     String firstName, lastName, email, password;
     
 	public String getFirstName() {
@@ -50,6 +52,14 @@ public class LoginBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
     
 }

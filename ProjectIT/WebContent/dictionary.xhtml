@@ -14,7 +14,34 @@
         
         <div class="content">
             <ui:include src="/WEB-INF/templates/content.xhtml" />           
-        </div>      
+         
+        <h:form id="dictionary">
+        <h:panelGroup>
+        <h:panelGrid columns="1">
+        	<h:panelGroup>
+        	<h:outputLabel for="geWord" value="ge"/>
+        	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}">
+        		<f:validateLength minimum="2" maximum="50"/>
+        	</h:inputText>
+        	</h:panelGroup>
+        	<h:panelGroup>
+        	<h:outputLabel for="enWord" value="en"/>
+        	<h:inputText id="enWord" value="#{dictionaryBean.dictionaryEntry.enEntry}">
+        		<f:validateLength minimum="2" maximum="50"/>
+        	</h:inputText>
+        	</h:panelGroup>
+        	<h:panelGroup>
+        	<h:outputLabel for="ruWord" value="ru"/>
+        	<h:inputText id="ruWord" value="#{dictionaryBean.dictionaryEntry.ruEntry}">
+        		<f:validateLength minimum="2" maximum="50"/>
+        	</h:inputText>
+        	</h:panelGroup>
+        </h:panelGrid>
+        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}"/>
+        </h:panelGroup>    
+        </h:form>
+        
+        </div> 
         
         <ui:include src="/WEB-INF/templates/footer.xhtml" />
         

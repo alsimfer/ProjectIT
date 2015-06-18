@@ -44,18 +44,21 @@ public class LoginController extends Controller {
     	String password = loginBean.getPassword();
     	String language = navigationBean.getLanguage();
     	User user = query.getUserByEmailPassword(email, password);
-
+    	
     	if (user != null) {
         	query.closeConnection();
     		// If user was found we need to reload the page with the user language, dictionary and stats.
     	} else {   		
     		// else create new user.
     		int updatedRows = query.addUser(lastname, firstName, email, password, language);
+    		user = query.getUserByEmailPassword(email, password);
     		query.closeConnection();
     		if (updatedRows == 1) {
     			contentBean.setContent("Welcome, you are signed up under " + email);
     		}
     	}
+    	
+    	loginBean.setUser(user);
     	
     }
     
