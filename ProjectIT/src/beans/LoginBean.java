@@ -13,6 +13,10 @@ import objects.*;
 
 @ManagedBean
 @ViewScoped
+/**
+ * This is a controller for login form.
+ * @author Alex
+ */
 public class LoginBean implements Serializable {
 	
 	// Variables -------------------------------------------------------------------------------------------------------

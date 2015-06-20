@@ -1,11 +1,24 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	<script>
-    
-    
-    </script>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <script>
+		$(function() {
+			$("#dialogUserSetup").dialog({
+				autoOpen : false,
+				show : {
+					effect : "blind",
+					duration : 1000
+				},
+				hide : {
+					effect : "explode",
+					duration : 1000
+				}
+			});
+
+			$("#opener").click(function() {
+				$("#dialogUserSetup").dialog("open");
+			});
+		});
+	</script>
 
 </ui:composition>

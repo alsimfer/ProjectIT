@@ -37,7 +37,6 @@ public class ContentBean implements Serializable {
     }
     
     // Getters/setters -------------------------------------------------------------------------------------------------    
-
 	public String getContent() {
 		return content;
 	}

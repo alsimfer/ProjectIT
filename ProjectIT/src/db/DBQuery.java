@@ -11,7 +11,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
+/**
+ * This class has an access to the DB. All Objects should be getting DB-values through this class. 
+ * 
+ * @author Alex
+ */
 public class DBQuery {
 
 	private DBConnection dbc;
@@ -167,8 +171,66 @@ public class DBQuery {
 		return this.dbc.getUpdateResult();
 	}	
 	
+	//-------------------------------------------------- Dictionary ----------------------------------------------------	
+	public String[] getWordsById(int id) {
+		String query = "SELECT "
+				+ "english, "
+				+ "german, "
+				+ "russian "
+				+ "FROM dictionary WHERE id = " + id;
+		
+		String english = "", german = "", russian = "", tmp = "";
+		Object [][] resultData;
+		String[] returnArray;
+		
+		this.dbc.query(query);
+		resultData = this.dbc.getResultData();
+		
+		if (resultData != null) {
+			tmp = (String) resultData[0][0];
+			english = (tmp.length() > 0) ? tmp : "";
+			tmp = (String) resultData[0][1];
+			german = (tmp.length() > 0) ? tmp : "";
+			tmp = (String) resultData[0][2];
+			russian = (tmp.length() > 0) ? tmp : "";			
+		} 
+		
+		returnArray = new String[] {english, german, russian};
+		return returnArray;
+	}
 	
-	//-------------------------------------------------- Connection -------------------------------------------------
+	//--------------------------------------------- User-Dictionary ----------------------------------------------------	
+	public int[] getDictionaryIds(int user_id) {
+		String query;
+		if (user_id == 0) {
+			query = "SELECT "
+					+ "dictionary_id "
+					+ "FROM user_dictionary";
+		} else {			
+			query = "SELECT "
+					+ "dictionary_id "
+					+ "FROM user_dictionary WHERE user_id = " + user_id;
+		}
+
+		Object [][] resultData;
+		
+		this.dbc.query(query);
+		resultData = this.dbc.getResultData();
+
+		if (resultData != null) {
+			int[] returnArray = new int[resultData.length];
+			
+			for (int i = 0; i < resultData.length; i++) {
+				returnArray[i] = (int) resultData[i][0];
+			}
+			
+			return returnArray;
+		} else {
+			return new int[0];
+		}
+	}
+	
+	//-------------------------------------------------- Connection ---------------------------------------------------
 	public void closeConnection()
 	{
 		this.dbc.disconnect();

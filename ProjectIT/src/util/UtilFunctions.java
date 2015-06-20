@@ -6,12 +6,52 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 public class UtilFunctions {
+	
+	/**
+	 * @param start start of range (inclusive)
+	 * @param end end of range (exclusive)
+	 * @param excludes numbers to exclude
+	 * @return the random number within start-end but not one of excludes
+	 */
+	public static int nextIntInRangeButExclude(int start, int end, int... excludes){
+	    int rangeLength = end - start - excludes.length;
+	    int randomInt = new Random().nextInt(rangeLength) + start;
+
+	    for(int i = 0; i < excludes.length; i++) {
+	        if(excludes[i] > randomInt) {
+	            return randomInt;
+	        }
+
+	        randomInt++;
+	    }
+
+	    return randomInt;
+	}
+	
+	/**
+	 * Convert ArrayList of Integers to primitive array.
+	 * @param integers
+	 * @return int array
+	 */
+	public static int[] convertIntegers(ArrayList<Integer> integers)
+	{
+	    int[] ret = new int[integers.size()];
+	    Iterator<Integer> iterator = integers.iterator();
+	    for (int i = 0; i < ret.length; i++)
+	    {
+	        ret[i] = iterator.next().intValue();
+	    }
+	    return ret;
+	}
+	
 	// Invalidate session
 	public static void invalidateSession() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
@@ -91,6 +131,11 @@ public class UtilFunctions {
     public static void p(String s)
     {
     	System.out.println(s);
+    }
+    
+    public static void p(int s)
+    {
+    	System.out.println(String.valueOf(s));
     }
     
     public static void pf(String s)

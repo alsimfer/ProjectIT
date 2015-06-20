@@ -57,7 +57,12 @@ table, th, td {
    border: 1px solid black; 
    border: none;
    padding: 5px;
-   margin: 5px;
+   margin: 5px;  
+}
+
+td {
+    text-align: right;
+    vertical-align: middle;
 }
 
 label {
@@ -114,15 +119,22 @@ label {
     background:#f4f4f4;
 }
 
-.login_form {
+.form {
 	display: block;
 }
 
+.question_table {
+	width: 100%;
+}
+
 input {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
 	border-radius: 5px;
     border: 1px solid #8AC007;
-    padding: 5px; 
-    min-width: 150px;
+    padding: 0px 5px 0px 5px; 
+    min-width: 60px;
     height:30px;
     line-height:30px;
     background:#f4f4f4;
@@ -134,7 +146,7 @@ error {
 	background:#faa;
 }
 
-.loginButton {	
+.login_button {	
 	float: right;
 	background-color: #8AC007; 
     text-align: center;
@@ -144,8 +156,28 @@ error {
     font-weight: bold;   
 }
 
-.commandButton {  
-    float: right;
+.question_label {
+	width: 550px;
+    display: block;
+    
+    font-size: 34px;   
+    font-weight: bold; 
+}
+
+.answer_button {
+    width: 550px;
+    display: inline-block;
+    background-color: #FFFF99; 
+    text-align: center;
+    height: 150px;
+    vertical-align: middle;
+    font-size: 34px;   
+    font-weight: normal; 
+}
+
+.command_button {
+	width: 10px;
+    display: inline-block;
     background-color: #8AC007; 
     text-align: center;
     height: 30px;
@@ -154,7 +186,7 @@ error {
     font-weight: bold;   
 }
 
-.loginButton > p {
+.login_button > p {
 	line-height:30px;
 	vertical-align: middle;
 	font-size: 14px;   
@@ -163,4 +195,17 @@ error {
 
 a:hover {
     color: green;
+}
+
+.test_table {
+}
+
+input[type=checkbox] {
+	
+	-ms-transform: scale(1); /* IE */
+	-moz-transform: scale(1); /* FF */
+	-webkit-transform: scale(1); /* Safari and Chrome */
+	-o-transform: scale(1); /* Opera */
+    padding: 0px;
+    margin: 0px;
 }

@@ -1,0 +1,16 @@
+To do:
+- Check if the DB is ready for usage at the start. Make appropriate message if not.
+- JavaDoc: each function (with the exception of get/set) and each class.
+- Translate all buttons and all messages in Views with the help of bundles.
+- Test.
+- Dictionary.
+- Stats.
+- Make login form more obvious. Separate new user and changing of params of an old user.
+- Error messages should be done with jquery ui dialog (if enogh time)
+- Add validators to all inputs.
+- Make a presentation with the project structure.
+- Check if resultSet != null in every DBQuery function before return.
+
+Ask:
+- Why are the forms not working with mutual render exclusion (testDiv.xhtml)
+- Why is postConstruct in testForm called upon first answer.
