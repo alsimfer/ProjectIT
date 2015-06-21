@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static util.UtilFunctions.*;
+import daoimpl.DictionaryDB;
 import db.*;
 
 /**
@@ -13,11 +14,11 @@ import db.*;
 public class UserDictionary implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(Word.class.getName());
+	private static final Logger log = Logger.getLogger(UserDictionary.class.getName());
 	
 	private int user_id;
 	private int[] dictionary_ids;
-	private DBQuery query;
+	private DictionaryDB dictionaryDB;
 	
 	public UserDictionary(int user_id, int[] dictionary_ids) {
 		super();
@@ -30,9 +31,8 @@ public class UserDictionary implements Serializable
 	{		
 		this.user_id = user_id;
 		
-		this.query = new DBQuery();
-		this.dictionary_ids = query.getDictionaryIds(user_id);
-		this.query.closeConnection();
+		this.dictionaryDB = new DictionaryDB();
+		this.dictionary_ids = dictionaryDB.getDictionaryIds(user_id);
 	}
 
 	public int getUserId() {

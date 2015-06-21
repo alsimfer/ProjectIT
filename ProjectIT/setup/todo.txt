@@ -2,15 +2,21 @@ To do:
 - Check if the DB is ready for usage at the start. Make appropriate message if not.
 - JavaDoc: each function (with the exception of get/set) and each class.
 - Translate all buttons and all messages in Views with the help of bundles.
-- Test.
+- Test. -> Implements with TestController
 - Dictionary.
 - Stats.
 - Make login form more obvious. Separate new user and changing of params of an old user.
 - Error messages should be done with jquery ui dialog (if enogh time)
 - Add validators to all inputs.
 - Make a presentation with the project structure.
-- Check if resultSet != null in every DBQuery function before return.
+- Check if resultSet != null in every DBQuery function before return. -> Is resolved
+
+- Gleiche Wörte dürfen nicht in DB hinzugefügt werden
+- On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten
+- Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
+	wenn ich vergesse sie anzugeben.
 
 Ask:
 - Why are the forms not working with mutual render exclusion (testDiv.xhtml)
 - Why is postConstruct in testForm called upon first answer.
+- Nach dem Logout wird main.html aufgerufen, warum nicht login.xhtml? 

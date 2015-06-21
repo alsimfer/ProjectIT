@@ -80,7 +80,7 @@ public class Test implements Serializable {
 			int rand = nextIntInRangeButExclude(1, max, asked);
 			this.askedWordsIds.add((Integer) rand);
 			
-			Word questionWord = new Word(rand);
+			DictionaryEntry questionWord = new DictionaryEntry(rand);
 			String question = questionWord.getWordByLanguage(this.getLangQuestion());
 			this.correctAnswer = questionWord.getWordByLanguage(this.getLangAnswer());
 			answers.add(this.correctAnswer);
@@ -89,7 +89,7 @@ public class Test implements Serializable {
 			asked = convertIntegers(this.askedWordsIds);
 			for (int i = 0; i <= 2; i++) {
 				rand = nextIntInRangeButExclude(1, max, asked);
-				Word possibleAnswerWord = new Word(rand);
+				DictionaryEntry possibleAnswerWord = new DictionaryEntry(rand);
 				answers.add(possibleAnswerWord.getWordByLanguage(this.getLangAnswer()));
 			}
 			

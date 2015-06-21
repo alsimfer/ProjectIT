@@ -24,12 +24,16 @@ public class DictionaryController {
 	@ManagedProperty(value="#{contentBean}")
 	private ContentBean contentBean;
 	
+	@ManagedProperty(value="#{loginBean}")	
 	private LoginBean loginBean;
+	
 	private DictionaryDB dictionaryDB;
 	
 	private boolean isAdded = false;
 	
 	private List<DictionaryEntry> dictionaryEntries = new ArrayList<DictionaryEntry>();
+	
+	private List<DictionaryEntry> userDictionaryEntries = new ArrayList<DictionaryEntry>();
 
 	public DictionaryBean getDictionaryBean() {
 		return dictionaryBean;
@@ -80,5 +84,23 @@ public class DictionaryController {
 
 	public void setDictionaryEntries(List<DictionaryEntry> dictionaryEntries) {
 		this.dictionaryEntries = dictionaryEntries;
+	}
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
+
+	public List<DictionaryEntry> getUserDictionaryEntries() {
+		dictionaryDB = getDictionaryDB();
+		userDictionaryEntries = dictionaryDB.getUserDictionaryEntriesFromDB(loginBean.getActiveUser().getId());
+		return userDictionaryEntries;
+	}
+
+	public void setUserDictionaryEntries(List<DictionaryEntry> userDictionaryEntries) {
+		this.userDictionaryEntries = userDictionaryEntries;
 	}
 }

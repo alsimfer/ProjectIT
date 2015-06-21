@@ -31,8 +31,8 @@ public class QuestionBean implements Serializable {
 	@ManagedProperty("#{testFormBean}")
 	private TestFormBean testFormBean;
 	
-	@ManagedProperty("#{activeUserBean}")
-	private ActiveUserBean activeUserBean;
+	@ManagedProperty("#{loginBean}")
+	private LoginBean loginBean;
 	
     // Init ------------------------------------------------------------------------------------------------------------	
 	@PostConstruct
@@ -40,9 +40,9 @@ public class QuestionBean implements Serializable {
 	 * Collect the values from testFormBean and initialize test object, where the test functionality is encapsulated.
 	 */
 	public void init() {
-p("postconstruct");
+		p("postconstruct");
 		this.questionsAmount = testFormBean.getAmount();	
-		int userId = activeUserBean.getActiveUser().getId();
+		int userId = loginBean.getActiveUser().getId();
 		boolean other = testFormBean.getOther();
 		String langQuestion = testFormBean.getLangQuestion();
 		String langAnswer = testFormBean.getLangAnswer();
@@ -181,14 +181,6 @@ p(this.counter);
 		this.testFormBean = testFormBean;
 	}
 
-	public ActiveUserBean getActiveUserBean() {
-		return activeUserBean;
-	}
-
-	public void setActiveUserBean(ActiveUserBean activeUserBean) {
-		this.activeUserBean = activeUserBean;
-	}
-
 	public int getCounter() {
 		return counter;
 	}
@@ -211,6 +203,14 @@ p(this.counter);
 
 	public void setCorrectAnswers(int correctAnswers) {
 		this.correctAnswers = correctAnswers;
+	}
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 
 

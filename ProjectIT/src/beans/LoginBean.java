@@ -8,7 +8,6 @@ import objects.*;
 
 @ManagedBean
 @SessionScoped
-
 public class LoginBean implements Serializable {
 	
 	// Variables -------------------------------------------------------------------------------------------------------

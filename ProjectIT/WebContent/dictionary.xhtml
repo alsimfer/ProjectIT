@@ -37,14 +37,30 @@
         <h:messages></h:messages>
         <h:panelGroup />
         <h:panelGroup />
-        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}" styleClass="loginButton">
+        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}" styleClass="login_button">
         </h:commandButton>
         </h:panelGrid>
      
         </h:panelGroup>    
         
         <h:panelGroup>
-        <h:dataTable id="dictionaryTable" border="1" value="#{dictionaryController.dictionaryEntries}" style="border-spacing:50px 10px; border: 1px solid black !important;" var="entry" rendered="#{not empty dictionaryController.dictionaryEntries}">
+        <h:dataTable id="userDictionaryTable" border="1" value="#{dictionaryController.userDictionaryEntries}" style="border-spacing:50px 10px; border: 1px solid black !important;" var="entry"
+         rendered="#{not empty dictionaryController.userDictionaryEntries and loginBean.activeUser.id > 0}">
+        	<h:column>
+        		<f:facet name="header">German</f:facet>
+        		<h:outputText value="#{entry.geEntry}"/>
+        	</h:column>
+        	<h:column>
+        		<f:facet name="header">English</f:facet>
+        		<h:outputText value="#{entry.enEntry}"/>
+        	</h:column>
+        	<h:column>
+        		<f:facet name="header">Russian</f:facet>
+        		<h:outputText value="#{entry.ruEntry}"/>
+        	</h:column>
+        </h:dataTable>
+        <h:dataTable id="dictionaryTable" border="1" value="#{dictionaryController.dictionaryEntries}" style="border-spacing:50px 10px; border: 1px solid black !important;" var="entry"
+         rendered="#{not empty dictionaryController.dictionaryEntries and loginBean.activeUser.id == 0}">
         	<h:column>
         		<f:facet name="header">German</f:facet>
         		<h:outputText value="#{entry.geEntry}"/>
