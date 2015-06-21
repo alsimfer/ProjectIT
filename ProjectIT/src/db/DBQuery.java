@@ -3,6 +3,12 @@ package db;
 import static util.UtilFunctions.*;
 
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import objects.*;
@@ -19,6 +25,13 @@ import javax.faces.context.FacesContext;
 public class DBQuery {
 
 	private DBConnection dbc;
+	
+	private int updateResult;
+	private String[] columnNames;
+	private Object[][] resultData;
+	private ResultSet result = null;
+	private ResultSetMetaData meta = null;
+	
 	//------------------------------------------------- Constructor -------------------------------------------------
 	public DBQuery() 
 	{
@@ -38,201 +51,124 @@ public class DBQuery {
 			p("Can not get servlet context params for a DB connection."); 
 		}
 		
-		this.dbc = new DBConnection(dbName, dbURL, dbUser, dbPassword);
-		
-		int message = this.dbc.connect();			
-		// Check the status of the connection to the DB.
-		if (message == -1) {
-			p("The login data is not correct or the database connection is shut down.");
-		} else if (message == -2) {
-			p("The driver could not be loaded.");
-		}	
+		this.dbc = new DBConnection(dbName, dbURL, dbUser, dbPassword);			
 	}
 	
-	//-------------------------------------------------- Navigation -------------------------------------------------
-	public ArrayList<Page> getNavigation() {
-		
-		String query = "SELECT"
-				+ "	id,"
-				+ " slug,"
-				+ " title_en,"
-				+ " link_en,"
-				+ " content_en,"
-				+ " title_de,"
-				+ " link_de,"
-				+ " content_de,"
-				+ " title_ru,"
-				+ " link_ru,"
-				+ " content_ru"
-				+ " FROM navigation";
-		int id;
-		String slug, title_en, link_en, content_en, title_de, link_de, content_de, title_ru, link_ru, content_ru = "";
-		Object [][] resultData;
-		ArrayList<Page> navigation = new ArrayList<Page> ();
-		
-		this.dbc.query(query);
-		resultData = this.dbc.getResultData();		
-		for (int i = 0; i < resultData.length; i++) {
-			id = (int) (long)  resultData[i][0];
-			slug = (String) resultData[i][1];
-			title_en = (String) resultData[i][2];
-			link_en = (String) resultData[i][3];
-			content_en = (String) resultData[i][4];
-			title_de = (String) resultData[i][5];
-			link_de = (String) resultData[i][6];
-			content_de = (String) resultData[i][7];
-			title_ru = (String) resultData[i][8];
-			link_ru = (String) resultData[i][9];
-			content_ru = (String) resultData[i][10];
-			
-			Page page = new Page(id, slug, title_en, link_en, content_en, title_de, link_de, content_de, title_ru, link_ru, content_ru);
-			navigation.add(page);
-		}
-		
-		return navigation;
-	}		
-	
-	
-	public String getSlugById(int id) {
-		String query = "SELECT" 
-				+ " slug"
-				+ " FROM navigation"
-				+ " WHERE id = " + id;
-		
-		String slug = "";
-		Object [][] resultData;
-		
-		this.dbc.query(query);
-		resultData = this.dbc.getResultData();
-		
-		slug = (String) resultData[0][0];
-		
-		return slug;
-	}	
-	
-	//-------------------------------------------------- User -------------------------------------------------
-	public User getUserByEmailPassword(String email, String password) {
-		String query = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "'";
-		int id, status;
-		String firstName, lastName, language = "";
-		User user;
-		Object [][] resultData;
-		
-		this.dbc.query(query);
-		resultData = this.dbc.getResultData();
-		
-		if (resultData != null) {
-			id = (int) (long)  resultData[0][0];
-			lastName = (String) resultData[0][1];
-			firstName = (String) resultData[0][2];
-			language = (String) resultData[0][5];
-			status = (int) resultData[0][6];
-			
-			user = new User(id, status, firstName, lastName, email, password, language);		
-		} else {
-			user = null;
-		}
-		
-		return user;
-	}	
-	
-	public int updateUserById(int id, String lastName, String firstName, String language) {
-		String query = "UPDATE user SET "
-				+ "last_name = '" + lastName + "', "
-				+ "first_name = '" + firstName + "', "
-				+ "language = '" + language + "' "
-				+ " WHERE id = " + id;				
 
-		this.dbc.query(query);
-						
-		return this.dbc.getUpdateResult();
-	}	
+	//------------------------------------------------- Query -------------------------------------------------
+	public void query(String queryString, Connection con) 
+    {   	    	    	
+    	try {
+    		Statement stmt;
+    		stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    		
+    		boolean rc = stmt.execute(queryString);
+    		
+    		if (rc == true) {
+    			this.result = stmt.getResultSet();
+    			if (this.result != null) {
+    				this.getResult();    				
+    			} else {    		    	
+    		    	System.out.println("The result is empty");
+    			}
+    		} else {
+    			int amount = stmt.getUpdateCount();
+    			this.updateResult = amount;
+    		}
+    	} catch (SQLException e) {
+    		System.out.println("The query " + queryString + " could not be processed\n" + e.toString());
+    	}
+    }
+    
+    public void getResult() {
+    	int columnsAmount = 0;
+    	int rowsAmount = 0;
+    	
+    	try {
+    		while (this.result.next()) {
+    			rowsAmount++;
+    		}
+    		
+    		this.meta = this.result.getMetaData();
+    		columnsAmount = meta.getColumnCount();
+    		
+    		this.columnNames = new String[columnsAmount];
+    		
+    		// Get the column names.
+    		for (int i = 0; i < columnsAmount; i++) {
+    			this.columnNames[i] = meta.getColumnLabel(i+1);    			
+    		}
+    		
+    		// Get the table data.
+    		this.resultData = new Object[rowsAmount][columnsAmount];
+    		for (int i = 0; i < rowsAmount; i++) {
+    			this.result.absolute(i+1);
+    			for (int j = 0; j < columnsAmount; j++) {
+    				this.resultData[i][j] = this.result.getObject(j+1);
+    			}
+    		}
+    		
+    		if (rowsAmount == 0) {
+    			this.resultData = null;
+    		}
+    	} catch (SQLException e) {
+    		System.out.println("Can not evaluate the ResultSet\n" + e.toString());
+    	}    	    	
+    	
+    }
+    
+    public String [] getColumnNames() 
+    {
+    	return this.columnNames;
+    }
+    
+    public Object [][] getResultData() 
+    {
+    	return this.resultData;
+    }    
+    
+    public ResultSet getResultSet()
+    {
+    	return this.result;
+    }
+    
+    public int getUpdateResult() 
+    {
+    	return this.updateResult;
+    }
+    
+    public int getRowCount(ResultSet resultSet)
+    {
+        if (resultSet == null) {
+            return 0;
+        }
+        try {
+            resultSet.last();
+            return resultSet.getRow();
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            try {
+                resultSet.beforeFirst();
+            } catch (SQLException exp) {
+                exp.printStackTrace();
+            }
+        }
+        return 0;
+    }
 	
-	public int addUser(String lastname, String firstName, String email, String password, String language) {
-		String query = "INSERT INTO user ("
-				+ "`id`, "
-				+ "`last_name`, "
-				+ "`first_name`, "
-				+ "`email`, "
-				+ "`password`, "
-				+ "`language`, "
-				+ "`status`"
-				+ ") VALUES ("
-				+ "DEFAULT, "
-				+ "'" + lastname + "', "
-				+ "'" + firstName + "', "
-				+ "'" + email + "', "
-				+ "'" + password + "', "
-				+ "'" + language + "', "
-				+ "1)";				
-
-		this.dbc.query(query);
-						
-		return this.dbc.getUpdateResult();
-	}	
+	//-------------------------------------------------- Connection -------------------------------------------------
 	
-	//-------------------------------------------------- Dictionary ----------------------------------------------------	
-	public String[] getWordsById(int id) {
-		String query = "SELECT "
-				+ "english, "
-				+ "german, "
-				+ "russian "
-				+ "FROM dictionary WHERE id = " + id;
-		
-		String english = "", german = "", russian = "", tmp = "";
-		Object [][] resultData;
-		String[] returnArray;
-		
-		this.dbc.query(query);
-		resultData = this.dbc.getResultData();
-		
-		if (resultData != null) {
-			tmp = (String) resultData[0][0];
-			english = (tmp.length() > 0) ? tmp : "";
-			tmp = (String) resultData[0][1];
-			german = (tmp.length() > 0) ? tmp : "";
-			tmp = (String) resultData[0][2];
-			russian = (tmp.length() > 0) ? tmp : "";			
-		} 
-		
-		returnArray = new String[] {english, german, russian};
-		return returnArray;
-	}
-	
-	//--------------------------------------------- User-Dictionary ----------------------------------------------------	
-	public int[] getDictionaryIds(int user_id) {
-		String query;
-		if (user_id == 0) {
-			query = "SELECT "
-					+ "dictionary_id "
-					+ "FROM user_dictionary";
-		} else {			
-			query = "SELECT "
-					+ "dictionary_id "
-					+ "FROM user_dictionary WHERE user_id = " + user_id;
-		}
-
-		Object [][] resultData;
-		
-		this.dbc.query(query);
-		resultData = this.dbc.getResultData();
-
-		if (resultData != null) {
-			int[] returnArray = new int[resultData.length];
-			
-			for (int i = 0; i < resultData.length; i++) {
-				returnArray[i] = (int) resultData[i][0];
-			}
-			
-			return returnArray;
-		} else {
-			return new int[0];
-		}
-	}
-	
-	//-------------------------------------------------- Connection ---------------------------------------------------
 	public void closeConnection()
 	{
 		this.dbc.disconnect();
+	}
+
+	public DBConnection getDbc() {
+		return dbc;
+	}
+
+	public void setDbc(DBConnection dbc) {
+		this.dbc = dbc;
 	}
 }

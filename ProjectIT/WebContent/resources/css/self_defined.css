@@ -50,12 +50,7 @@ html, body > *{
     line-height: 60px;
 }
 
-table {
-}
-
 table, th, td {
-   border: 1px solid black; 
-   border: none;
    padding: 5px;
    margin: 5px;  
 }
@@ -63,6 +58,10 @@ table, th, td {
 td {
     text-align: right;
     vertical-align: middle;
+}
+
+#dictionaryTable {
+	border: 1px solid black !important; 
 }
 
 label {

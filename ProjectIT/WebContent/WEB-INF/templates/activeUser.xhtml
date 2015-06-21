@@ -7,15 +7,15 @@
         <!-- If user is not set in session -->
         <h:outputLabel 
             value="Hi, you are currently not logged in &#160;" 
-            rendered="#{activeUserBean.activeUser.id == 0}" /> 
-        <h:link value="Login" outcome="login" rendered="#{activeUserBean.activeUser.id == 0}" /> 
+            rendered="#{loginBean.activeUser.id == 0}" /> 
+        <h:link value="Login" outcome="login" rendered="#{loginBean.activeUser.id == 0}" /> 
         
         <!-- If user is set in session -->
         <h:outputLabel 
-            value="Hi, you are logged in under #{activeUserBean.activeUser.email} &#160;" 
-            rendered="#{activeUserBean.activeUser.id > 0}" />
-        <h:commandLink id="logoutButton" value="Logout" action="#{activeUserBean.logout}" 
-            rendered="#{activeUserBean.activeUser.id > 0}" />
+            value="Hi, you are logged in under #{loginBean.activeUser.email} &#160;" 
+            rendered="#{loginBean.activeUser.id > 0}" />
+        <h:commandLink id="logoutButton" value="Logout" action="#{loginController.logout}" 
+            rendered="#{loginBean.activeUser.id > 0}" />
             
         
     </h:form>

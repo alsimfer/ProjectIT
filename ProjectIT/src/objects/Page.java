@@ -3,7 +3,9 @@ package objects;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import static util.UtilFunctions.*;
+import daoimpl.NavigationDB;
 import db.*;
 
 public class Page implements Serializable
@@ -14,15 +16,14 @@ public class Page implements Serializable
 	private int id;
 	private String slug, title, link, content, title_en, link_en, content_en, title_de, link_de, content_de, title_ru, link_ru, content_ru;
 	
-	private DBQuery query;
+	private NavigationDB navigationDB;
 	
 	// Initialize page from DB using id.
 	public Page(int id)
 	{		
 		this.id = id;
-		this.query = new DBQuery();
-		this.slug = query.getSlugById(id);
-		this.query.closeConnection();
+		this.navigationDB = new NavigationDB();
+		this.slug = navigationDB.getSlugById(id);
 	}			
 	
 	public Page(int id, String slug, String title_en, String link_en, String content_en,

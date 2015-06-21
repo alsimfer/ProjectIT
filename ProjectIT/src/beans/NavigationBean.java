@@ -12,7 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 
 import objects.*;
 
@@ -27,8 +27,8 @@ public class NavigationBean implements Serializable {
     private String language;
     
 	// Properties ------------------------------------------------------------------------------------------------------
-	@ManagedProperty("#{activeUserBean}")
-    private ActiveUserBean activeUserBean;
+	@ManagedProperty("#{loginBean}")
+    private LoginBean loginBean;
 	
     // Init ------------------------------------------------------------------------------------------------------------
 	@PostConstruct
@@ -38,8 +38,8 @@ public class NavigationBean implements Serializable {
 		navigation = nav.getNavigation();
 		
 		// Translate all pages depending on user language preferences.
-		if (activeUserBean.getActiveUser().getId() > 0) {
-			this.language = activeUserBean.getActiveUser().getLanguage();		
+		if (loginBean.getActiveUser().getId() > 0) {
+			this.language = loginBean.getActiveUser().getLanguage();		
 			// Set the users language on all pages.
 			for (Page page: navigation) {				
 				page.setLanguage(this.language);				
@@ -87,16 +87,16 @@ public class NavigationBean implements Serializable {
 		this.language = language;
 	}
 
-	public ActiveUserBean getActiveUserBean() {
-		return activeUserBean;
-	}
-
-	public void setActiveUserBean(ActiveUserBean activeUserBean) {
-		this.activeUserBean = activeUserBean;
-	}
-
 	public Page getActivePage() {
 		return activePage;
+	}
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 
 }
