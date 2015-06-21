@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+    <h:form>
+        <!-- If user is not set in session -->
+        <h:outputLabel 
+            value="Hi, you are currently not logged in &#160;" 
+            rendered="#{loginBean.activeUser.id == 0}" /> 
+        <h:link value="Login" outcome="login" rendered="#{loginBean.activeUser.id == 0}" /> 
+        
+        <!-- If user is set in session -->
+        <h:outputLabel 
+            value="Hi, you are logged in under #{loginBean.activeUser.email} &#160;" 
+            rendered="#{loginBean.activeUser.id > 0}" />
+        <h:commandLink id="logoutButton" value="Logout" action="#{loginController.logout}" 
+            rendered="#{loginBean.activeUser.id > 0}" />
+            
+        
+    </h:form>
+
+</ui:composition>

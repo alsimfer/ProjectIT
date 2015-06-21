@@ -1,65 +1,65 @@
 package controllers;
 
-import static util.UtilFunctions.*;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import beans.*;
 import objects.*;
-import db.*;
+import daoimpl.UserDB;
 
 @ManagedBean
-@SessionScoped
-
-public class LoginController extends Controller {	
-    
-	private static final long serialVersionUID = 1L;
-	
-	DBQuery query;
+@RequestScoped
+public class LoginController{	
 	
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;	
 	
-	@ManagedProperty(value="#{navigationBean}")
-	private NavigationBean navigationBean;	
-	
 	@ManagedProperty(value="#{contentBean}")
 	private ContentBean contentBean;
 	
+	private UserDB userDb;
+	
 	public LoginController() {
     	super();
-    	query = new DBQuery();
     }
-
-    public void getClickResult() {
+	
+	public void login() {
     	// Check if the user exists (email / password). If so initialize stats, language and dictionary. Else create new user.
-    	String firstName = loginBean.getFirstName();
-    	String lastname = loginBean.getLastName();
-    	String email = loginBean.getEmail();
-    	String password = loginBean.getPassword();
-    	String language = navigationBean.getLanguage();
-    	User user = query.getUserByEmailPassword(email, password);
-    	
+    	userDb = getUserDB();
+    	User user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
+
+    	// If found - put new first name, last name and language setups for this user if needed.
     	if (user != null) {
-        	query.closeConnection();
-    		// If user was found we need to reload the page with the user language, dictionary and stats.
+    		if (user.getFirstName().equals(loginBean.getActiveUser().getFirstName()) 
+				&& user.getLastName().equals(loginBean.getActiveUser().getLastName()) 
+				&& user.getLanguage().equals(loginBean.getActiveUser().getLanguage())
+			) {
+    			contentBean.setContent("Nice to see you again, " + loginBean.getActiveUser().getFirstName());
+    		} else {
+    			int updatedRows = userDb.updateUserById(user.getId(), loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(), 
+    					loginBean.getActiveUser().getLanguage());
+        		if (updatedRows == 1) {
+        			contentBean.setContent("The data for user with email " + loginBean.getActiveUser().getEmail() + " was successfully changed.");
+        		}        		
+    		}      	
     	} else {   		
     		// else create new user.
-    		int updatedRows = query.addUser(lastname, firstName, email, password, language);
-    		user = query.getUserByEmailPassword(email, password);
-    		query.closeConnection();
+    		int updatedRows = userDb.addUser(loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(),
+    				loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword(), loginBean.getActiveUser().getLanguage());
     		if (updatedRows == 1) {
-    			contentBean.setContent("Welcome, you are signed up under " + email);
+    			contentBean.setContent("New user was created. Welcome on our server, " + loginBean.getActiveUser().getFirstName());
     		}
     	}
     	
-    	loginBean.setUser(user);
-    	
+		user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
+    	loginBean.setActiveUser(user);
+    }
+	
+	public String logout() {
+		contentBean.init();
+    	loginBean.setActiveUser(new User());
+    	return "main.xhtml";
     }
     
     public String refreshPage() {
@@ -74,20 +74,19 @@ public class LoginController extends Controller {
 		this.loginBean = loginBean;
 	}
 
-	public NavigationBean getNavigationBean() {
-		return navigationBean;
-	}
-
-	public void setNavigationBean(NavigationBean navigationBean) {
-		this.navigationBean = navigationBean;
-	}
-
 	public ContentBean getContentBean() {
 		return contentBean;
 	}
 
 	public void setContentBean(ContentBean contentBean) {
 		this.contentBean = contentBean;
+	}
+	
+	public UserDB getUserDB() {
+		if(userDb == null) {
+			userDb = new UserDB();
+		}
+		return userDb;
 	}
     
 }

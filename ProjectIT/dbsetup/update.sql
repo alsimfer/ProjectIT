@@ -1,0 +1,2 @@
+-- Add _en locale to title, content, link.
+ALTER TABLE `navigation` CHANGE `title` `title_en` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'title on tab', CHANGE `link` `link_en` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'button or link name', CHANGE `content` `content_en` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'content of the page';

@@ -8,6 +8,10 @@
 </h:head> 
 <h:body>
     <div class="page">
+        <div class="active_user">
+            <ui:include src="/WEB-INF/templates/activeUser.xhtml" />
+        </div>
+        
         <div class="navigation_div_wrap">
             <ui:include src="/WEB-INF/templates/navigation.xhtml" />
         </div>
@@ -17,28 +21,44 @@
          
         <h:form id="dictionary">
         <h:panelGroup>
-        <h:panelGrid columns="1">
-        	<h:panelGroup>
+        <h:panelGrid columns="2" id="dictionaryInput" style="border-spacing:30px 10px;">
         	<h:outputLabel for="geWord" value="ge"/>
         	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}">
         		<f:validateLength minimum="2" maximum="50"/>
         	</h:inputText>
-        	</h:panelGroup>
-        	<h:panelGroup>
         	<h:outputLabel for="enWord" value="en"/>
         	<h:inputText id="enWord" value="#{dictionaryBean.dictionaryEntry.enEntry}">
         		<f:validateLength minimum="2" maximum="50"/>
         	</h:inputText>
-        	</h:panelGroup>
-        	<h:panelGroup>
         	<h:outputLabel for="ruWord" value="ru"/>
         	<h:inputText id="ruWord" value="#{dictionaryBean.dictionaryEntry.ruEntry}">
         		<f:validateLength minimum="2" maximum="50"/>
         	</h:inputText>
-        	</h:panelGroup>
+        <h:messages></h:messages>
+        <h:panelGroup />
+        <h:panelGroup />
+        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}" styleClass="loginButton">
+        </h:commandButton>
         </h:panelGrid>
-        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}"/>
+     
         </h:panelGroup>    
+        
+        <h:panelGroup>
+        <h:dataTable id="dictionaryTable" border="1" value="#{dictionaryController.dictionaryEntries}" style="border-spacing:50px 10px; border: 1px solid black !important;" var="entry" rendered="#{not empty dictionaryController.dictionaryEntries}">
+        	<h:column>
+        		<f:facet name="header">German</f:facet>
+        		<h:outputText value="#{entry.geEntry}"/>
+        	</h:column>
+        	<h:column>
+        		<f:facet name="header">English</f:facet>
+        		<h:outputText value="#{entry.enEntry}"/>
+        	</h:column>
+        	<h:column>
+        		<f:facet name="header">Russian</f:facet>
+        		<h:outputText value="#{entry.ruEntry}"/>
+        	</h:column>
+        </h:dataTable>
+        </h:panelGroup>
         </h:form>
         
         </div> 

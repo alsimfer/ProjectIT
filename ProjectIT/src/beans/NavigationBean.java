@@ -5,55 +5,72 @@ import static util.UtilFunctions.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+//import javax.servlet.http.HttpServletRequest;
 
 import objects.*;
 
 @ManagedBean
-@SessionScoped
-
+@ViewScoped
 public class NavigationBean implements Serializable {
  
+	// Variables -------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;
-    
-	@ManagedProperty(value="#{contentBean}")
-	private ContentBean contentBean;
-	
-	@ManagedProperty(value="#{headerBean}")
-	private HeaderBean headerBean;
-	
-    private ArrayList<Page> navigation; 
+	private ArrayList<Page> navigation; 
+	private Page activePage;
     private String language;
-
-    public NavigationBean() {
-        Navigation nav = new Navigation();
-        this.navigation = nav.getNavigation();
+    
+	// Properties ------------------------------------------------------------------------------------------------------
+	@ManagedProperty("#{loginBean}")
+    private LoginBean loginBean;
+	
+    // Init ------------------------------------------------------------------------------------------------------------
+	@PostConstruct
+    public void init() {
+		// FIXME: this should be done with the class which extends AL itself. 
+		Navigation nav = new Navigation();
+		navigation = nav.getNavigation();
+		
+		// Translate all pages depending on user language preferences.
+		if (loginBean.getActiveUser().getId() > 0) {
+			this.language = loginBean.getActiveUser().getLanguage();		
+			// Set the users language on all pages.
+			for (Page page: navigation) {				
+				page.setLanguage(this.language);				
+			}
+		}    
+		
+		// Set active page to get the correct references on title and content.
+		String slug = getCurrentSlug();
+		if (slug.length() == 0) {
+			this.activePage = navigation.get(0);
+		} else {
+			for (Page page: navigation) {						
+				if (page.getSlug().equals(slug)) {
+					this.activePage = page;
+				}
+			}
+		}
+				
     }
     
-    public String navigate(Page page) {
-    	this.contentBean.setContent(page.getContent());
-    	this.headerBean.setTitle(page.getTitle());
+    // Actions ---------------------------------------------------------------------------------------------------------	
+    public String setActivePage(Page page) {
+    	this.activePage = page;
     	return page.getSlug();
     }
     
-    public ContentBean getContentBean() {
-		return contentBean;
-	}
-
-	public void setContentBean(ContentBean contentBean) {
-		this.contentBean = contentBean;
-	}
-
-	public HeaderBean getHeaderBean() {
-		return headerBean;
-	}
-
-	public void setHeaderBean(HeaderBean headerBean) {
-		this.headerBean = headerBean;
-	}
-
+    public String reload() {
+    	return "main.xhtml?faces-redirect=true";
+    }
+    
+    // Getters/setters -------------------------------------------------------------------------------------------------
 	public ArrayList<Page> getNavigation() {
 		return navigation;
 	}
@@ -68,6 +85,18 @@ public class NavigationBean implements Serializable {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public Page getActivePage() {
+		return activePage;
+	}
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 
 }

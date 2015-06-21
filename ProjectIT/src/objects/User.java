@@ -1,13 +1,26 @@
 package objects;
 
-public class User {
+import static util.UtilFunctions.*;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
 	
-	int id, status;
-	String firstName, lastName, email, password, language = "";
+	protected int id, status;
+	protected String firstName, lastName, email, password, language = "";
+	
+	public User() {
+		this.id = 0;
+		this.status = 0;
+		this.firstName = "";
+		this.lastName = "";
+		this.email = "";
+		this.password = "";
+		this.language = "english";
+	}
 	
 	public User(int id, int status, String firstName, String lastName,
 			String email, String password, String language) {
-		super();
 		this.id = id;
 		this.status = status;
 		this.firstName = firstName;

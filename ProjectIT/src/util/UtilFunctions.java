@@ -8,7 +8,38 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 public class UtilFunctions {
+	// Invalidate session
+	public static void invalidateSession() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}	
+	
+	// Reset all beans with all scopes.
+	public static void clear() {
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
+	}
+	
+	// Get slug of the current page.
+	public static String getCurrentSlug()
+	{
+	    String URL = getRequestURL();
+	    String slug = URL.substring(URL.lastIndexOf("/") + 1);
+	    return slug;
+	}
+	
+	// Get request URL.
+	public static String getRequestURL()
+	{
+	    Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    if(request instanceof HttpServletRequest) {
+            return ((HttpServletRequest) request).getRequestURL().toString();
+	    } else {
+	        return "";
+	    }
+	}
 	
 	// Prints 2D-array out. Debugging.
     public static void print2DArray(Object [][] dataToPrint)

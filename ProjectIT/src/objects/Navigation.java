@@ -3,6 +3,7 @@ package objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import daoimpl.NavigationDB;
 import db.*;
 
 public class Navigation implements Serializable
@@ -10,13 +11,12 @@ public class Navigation implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	ArrayList<Page> navigation = new ArrayList<Page>();
-	private DBQuery query;
+	private NavigationDB navigationDB;
 	
 	public Navigation()
-	{		
-		this.query = new DBQuery();
-		this.navigation = query.getNavigation();
-		this.query.closeConnection();
+	{	
+		this.navigationDB = new NavigationDB();
+		this.navigation = navigationDB.getNavigation();
 	}
 
 	public ArrayList<Page> getNavigation() {
