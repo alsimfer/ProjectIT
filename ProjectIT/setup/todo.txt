@@ -1,22 +1,25 @@
-To do:
-- Check if the DB is ready for usage at the start. Make appropriate message if not.
-- JavaDoc: each function (with the exception of get/set) and each class.
-- Translate all buttons and all messages in Views with the help of bundles.
-- Test. -> Implements with TestController
-- Dictionary.
-- Stats.
-- Make login form more obvious. Separate new user and changing of params of an old user.
-- Error messages should be done with jquery ui dialog (if enogh time)
-- Add validators to all inputs.
-- Make a presentation with the project structure.
-- Check if resultSet != null in every DBQuery function before return. -> Is resolved
+MUST:
+1) Check if the DB is ready for usage at the start. Make appropriate message if not.
+2) JavaDoc: each function (with the exception of get/set) and each class.
+3) Translate all buttons and all messages in Views with the help of bundles.
+4) Test. -> Implements with TestController
+5) Dictionary.
+6) Stats.
+7) Make login form more obvious. Separate new user and changing of params of an old user.
+8) Add validators to all inputs.
+9) On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten
+10) Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
+    wenn ich vergesse sie anzugeben. -> s. auch p.7
+    
+OPTIONALLY if enough time:
+20) Error messages should be done with jquery ui dialog.
+21) Make a presentation with the project structure.
+22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden.
+23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table
+    - http://www.tutorialspoint.com/jsf/jsf_edit_datatable.htm
+    - http://www.tutorialspoint.com/jsf/jsf_delete_datatable.htm
+    - https://www.datatables.net/
 
-- Gleiche Wörte dürfen nicht in DB hinzugefügt werden
-- On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten
-- Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
-	wenn ich vergesse sie anzugeben.
-
-Ask:
-- Why are the forms not working with mutual render exclusion (testDiv.xhtml)
-- Why is postConstruct in testForm called upon first answer.
-- Nach dem Logout wird main.html aufgerufen, warum nicht login.xhtml? 
+ASK:
+20) Why are the forms not working with mutual render exclusion (testDiv.xhtml)
+21) Why is postConstruct in testForm called upon first answer.

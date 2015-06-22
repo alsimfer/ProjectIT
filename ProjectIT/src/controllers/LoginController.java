@@ -59,7 +59,7 @@ public class LoginController{
 	public String logout() {
 		contentBean.init();
     	loginBean.setActiveUser(new User());
-    	return "main.xhtml";
+    	return "login.xhtml";
     }
     
     public String refreshPage() {
