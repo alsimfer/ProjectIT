@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -13,6 +14,8 @@ import daoimpl.DictionaryDB;
 import beans.ContentBean;
 import beans.DictionaryBean;
 import beans.LoginBean;
+
+import static util.UtilFunctions.*; 
 
 @ManagedBean
 @RequestScoped
@@ -35,6 +38,10 @@ public class DictionaryController {
 	
 	private List<DictionaryEntry> userDictionaryEntries = new ArrayList<DictionaryEntry>();
 
+	@PostConstruct
+	public void init() {
+	}
+	
 	public DictionaryBean getDictionaryBean() {
 		return dictionaryBean;
 	}

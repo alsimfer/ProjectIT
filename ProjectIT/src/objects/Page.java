@@ -19,6 +19,11 @@ public class Page implements Serializable
 	private NavigationDB navigationDB;
 	
 	// Initialize page from DB using id.
+	public Page()
+	{	
+		
+	}	
+	
 	public Page(int id)
 	{		
 		this.id = id;
@@ -110,6 +115,17 @@ public class Page implements Serializable
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Page [id=" + id + ", slug=" + slug + ", title=" + title
+				+ ", link=" + link + ", content=" + content + ", title_en="
+				+ title_en + ", link_en=" + link_en + ", content_en="
+				+ content_en + ", title_de=" + title_de + ", link_de="
+				+ link_de + ", content_de=" + content_de + ", title_ru="
+				+ title_ru + ", link_ru=" + link_ru + ", content_ru="
+				+ content_ru + "]";
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import daoimpl.NavigationDB;
 import db.*;
+import static util.UtilFunctions.*;
 
 public class Navigation implements Serializable
 {
@@ -23,9 +24,26 @@ public class Navigation implements Serializable
 		return navigation;
 	}
 
+	public void setLanguage(String language) {
+		if (language.length() > 0) {
+			for (Page page: this.navigation) {			
+				page.setLanguage(language);			
+			}
+		}
+	}
+	
 	public void setNavigation(ArrayList<Page> navigation) {
 		this.navigation = navigation;
 	}
-		
 	
+	public Page getPageById(int id) {
+		Page returnPage = new Page();
+		for (Page page: this.navigation) {
+			if (page.getId() == id) {
+				return page;
+			}
+		}
+		
+		return returnPage;
+	}
 }

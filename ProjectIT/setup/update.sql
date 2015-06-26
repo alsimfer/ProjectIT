@@ -133,3 +133,9 @@ MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+UPDATE `dictionary`.`navigation` SET `title_en` = 'Personal settings', `link_en` = 'Personal settings', `title_de` = 'Persönliche Einstellungen', `link_de` = 'Persönliche Einstellungen' WHERE `navigation`.`id` = 4;
+
+ALTER TABLE `stats` DROP `total_tests`;
+
+ALTER TABLE `stats` ADD `question_language` ENUM('en', 'de', 'ru') NOT NULL , ADD `answer_language` ENUM('en', 'de', 'ru') NOT NULL ;

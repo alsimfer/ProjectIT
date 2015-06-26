@@ -123,8 +123,8 @@ public class DictionaryDB extends DBQuery{
 		String query;
 		if (user_id == 0) {
 			query = "SELECT "
-					+ "dictionary_id "
-					+ "FROM user_dictionary";
+					+ "id "
+					+ "FROM dictionary";
 		} else {			
 			query = "SELECT "
 					+ "dictionary_id "

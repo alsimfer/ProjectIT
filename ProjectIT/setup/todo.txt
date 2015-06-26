@@ -2,25 +2,25 @@ MUST:
 1) Check if the DB is ready for usage at the start. Make appropriate message if not.
 2) JavaDoc: each function (with the exception of get/set) and each class.
 3) Translate all buttons and all messages in Views with the help of bundles.
-4) Test. -> Implements with TestController
-5) Dictionary.
-6) Stats.
+
 7) Make login form more obvious. Separate new user and changing of params of an old user.
 8) Add validators to all inputs.
 9) On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten
 10) Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
     wenn ich vergesse sie anzugeben. -> s. auch p.7
+11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there.
+12) Make date in stats a Date-Object.
+13) Documentation.
     
 OPTIONALLY if enough time:
 20) Error messages should be done with jquery ui dialog.
 21) Make a presentation with the project structure.
-22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden.
+22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert.
 23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table
     - http://www.tutorialspoint.com/jsf/jsf_edit_datatable.htm
     - http://www.tutorialspoint.com/jsf/jsf_delete_datatable.htm
     - https://www.datatables.net/
+24) Statistics might be shown in different ways: filter by date, separate stats, accumulated stats etc. 
 
 ASK:
-20) Why are the forms not working with mutual render exclusion (testDiv.xhtml)
-21) Why is postConstruct in testForm called upon first answer.
-gggg
+30)

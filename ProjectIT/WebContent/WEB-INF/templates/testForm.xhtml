@@ -7,8 +7,13 @@
     <h:form id="test_setup_form" styleClass="form" name="login_form">
         <h:panelGrid styleClass="testTable" columns="3" columnClasses="">
             <h:outputLabel id="questions_amount_label" for="questions_amount" value="Amount of questions*: " />
-            <h:inputText id="questions_amount" value="#{testFormBean.amount}" />
-            <h:panelGroup />            
+            <h:inputText id="questions_amount" value="#{testFormBean.amount}" required="true"
+                requiredMessage="Please set amount of questions (min 5)!" label="Questions amount"
+                styleClass="#{component.valid ? '' : 'error'}">
+                <f:validateLongRange minimum="5" />
+                <f:ajax event="mouseout" render="m1" />
+            </h:inputText>
+            <h:message id="m1" for="questions_amount" style="color:red"/>
             
             <h:outputLabel id="other_words_label" for="other_words" value="Include the words from others: " />
             <h:selectBooleanCheckbox id="other_words" value="#{testFormBean.other}" />         
@@ -31,9 +36,8 @@
             <h:panelGroup />
             
 	        <h:panelGroup />
-	        <h:commandButton id="start_button" styleClass="command_button" value="Start" action="#{testFormBean.start}">
-                <f:ajax execute="@form" render=":test_div"/>
-            </h:commandButton>	            
+	        <h:commandButton id="start_button" styleClass="command_button" 
+                value="Start" action="#{navigationController.startTest}" />  
 	        <h:panelGroup />
         </h:panelGrid>
 	</h:form>

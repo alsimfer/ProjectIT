@@ -27,13 +27,9 @@ public class TestFormBean implements Serializable {
     // Init ------------------------------------------------------------------------------------------------------------	
 	@PostConstruct
 	public void init() {
-		
+		// At least 5 questions per test.
+		amount = 5;
 	}
-	
-	// Actions ---------------------------------------------------------------------------------------------------------	
-    public String start() {
-    	return "testPage.xhtml";
-    }
 
     // Getters/setters ------------------------------------------------------------------------------------------------- 
 	public String getLangQuestion() {

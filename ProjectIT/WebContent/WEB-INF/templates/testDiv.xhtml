@@ -4,19 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGroup id="test_div" layout="block">
-    <!-- FIXME: This doesnt work. Ask why. http://stackoverflow.com/questions/2118656/commandlink-commandbutton-ajax-backing-bean-action-listener-method-not-invoked
-        
-        Versuch mal rendered einfach in testForm und in question machen. 
-        Hier einfach zwei include.
-        
-        <h:panelGroup layout="block" rendered="#{not questionBean.show}">
-            <ui:include src="/WEB-INF/templates/testForm.xhtml" /> 
-        </h:panelGroup>        
-        
-        <h:panelGroup layout="block" rendered="#{questionBean.show}">
-            <ui:include src="/WEB-INF/templates/question.xhtml" /> 
-        </h:panelGroup>
-         -->
+
         <h:panelGroup id="test_form_div" layout="block">
             <ui:include src="/WEB-INF/templates/testForm.xhtml" /> 
         </h:panelGroup>        

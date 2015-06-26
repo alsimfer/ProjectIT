@@ -14,7 +14,7 @@ import javax.faces.bean.ViewScoped;
 import objects.*;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class HeaderBean implements Serializable {
 	// Variables -------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;    
@@ -27,10 +27,8 @@ public class HeaderBean implements Serializable {
     // Init ------------------------------------------------------------------------------------------------------------
 	@PostConstruct
     public void init() {
-		this.title = " " + navigationBean.getActivePage().getTitle();
+		this.title = " Main";
     }
-    
-    // Actions ---------------------------------------------------------------------------------------------------------	
     
     // Getters/setters -------------------------------------------------------------------------------------------------        
 	public String getTitle() {

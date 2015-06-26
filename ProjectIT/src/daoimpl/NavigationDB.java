@@ -79,4 +79,6 @@ public class NavigationDB extends DBQuery{
 		}
 		return slug;
 	}	
+	
+	
 }

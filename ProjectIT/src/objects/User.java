@@ -3,9 +3,12 @@ package objects;
 import static util.UtilFunctions.*;
 
 import java.io.Serializable;
-
+/**
+ * User object.
+ */
 public class User implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
 	protected int id, status;
 	protected String firstName, lastName, email, password, language = "";
 	

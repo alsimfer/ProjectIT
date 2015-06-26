@@ -3,18 +3,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:form id="question_form" styleClass="question_form" name="question_form">
+    <h:form id="question_form" styleClass="question_form" action="" name="question_form">
         <h:panelGrid styleClass="question_table" columns="2" columnClasses="">
-            <f:ajax render="question_form">
+            <f:ajax execute="@form" render="question_form">
                 <h:outputLabel id="question_label" styleClass="question_label" value="#{questionBean.question}" />
                 <h:outputLabel id="questions_passed" styleClass="question_label" 
                     value="#{questionBean.counter} / #{questionBean.questionsAmount} (correct: #{questionBean.correctAnswers})" />            
                 
-                <h:commandButton styleClass="answer_button" value="#{questionBean.answerA}" action="#{questionBean.next('A')}" />  
-                <h:commandButton styleClass="answer_button" value="#{questionBean.answerB}" action="#{questionBean.next('B')}" />   
+                <h:commandButton styleClass="answer_button" value="#{questionBean.answerA}" action="#{questionController.next('A')}" />  
+                <h:commandButton styleClass="answer_button" value="#{questionBean.answerB}" action="#{questionController.next('B')}" />   
                 
-                <h:commandButton styleClass="answer_button" value="#{questionBean.answerC}" action="#{questionBean.next('C')}" />   
-                <h:commandButton styleClass="answer_button" value="#{questionBean.answerD}" action="#{questionBean.next('D')}" />   
+                <h:commandButton styleClass="answer_button" value="#{questionBean.answerC}" action="#{questionController.next('C')}" />   
+                <h:commandButton styleClass="answer_button" value="#{questionBean.answerD}" action="#{questionController.next('D')}" />   
                           
             </f:ajax>
         </h:panelGrid>
