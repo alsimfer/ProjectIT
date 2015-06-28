@@ -51,7 +51,8 @@ public class DBQuery {
 			p("Can not get servlet context params for a DB connection."); 
 		}
 		
-		this.dbc = new DBConnection(dbName, dbURL, dbUser, dbPassword);			
+		this.dbc = new DBConnection(dbName, dbURL, dbUser, dbPassword);	
+		updateResult = 0;
 	}
 	
 

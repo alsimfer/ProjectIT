@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form id="content_login_form">
+    <!-- This comes from DB -->
+    <h:outputText value="#{contentBean.content}" escape="false" />
+    
+	<h:commandLink id="signUpLink" value="Sign up" action="#{loginController.setDisplaySignUpForm(true)}" 
+    	rendered="#{loginBean.activeUser.id == 0}" >
+    </h:commandLink>
+    <h:outputText value=" / " rendered="#{loginBean.activeUser.id == 0}"/>
+	<h:commandLink id="loginLink" value="Login" action="#{loginController.setDisplaySignUpForm(false)}"
+    	rendered="#{loginBean.activeUser.id == 0}" />
+	</h:form>
+	
+</ui:composition>

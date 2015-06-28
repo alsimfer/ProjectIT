@@ -141,6 +141,10 @@ input {
     font-size: 14px;
 }
 
+input[disabled] {
+	color: gray !important;
+}
+
 error {
 	background:#faa;
 }
@@ -207,4 +211,35 @@ input[type=checkbox] {
 	-o-transform: scale(1); /* Opera */
     padding: 0px;
     margin: 0px;
+}
+
+.error_message {
+	color: red;
+	float: left;
+}
+
+.ui-datatable tr.ui-state-highlight {
+    background: #f4f4f4 !important;
+    border-color: #8AC007 !important;
+}
+
+.ui-state-default {
+	background: transparent !important;
+	border-color: green;
+}
+
+.ui-widget-content {
+	background: transparent !important;
+	border-color: green;
+}
+
+.ui-datatable table {
+	width: 99% !important;
+	background: #FFFF99 !important;
+}
+
+.ui-datatable thead th {
+	font-weight: bold;
+	border-bottom-width: 2px;
+	color:black;
 }

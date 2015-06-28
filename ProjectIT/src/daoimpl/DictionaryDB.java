@@ -48,6 +48,44 @@ public class DictionaryDB extends DBQuery{
 		return false;
 	}
 	
+	public boolean deletWordFromUserDB(DictionaryEntry entry, User user) {
+		String query1 = "Delete from user_dictionary where "
+				+ "user_id = " + user.getId() + " and "
+				+ "dictionary_id = " + getDictionaryEntryFromDB(entry).getIdEntry() + ";";
+//		String query2 = "Delete from dictionary where "
+//				+ "id = " + getDictionaryEntryFromDB(entry).getIdEntry() + ";";
+		if(getDbc() != null) {
+			Connection con = getDbc().connect();
+			query(query1, con);
+//			query(query2, con);
+			if(getUpdateResult() == 1) {
+				closeConnection();
+				return true;
+			}
+			closeConnection();
+		}
+		return false;
+	}
+	
+	public boolean updateWordInDB(DictionaryEntry entry) {
+		String query = "Update dictionary set "
+				+ "english = " + "'" + entry.getEnEntry() + "', "
+				+ "german = " + "'" + entry.getGeEntry() + "', "
+				+ "russian = " + "'" + entry.getRuEntry() + "' "
+				+ "where id = " + getDictionaryEntryFromDB(entry).getIdEntry() 
+				+ ";";
+		if(getDbc() != null) {
+			Connection con = getDbc().connect();
+			query(query, con);
+			if(getUpdateResult() == 1) {
+				closeConnection();
+				return true;
+			}
+			closeConnection();
+		}
+		return false;
+	}
+	
 	public DictionaryEntry getDictionaryEntryFromDB(DictionaryEntry entry) {
 		String query = "Select id from dictionary where "
 				+ "english = " + "'" + entry.getEnEntry() + "' and "

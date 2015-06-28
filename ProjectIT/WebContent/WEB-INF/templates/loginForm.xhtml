@@ -1,22 +1,38 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p = "http://primefaces.org/ui">
     
 	<!-- Make a form to sign up / sign in. Use table to align accurately --> 
 	<h:form id="login_form" class="login_form" name="login_form">
-        <h:panelGrid columns="3" columnClasses="">
-            <h:outputLabel id="lastNameLabel" for="lastName" value="Last name: " />
-            <h:inputText id="lastName" value="#{loginBean.activeUser.lastName}" />
-            <h:panelGroup />            
+	
+        <h:panelGrid id="loginPanel" columns="3" columnClasses="">
+            <h:outputLabel id="lastNameLabel" for="lastName" value="Last name*: " 
+            rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"/>
+            <h:inputText id="lastName" value="#{loginBean.activeUser.lastName}" required="true" 
+            	 rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"
+            	 requiredMessage="lastname is required!" styleClass="#{component.valid ? '' : 'error'}">
+            	<f:validateRegex pattern="^[a-zA-Z]+[_\-]*[a-zA-Z0-9]+" />
+            	<f:validateLength minimum="3" maximum="20"/>
+            </h:inputText>
+            <h:message id="lastNameError" for="lastName" styleClass="error_message"/>           
 	    
-	        <h:outputLabel id="firstNameLabel" for="firstName" value="First name: " />
-	        <h:inputText id="firstName" value="#{loginBean.activeUser.firstName}" />
-	        <h:panelGroup />
+	        <h:outputLabel id="firstNameLabel" for="firstName" value="First name*: " 
+	         rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"/>
+	        <h:inputText id="firstName" value="#{loginBean.activeUser.firstName}" required="true" 
+	         rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"
+	         requiredMessage="firstname is required!" styleClass="#{component.valid ? '' : 'error'}">
+	        	<f:validateRegex pattern="^[a-zA-Z]+[_\-]*[a-zA-Z0-9]+" />
+            	<f:validateLength minimum="3" maximum="20"/>
+            </h:inputText>
+            <h:message id="firstNameError" for="firstName" styleClass="error_message"/>
 	    
-            <h:outputLabel id="languageLabel" for="language" value="Preferred language: " />
+            <h:outputLabel id="languageLabel" for="language" value="Preferred language: " 
+             rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"/>
             
-            <h:selectOneMenu id="languageSelect" styleClass="language_select" value="#{loginBean.activeUser.language}">
+            <h:selectOneMenu id="languageSelect" styleClass="language_select" value="#{loginBean.activeUser.language}"
+              rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}">
                 <f:selectItem itemLabel="English" itemValue="english" />
                 <f:selectItem itemLabel="Deutsch" itemValue="german" />
                 <f:selectItem itemLabel="Русский" itemValue="russian" />
@@ -25,20 +41,26 @@
         
 	        <h:outputLabel id="emailLabel" for="email" value="e-mail*: " />
 	        <h:inputText id="email" value="#{loginBean.activeUser.email}" required="true" requiredMessage="e-mail is required!"
-                styleClass="#{component.valid ? '' : 'error'}">
-                <f:ajax event="mouseout" render="m1" />
+                styleClass="#{component.valid ? '' : 'error'}"
+                disabled="#{loginBean.activeUser.id > 0 and not empty loginBean.activeUser.email}">
+                <f:validateRegex pattern="^[a-zA-Z]+[\w-]+(\.[a-zA-z]+[\w-]+)*[a-zA-Z0-9]+@[a-zA-z]+[\w-]+([a-zA-z]+\.)+[a-zA-Z]{2,7}$" />
             </h:inputText>
-	        <h:message id="m1" for="email" style="color:red"/>
+	        <h:message id="m1" for="email" styleClass="error_message"/>
 	    
 	        <h:outputLabel id="passwordLabel" for="password" value="Password*: " />
 	        <h:inputSecret id="password" value="#{loginBean.activeUser.password}" required="true" requiredMessage="password is required!"
                 styleClass="#{component.valid ? '' : 'error'}">
-                <f:ajax event="mouseout" render="m2" />
+            	<f:validateLength minimum="5" maximum="15"/>
             </h:inputSecret>
-	        <h:message id="m2" for="password" style="color:red"/>
+	        <h:message id="m2" for="password" styleClass="error_message"/>
 
 	        <h:panelGroup />
-	        <h:commandButton id="login_button" styleClass="login_button" value="Login" action="#{loginController.login}" />	            
+	        <h:commandButton id="login_button" type="submit" styleClass="login_button" value="Login" action="#{loginController.login()}" rendered="#{!loginController.displaySignUpForm and loginBean.activeUser.id == 0}">
+	        </h:commandButton>	            
+	        <h:commandButton id="update_button" styleClass="login_button" value="Update your data" action="#{loginController.updateUserProfileData}" rendered="#{loginBean.activeUser.id > 0}" >
+	        </h:commandButton>
+	        <h:commandButton id="signup_button" styleClass="login_button" value="Sign up" action="#{loginController.newUserSignUp}" rendered="#{loginController.displaySignUpForm}">
+	        </h:commandButton>
 	        <h:panelGroup />
         </h:panelGrid>
 	</h:form>

@@ -23,14 +23,6 @@ public class Navigation implements Serializable
 	public ArrayList<Page> getNavigation() {
 		return navigation;
 	}
-
-	public void setLanguage(String language) {
-		if (language.length() > 0) {
-			for (Page page: this.navigation) {			
-				page.setLanguage(language);			
-			}
-		}
-	}
 	
 	public void setNavigation(ArrayList<Page> navigation) {
 		this.navigation = navigation;

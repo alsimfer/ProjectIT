@@ -1,22 +1,31 @@
 MUST:
 1) Check if the DB is ready for usage at the start. Make appropriate message if not.
 2) JavaDoc: each function (with the exception of get/set) and each class.
-3) Translate all buttons and all messages in Views with the help of bundles.
+3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!!
 
-7) Make login form more obvious. Separate new user and changing of params of an old user.
-8) Add validators to all inputs.
-9) On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten
+7) Make login form more obvious. Separate new user and changing of params of an old user. -> gefixt
+8) Add validators to all inputs. -> gefixt
+9) On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten -> gefixt
 10) Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
-    wenn ich vergesse sie anzugeben. -> s. auch p.7
+    wenn ich vergesse sie anzugeben. -> s. auch p.7  -> gefixt
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there.
 12) Make date in stats a Date-Object.
 13) Documentation.
+14) When ein User angemeldet ist und ein TEst starten möchte, wird ein Fehler geworfen, weil nicht genug 
+	Wörter in UserDB vorhanden sind.
+15) "Include words from other" sollte nur bei User-Test angezeigt werden.
+16) Der Content muss nach der Testdurchführung überschrieben werden und nicht neuer Satz 
+	zu dem vorhandenen Content hinzugefügt.
+17) Delete all old words from dictionary und old relations from user_dictionary.
     
 OPTIONALLY if enough time:
 20) Error messages should be done with jquery ui dialog.
 21) Make a presentation with the project structure.
-22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert.
-23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table
+22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert. 
+	-> set Unique index for dictionary table
+23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table 
+	-> gefixt
+    
     - http://www.tutorialspoint.com/jsf/jsf_edit_datatable.htm
     - http://www.tutorialspoint.com/jsf/jsf_delete_datatable.htm
     - https://www.datatables.net/

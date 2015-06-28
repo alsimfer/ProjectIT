@@ -6,7 +6,7 @@
     <div class="navigation_div">
 		<ul class="navigation_ul">
 			<h:form class="navigation_form">
-                <ui:repeat value="#{navigationBean.navigation}" var="page">
+                <ui:repeat value="#{navigationBean.navigation.navigation}" var="page">
                     <li class="navigation_li">
                         <h:commandLink action="#{navigationController.showPage}" value="#{page.title}">
                             <f:param name="pageId" value="#{page.id}" />

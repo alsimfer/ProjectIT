@@ -17,7 +17,6 @@ public class NavigationController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Navigation navigation;
 	private String language;
 	
 	// Properties ------------------------------------------------------------------------------------------------------
@@ -36,14 +35,13 @@ public class NavigationController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		this.navigation = new Navigation();
 		// Translate all pages depending on user language preferences.
 		if (loginBean.getActiveUser().getId() > 0) {
 			this.language = loginBean.getActiveUser().getLanguage();
 		} else {
 			this.language = "english";
 		}
-		this.navigation.setLanguage(language);
+		navigationBean.setLanguage(language);
 	}
 	
 	public String showPage() {
@@ -63,9 +61,9 @@ public class NavigationController implements Serializable {
 	}
 	
 	public String moveToMain(String extra) {
-    	Page page = this.navigation.getPageById(1);
+    	Page page = navigationBean.getNavigation().getPageById(1);
     	headerBean.setTitle(" " + page.getTitle());
-    	navigationBean.setNavigation(this.navigation.getNavigation());
+//    	navigationBean.setNavigation(this.navigation.getNavigation());
     	String content = page.getContent();
     	content += "<br />" + extra;
     	contentBean.setContent(content);
@@ -73,7 +71,7 @@ public class NavigationController implements Serializable {
     }
     
     public String moveToDictionary(String extra) {
-    	Page page = this.navigation.getPageById(2);
+    	Page page = navigationBean.getNavigation().getPageById(2);
     	headerBean.setTitle(" " + page.getTitle());
     	String content = page.getContent();
     	content += "<br />" + extra;
@@ -82,7 +80,7 @@ public class NavigationController implements Serializable {
     }
     
     public String moveToTest(String extra) {
-    	Page page = this.navigation.getPageById(3);
+    	Page page = navigationBean.getNavigation().getPageById(3);
     	headerBean.setTitle(" " + page.getTitle());
     	String content = page.getContent();
     	content += extra;
@@ -91,7 +89,7 @@ public class NavigationController implements Serializable {
     }
     
     public String moveToLogin(String extra) {
-    	Page page = this.navigation.getPageById(4);
+    	Page page = navigationBean.getNavigation().getPageById(4);
     	headerBean.setTitle(" " + page.getTitle());
     	String content = page.getContent();
     	content += extra;
@@ -100,10 +98,20 @@ public class NavigationController implements Serializable {
     }
     
     public String startTest() {
-    	Page page = this.navigation.getPageById(3);
+    	Page page = navigationBean.getNavigation().getPageById(3);
     	headerBean.setTitle(" " + page.getTitle());
     	contentBean.setContent(page.getContent());
 		return "testPage.xhtml?faces-redirect=true";
+    }
+    
+    public String logout() {
+    	navigationBean.setLanguage("english");
+    	Page page = navigationBean.getNavigation().getPageById(4);
+    	headerBean.setTitle(" " + page.getTitle());
+    	String content = page.getContent();
+    	contentBean.setContent(content);
+    	loginBean.setActiveUser(new User());
+    	return "login.xhtml";
     }
 
 

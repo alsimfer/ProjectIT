@@ -9,12 +9,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
 import objects.DictionaryEntry;
 import daoimpl.DictionaryDB;
 import beans.ContentBean;
 import beans.DictionaryBean;
 import beans.LoginBean;
-
 import static util.UtilFunctions.*; 
 
 @ManagedBean
@@ -33,10 +35,14 @@ public class DictionaryController {
 	private DictionaryDB dictionaryDB;
 	
 	private boolean isAdded = false;
+	private boolean isDeleted = false;
+	private boolean isUpdated = false;
 	
 	private List<DictionaryEntry> dictionaryEntries = new ArrayList<DictionaryEntry>();
 	
 	private List<DictionaryEntry> userDictionaryEntries = new ArrayList<DictionaryEntry>();
+	
+	private DictionaryEntry selectedTableEntry;
 
 	@PostConstruct
 	public void init() {
@@ -50,12 +56,11 @@ public class DictionaryController {
 		this.dictionaryBean = dictionaryBean;
 	}
 	
-	public void addNewWord() {
-		dictionaryDB = getDictionaryDB();
-		
-		isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
-		
+	public void addNewWord() {		
 		if(loginBean != null) {
+			dictionaryDB = getDictionaryDB();
+			isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
+		
 			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
 			isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
 		}
@@ -66,6 +71,46 @@ public class DictionaryController {
 		} else {
 			contentBean.setContent("The Adding is failed!");
 		}
+	}
+	
+	public void deleteUserWord() {
+		if(loginBean != null) {
+			dictionaryDB = getDictionaryDB();
+		
+			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
+			isDeleted = dictionaryDB.deletWordFromUserDB(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
+		}
+		
+		if(isDeleted) {
+			contentBean.setContent("Delete is successful!");
+			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
+		} else {
+			contentBean.setContent("Delete is failed!");
+		}
+	}
+	
+	public void updateUserWord() {
+		if(loginBean != null) {
+			dictionaryDB = getDictionaryDB();
+		
+			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
+			isUpdated = dictionaryDB.updateWordInDB(dictionaryBean.getDictionaryEntry());
+		}
+		
+		if(isUpdated) {
+			contentBean.setContent("Update is successful!");
+			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
+		} else {
+			contentBean.setContent("Update is failed!");
+		}
+	}
+	
+	public void onRowSelect(SelectEvent event) {
+		dictionaryBean.setDictionaryEntry(getSelectedTableEntry());
+	}
+	
+	public void onRowUnselect(UnselectEvent event) {
+		setSelectedTableEntry(null);
 	}
 
 	public ContentBean getContentBean() {
@@ -109,5 +154,13 @@ public class DictionaryController {
 
 	public void setUserDictionaryEntries(List<DictionaryEntry> userDictionaryEntries) {
 		this.userDictionaryEntries = userDictionaryEntries;
+	}
+
+	public DictionaryEntry getSelectedTableEntry() {
+		return selectedTableEntry;
+	}
+
+	public void setSelectedTableEntry(DictionaryEntry selectedTableEntry) {
+		this.selectedTableEntry = selectedTableEntry;
 	}
 }
