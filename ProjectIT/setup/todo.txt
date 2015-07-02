@@ -1,32 +1,31 @@
 MUST:
-1) Check if the DB is ready for usage at the start. Make appropriate message if not.
-2) JavaDoc: each function (with the exception of get/set) and each class.
-3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!!
-4) cyrillic letters regex check!
+1) Check if the DB is ready for usage at the start. Make appropriate message if not. Alex
+2) JavaDoc: each function (with the exception of get/set) and each class. Yulia, later
+3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!! Yulia
+4) cyrillic letters regex check! Yulia
+5) write the content for the pages in navigation-db - Alex
 
-11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there.
-12) Make date in stats a Date-Object.
-13) Documentation.
+11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
+12) Make date in stats a Date-Object. Alex
+13) Documentation. Together, later
 14) When ein User angemeldet ist und ein TEst starten möchte, wird ein Fehler geworfen, weil nicht genug 
-	Wörter in UserDB vorhanden sind.
-15) "Include words from other" sollte nur bei User-Test angezeigt werden.
-16) Der Content muss nach der Testdurchführung überschrieben werden und nicht neuer Satz 
-	zu dem vorhandenen Content hinzugefügt.
-17) Delete all old words from dictionary und old relations from user_dictionary.
-18) Style to self-defined.css from dictionary
+	Wörter in UserDB vorhanden sind. - Alex
+15) "Include words from other" sollte nur bei User-Test angezeigt werden. Alex 
+18) Style to self-defined.css from dictionary. Yulia
     
 OPTIONALLY if enough time:
-20) Error messages should be done with jquery ui dialog.
-21) Make a presentation with the project structure.
+20) Error messages should be done with jquery ui dialog. Alex
 22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert. 
-	-> set Unique index for dictionary table
-23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table 
+	-> set Unique index for dictionary table Yulia
+23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table
+    10 / 25 / 50 entries per page. 
 	-> gefixt
     
     - http://www.tutorialspoint.com/jsf/jsf_edit_datatable.htm
     - http://www.tutorialspoint.com/jsf/jsf_delete_datatable.htm
     - https://www.datatables.net/
+    Yulia
 24) Statistics might be shown in different ways: filter by date, separate stats, accumulated stats etc. 
-
+Alex
 ASK:
 30)
