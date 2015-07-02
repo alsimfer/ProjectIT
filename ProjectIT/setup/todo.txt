@@ -3,11 +3,6 @@ MUST:
 2) JavaDoc: each function (with the exception of get/set) and each class.
 3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!!
 
-7) Make login form more obvious. Separate new user and changing of params of an old user. -> gefixt
-8) Add validators to all inputs. -> gefixt
-9) On page Load wird in Dictionary commandbutton action ausgelöst -> nicht richtige Verhalten -> gefixt
-10) Last name & First name müssen required sein, sonst werden sie jedes mal geändert(gelöscht), 
-    wenn ich vergesse sie anzugeben. -> s. auch p.7  -> gefixt
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there.
 12) Make date in stats a Date-Object.
 13) Documentation.
