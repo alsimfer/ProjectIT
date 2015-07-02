@@ -8,7 +8,7 @@ import objects.User;
 public class UserDB extends DBQuery{
 	
 	public User getUserByEmailPassword(String email, String password) {
-		String query = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "'";
+		String query = "SELECT * FROM user_table WHERE email = '" + email + "' AND password = '" + password + "'";
 		int id, status;
 		String firstName, lastName, language = "";
 		User user = new User();
@@ -37,7 +37,7 @@ public class UserDB extends DBQuery{
 	}
 	
 	public User getUserByEmail(String email) {
-		String query = "SELECT * FROM user WHERE email = '" + email + "';";
+		String query = "SELECT * FROM user_table WHERE email = '" + email + "';";
 		int id, status;
 		String firstName, lastName, language, password = "";
 		User user = new User();
@@ -67,7 +67,7 @@ public class UserDB extends DBQuery{
 	}	
 	
 	public int updateUserById(int id, String lastName, String firstName, String language, String password) {
-		String query = "UPDATE user SET "
+		String query = "UPDATE user_table SET "
 				+ "last_name = '" + lastName + "', "
 				+ "first_name = '" + firstName + "', "
 				+ "language = '" + language + "', "
@@ -84,7 +84,7 @@ public class UserDB extends DBQuery{
 	}	
 	
 	public int addUser(String lastname, String firstName, String email, String password, String language) {
-		String query = "INSERT INTO user ("
+		String query = "INSERT INTO user_table ("
 				+ "`id`, "
 				+ "`last_name`, "
 				+ "`first_name`, "
