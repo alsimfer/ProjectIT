@@ -2,7 +2,7 @@ MUST:
 1) Check if the DB is ready for usage at the start. Make appropriate message if not. Alex
 2) JavaDoc: each function (with the exception of get/set) and each class. Yulia, later
 3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!! Yulia
-4) cyrillic letters regex check! Yulia
+4) cyrillic letters regex check! Yulia 	-> gefixt
 5) write the content for the pages in navigation-db - Alex
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
@@ -11,14 +11,18 @@ MUST:
 14) When ein User angemeldet ist und ein TEst starten möchte, wird ein Fehler geworfen, weil nicht genug 
 	Wörter in UserDB vorhanden sind. - Alex
 15) "Include words from other" sollte nur bei User-Test angezeigt werden. Alex 
-18) Style to self-defined.css from dictionary. Yulia
+18) Style to self-defined.css from dictionary. Yulia  -> gefixt
     
 OPTIONALLY if enough time:
 20) Error messages should be done with jquery ui dialog. Alex
 22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert. 
-	-> set Unique index for dictionary table Yulia
+	-> set Unique index for dictionary table Yulia 
+	-> gefixt
+	
+	-> Message ausgeben über die gleiche Wörter: MySQLIntegrityConstraintViolationException geht mit try und catch nicht.
+	
 23) Should be possible to page through (like mysql table), edit and delete entries in Dictionary table
-    10 / 25 / 50 entries per page. 
+    10 / 25 / 50 entries per page.  -> gefixt
 	-> gefixt
     
     - http://www.tutorialspoint.com/jsf/jsf_edit_datatable.htm

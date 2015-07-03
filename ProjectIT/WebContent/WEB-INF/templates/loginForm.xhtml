@@ -13,7 +13,7 @@
             <h:inputText id="lastName" value="#{loginBean.activeUser.lastName}" required="true" 
             	 rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"
             	 requiredMessage="lastname is required!" styleClass="#{component.valid ? '' : 'error'}">
-            	<f:validateRegex pattern="^[a-zA-Z]+[_\-]*[a-zA-Z0-9]+" />
+            	<f:validateRegex pattern="^[a-zA-Z0-9\u0410-\u044F]+[_\-]*[a-zA-Z0-9\u0410-\u044F]+" />
             	<f:validateLength minimum="3" maximum="20"/>
             </h:inputText>
             <h:message id="lastNameError" for="lastName" styleClass="error_message"/>           
@@ -23,7 +23,7 @@
 	        <h:inputText id="firstName" value="#{loginBean.activeUser.firstName}" required="true" 
 	         rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"
 	         requiredMessage="firstname is required!" styleClass="#{component.valid ? '' : 'error'}">
-	        	<f:validateRegex pattern="^[a-zA-Z]+[_\-]*[a-zA-Z0-9]+" />
+	        	<f:validateRegex pattern="^[a-zA-Z0-9\u0410-\u044F]+[_\-]*[a-zA-Z0-9\u0410-\u044F]+" />
             	<f:validateLength minimum="3" maximum="20"/>
             </h:inputText>
             <h:message id="firstNameError" for="firstName" styleClass="error_message"/>

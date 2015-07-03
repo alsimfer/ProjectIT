@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -17,7 +16,6 @@ import daoimpl.DictionaryDB;
 import beans.ContentBean;
 import beans.DictionaryBean;
 import beans.LoginBean;
-import static util.UtilFunctions.*; 
 
 @ManagedBean
 @RequestScoped
@@ -56,20 +54,23 @@ public class DictionaryController {
 		this.dictionaryBean = dictionaryBean;
 	}
 	
-	public void addNewWord() {		
+	public void addNewWord(){		
 		if(loginBean != null) {
 			dictionaryDB = getDictionaryDB();
+						
 			isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
-		
+			
 			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
-			isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
+			if(isAdded) {
+				isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
+			}
 		}
 		
 		if(isAdded) {
-			contentBean.setContent("The Adding is successful!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "The Adding is successful!");
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent("The Adding is failed!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "The Adding is failed!");
 		}
 	}
 	
@@ -82,10 +83,10 @@ public class DictionaryController {
 		}
 		
 		if(isDeleted) {
-			contentBean.setContent("Delete is successful!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "Delete is successful!");
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent("Delete is failed!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "Delete is failed!");
 		}
 	}
 	
@@ -98,10 +99,10 @@ public class DictionaryController {
 		}
 		
 		if(isUpdated) {
-			contentBean.setContent("Update is successful!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "Update is successful!");
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent("Update is failed!");
+			contentBean.setContent(contentBean.getContent() + "\n" + "Update is failed!");
 		}
 	}
 	

@@ -243,3 +243,18 @@ input[type=checkbox] {
 	border-bottom-width: 2px;
 	color:black;
 }
+
+.ui-paginator {
+	background: transparent !important;
+	border: none !important;
+}
+
+.ui-paginator-page,  .ui-paginator-first, .ui-paginator-prev, .ui-paginator-next, .ui-paginator-last{
+	background: #f4f4f4 !important;
+}
+
+.ui-state-active {
+	border-color: #8AC007 !important;
+	font-weight: bold !important;
+}
+

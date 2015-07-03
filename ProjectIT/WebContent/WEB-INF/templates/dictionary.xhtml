@@ -4,7 +4,7 @@
 
     <h:form id="dictionary">
         <h:panelGroup rendered="#{loginBean.activeUser.id > 0}">
-        <h:panelGrid columns="3" id="dictionaryInput" style="border-spacing:30px 10px;">
+        <h:panelGrid columns="3" id="dictionaryInput">
         	<h:outputLabel for="geWord" value="ge"/>
         	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}" required="true">
         		<f:validateLength minimum="2" maximum="50"/>
@@ -20,11 +20,11 @@
         	<h:outputLabel for="ruWord" value="ru"/>
         	<h:inputText id="ruWord" value="#{dictionaryBean.dictionaryEntry.ruEntry}" required="true">
         		<f:validateLength minimum="2" maximum="50"/>
-        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z0-9]+)+" />
+        		<f:validateRegex pattern="^([\u0410-\u044F]+[0-9]*[_\-\,]*\s{0,1}[\u0410-\u044F]+[0-9]*)+" />
         	</h:inputText>
-        	<h:message for="ruWord" styleClass="error_message" />
-              
+        	<h:message for="ruWord" styleClass="error_message" />             
         </h:panelGrid>
+        
         <h:panelGrid columns="3">
         <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}" styleClass="login_button" />
         <h:commandButton value="Update" action="#{dictionaryController.updateUserWord}" styleClass="login_button" />
@@ -35,26 +35,28 @@
         </h:panelGroup>    
                 
         <h:panelGroup>
-        <p:dataTable id="userDictionaryTable" value="#{dictionaryController.userDictionaryEntries}" style="border-spacing:50px 10px;" var="entry"
-         rendered="#{not empty dictionaryController.userDictionaryEntries and loginBean.activeUser.id > 0}"
-         selection="#{dictionaryController.selectedTableEntry}" selectionMode="single" rowKey="#{entry.idEntry}">
+        <p:dataTable id="userDictionaryTable" value="#{dictionaryController.userDictionaryEntries}" var="entry"
+         rendered="#{loginBean.activeUser.id > 0}"
+         selection="#{dictionaryController.selectedTableEntry}" selectionMode="single" rowKey="#{entry.idEntry}"
+         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom">
          	<p:ajax event="rowSelect" listener="#{dictionaryController.onRowSelect}" update=":dictionary:dictionaryInput"></p:ajax>
          	<p:ajax event="rowUnselect" listener="#{dictionaryController.onRowUnselect}"></p:ajax>
         	<p:column>
         		<f:facet name="header">German</f:facet>
-        		<h:outputText value="#{entry.geEntry}"/>
+        		<h:outputText value="#{entry.geEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         	<p:column>
         		<f:facet name="header">English</f:facet>
-        		<h:outputText value="#{entry.enEntry}"/>
+        		<h:outputText value="#{entry.enEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         	<p:column>
         		<f:facet name="header">Russian</f:facet>
-        		<h:outputText value="#{entry.ruEntry}"/>
+        		<h:outputText value="#{entry.ruEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         </p:dataTable>
-        <p:dataTable id="dictionaryTable" value="#{dictionaryController.dictionaryEntries}" style="border-spacing:50px 10px;" var="entry"
-         rendered="#{not empty dictionaryController.dictionaryEntries and loginBean.activeUser.id == 0}">
+        <p:dataTable id="dictionaryTable" value="#{dictionaryController.dictionaryEntries}" var="entry"
+         rendered="#{not empty dictionaryController.dictionaryEntries and loginBean.activeUser.id == 0}"
+         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom">
         	<p:column>
         		<f:facet name="header">German</f:facet>
         		<h:outputText value="#{entry.geEntry}"/>

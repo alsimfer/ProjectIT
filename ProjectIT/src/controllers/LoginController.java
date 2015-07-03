@@ -37,7 +37,7 @@ public class LoginController{
     	int updatedRows = userDb.updateUserById(user.getId(), loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(), 
 				loginBean.getActiveUser().getLanguage(), loginBean.getActiveUser().getPassword());
 		if (updatedRows == 1) {
-			contentBean.setContent("The data for user with email " + loginBean.getActiveUser().getEmail() + " was successfully changed.");
+			contentBean.setContent(contentBean.getContent() + "\n" + "The data for user with email " + loginBean.getActiveUser().getEmail() + " was successfully changed.");
 			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
 			loginBean.setActiveUser(user);
 			navigationBean.setLanguage(user.getLanguage());
@@ -51,13 +51,13 @@ public class LoginController{
     	User user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
     	
     	if (user != null) {
-        	contentBean.setContent("The e-mail address " + loginBean.getActiveUser().getEmail() + " already exists!");      		      	
+        	contentBean.setContent(contentBean.getContent() + "\n" + "The e-mail address " + loginBean.getActiveUser().getEmail() + " already exists!");      		      	
     	} else {   		
     		// else create new user.
     		int updatedRows = userDb.addUser(loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(),
     				loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword(), loginBean.getActiveUser().getLanguage());
     		if (updatedRows == 1) {
-    			contentBean.setContent("New user was created. Welcome on our server, " + loginBean.getActiveUser().getFirstName());
+    			contentBean.setContent(contentBean.getContent() + "\n" + "New user was created. Welcome on our server, " + loginBean.getActiveUser().getFirstName());
     			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
     			loginBean.setActiveUser(user);
     			navigationBean.setLanguage(user.getLanguage());
@@ -73,11 +73,11 @@ public class LoginController{
 
     	// If found - put new first name, last name and language setups for this user if needed.
     	if (user != null) {
-    		contentBean.setContent("Nice to see you again, " + user.getFirstName());   			
+    		contentBean.setContent(contentBean.getContent() + "\n" + "Nice to see you again, " + user.getFirstName());   			
     		loginBean.setActiveUser(user);
     		navigationBean.setLanguage(user.getLanguage());
     	} else {   		
-    		contentBean.setContent("The password or e-mail is incorrect! Please try again.");
+    		contentBean.setContent(contentBean.getContent() + "\n" + "The password or e-mail is incorrect! Please try again.");
     	}
     	
     }
