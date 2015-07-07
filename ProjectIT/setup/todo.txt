@@ -2,8 +2,8 @@ MUST:
 1) Check if the DB is ready for usage at the start. Make appropriate message if not. Alex
 2) JavaDoc: each function (with the exception of get/set) and each class. Yulia, later
 3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!! Yulia
-4) cyrillic letters regex check! Yulia 	-> gefixt
 5) write the content for the pages in navigation-db - Alex
+6) set content to the main page if not logged in and just started. - Alex
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
 12) Make date in stats a Date-Object. Alex
@@ -11,10 +11,11 @@ MUST:
 14) When ein User angemeldet ist und ein TEst starten möchte, wird ein Fehler geworfen, weil nicht genug 
 	Wörter in UserDB vorhanden sind. - Alex
 15) "Include words from other" sollte nur bei User-Test angezeigt werden. Alex 
-18) Style to self-defined.css from dictionary. Yulia  -> gefixt
+16) Exclude a test setup with 2 same languages. - Alex
     
 OPTIONALLY if enough time:
 20) Error messages should be done with jquery ui dialog. Alex
+21) Dictionary loads too long. Check if is possible to optimize. Alex 
 22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert. 
 	-> set Unique index for dictionary table Yulia 
 	-> gefixt
@@ -31,5 +32,6 @@ OPTIONALLY if enough time:
     Yulia
 24) Statistics might be shown in different ways: filter by date, separate stats, accumulated stats etc. 
 Alex
+
 ASK:
 30)
