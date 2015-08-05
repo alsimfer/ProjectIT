@@ -114,7 +114,6 @@ public class NavigationController implements Serializable {
     	return "login.xhtml";
     }
 
-
 	public String getPageId() {
 		return pageId;
 	}

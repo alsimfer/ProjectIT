@@ -30,6 +30,10 @@ public class TestFormBean implements Serializable {
 		// At least 5 questions per test.
 		amount = 5;
 	}
+	
+	public void exclude() {
+		p("Hallo");
+	}
 
     // Getters/setters ------------------------------------------------------------------------------------------------- 
 	public String getLangQuestion() {

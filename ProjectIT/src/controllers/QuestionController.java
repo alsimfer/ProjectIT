@@ -90,7 +90,7 @@ public class QuestionController implements Serializable {
 		this.initQuestion();
 		return "";    	
     }
-    
+
     /**
      * Add statistics about this test to the DB.
      */

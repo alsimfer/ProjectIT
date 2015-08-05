@@ -1,13 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://java.sun.com/jsf/facelets">
     
 	<!-- A form to set up a test. Use table to align accurately --> 
     <h:form id="test_setup_form" styleClass="form" name="login_form">
         <h:panelGrid styleClass="testTable" columns="3" columnClasses="">
             <h:outputLabel id="questions_amount_label" for="questions_amount" value="Amount of questions*: " />
-            <h:inputText id="questions_amount" value="#{testFormBean.amount}" required="true"
+            <h:inputText id="questions_amount" value="#{testFormBean.amount}" required="true"  validator="#{testFormController.validateTestForm}"
                 requiredMessage="Please set amount of questions (min 5)!" label="Questions amount"
                 styleClass="#{component.valid ? '' : 'error'}">
                 <f:validateLongRange minimum="5" />
@@ -15,8 +16,10 @@
             </h:inputText>
             <h:message id="m1" for="questions_amount" style="color:red"/>
             
-            <h:outputLabel id="other_words_label" for="other_words" value="Include the words from others: " />
-            <h:selectBooleanCheckbox id="other_words" value="#{testFormBean.other}" />         
+            <h:outputLabel id="other_words_label" for="other_words" value="Include the words from others: " rendered="#{loginBean.activeUser.id > 0}" />
+            <h:panelGroup rendered="#{loginBean.activeUser.id == 0}" />
+            <h:selectBooleanCheckbox id="other_words" value="#{testFormBean.other}" rendered="#{loginBean.activeUser.id > 0}" />
+            <h:panelGroup rendered="#{loginBean.activeUser.id == 0}" />         
             <h:panelGroup />
         
 	        <h:outputLabel id="language_question_label" for="language_question" value="Question in*: " />
@@ -24,21 +27,21 @@
                 <f:selectItem itemLabel="English" itemValue="english" />
                 <f:selectItem itemLabel="Deutsch" itemValue="german" />
                 <f:selectItem itemLabel="Русский" itemValue="russian" />
+                <p:ajax update="language_answer" />
             </h:selectOneMenu>
             <h:panelGroup />
 	        
-            <h:outputLabel id="language_answer_label" for="language_answer" value="Answer in*: " />
-            <h:selectOneMenu id="language_answer" styleClass="language_select" value="#{testFormBean.langAnswer}">
-                <f:selectItem itemLabel="English" itemValue="english" />
-                <f:selectItem itemLabel="Deutsch" itemValue="german" />
-                <f:selectItem itemLabel="Русский" itemValue="russian" />
+            <h:outputLabel id="language_answer_label" for="language_answer" value="Answer in*: " />       
+            <h:selectOneMenu id="language_answer" styleClass="language_select" value="#{testFormBean.langAnswer}">  
+                <f:selectItems value="#{testFormController.getAnswerLanguages(testFormBean.langQuestion)}" />
             </h:selectOneMenu>
+            
             <h:panelGroup />
             
 	        <h:panelGroup />
-	        <h:commandButton id="start_button" styleClass="command_button" 
+	        <h:commandButton id="start_button" styleClass="command_button"
                 value="Start" action="#{navigationController.startTest}" />  
-	        <h:panelGroup />
+            <h:message id="m4" for="start_button" style="color:red"/> <p></p>
         </h:panelGrid>
 	</h:form>
 </ui:composition>

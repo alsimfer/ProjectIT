@@ -1,15 +1,17 @@
 package daoimpl;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import db.DBQuery;
 import objects.Page;
 
-public class NavigationDB extends DBQuery{
+public class NavigationDB extends DBQuery implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public ArrayList<Page> getNavigation() {
-		
 		String query = "SELECT"
 				+ "	id,"
 				+ " slug,"

@@ -19,8 +19,11 @@ public class ContentBean implements Serializable {
     private String content;
 		
     // Init ------------------------------------------------------------------------------------------------------------
+    // By default we always initialize the main page, if the session was just started. 
 	@PostConstruct
     public void init() {
+		Page page = new Navigation().getPageById(1);
+    	this.content = page.getContent();
     }
     
     // Getters/setters -------------------------------------------------------------------------------------------------    

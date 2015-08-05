@@ -13,10 +13,12 @@ import java.util.ArrayList;
 
 import objects.*;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 /**
  * This class has an access to the DB. All Objects should be getting DB-values through this class. 
  * 
@@ -59,6 +61,10 @@ public class DBQuery {
 	//------------------------------------------------- Query -------------------------------------------------
 	public void query(String queryString, Connection con) 
     {   	    	    	
+		if (con == null) {
+			throw new IllegalArgumentException("The connection to the DB could not be established. Please check if the server is running and the login / password are correct.");
+		}
+		
     	try {
     		Statement stmt;
     		stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

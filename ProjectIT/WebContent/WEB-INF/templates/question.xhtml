@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:form id="question_form" styleClass="question_form" action="" name="question_form">
-        <h:panelGrid styleClass="question_table" columns="2" columnClasses="">
+        <h:panelGrid styleClass="question_table" columns="2" columnClasses="left_column, right_column">
             <f:ajax execute="@form" render="question_form">
                 <h:outputLabel id="question_label" styleClass="question_label" value="#{questionBean.question}" />
                 <h:outputLabel id="questions_passed" styleClass="question_label" 
