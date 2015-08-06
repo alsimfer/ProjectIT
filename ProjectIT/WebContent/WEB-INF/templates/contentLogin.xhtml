@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+	<f:view locale="#{languageBean.locale}">
 	<h:form id="content_login_form">
     <!-- This comes from DB -->
     <h:outputText value="#{contentBean.content}" escape="false" />
     
-	<h:commandLink id="signUpLink" value="Sign up" action="#{loginController.setDisplaySignUpForm(true)}" 
+	<h:commandLink id="signUpLink" value="#{language.login_button_signUp}" action="#{loginController.setDisplaySignUpForm(true)}" 
     	rendered="#{loginBean.activeUser.id == 0}" >
     </h:commandLink>
     <h:outputText value=" / " rendered="#{loginBean.activeUser.id == 0}"/>
-	<h:commandLink id="loginLink" value="Login" action="#{loginController.setDisplaySignUpForm(false)}"
+	<h:commandLink id="loginLink" value="#{language.login_login}" action="#{loginController.setDisplaySignUpForm(false)}"
     	rendered="#{loginBean.activeUser.id == 0}" />
 	</h:form>
-	
+	</f:view>
 </ui:composition>

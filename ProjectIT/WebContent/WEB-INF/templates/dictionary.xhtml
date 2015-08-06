@@ -1,34 +1,40 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-
+    <f:view locale="#{languageBean.locale}">
     <h:form id="dictionary">
         <h:panelGroup rendered="#{loginBean.activeUser.id > 0}">
         <h:panelGrid columns="3" id="dictionaryInput">
-        	<h:outputLabel for="geWord" value="ge"/>
-        	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}" required="true">
+        	<h:outputLabel for="geWord" value="#{language.dictionary_ge}"/>
+        	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}" required="true"
+        	 requiredMessage="#{language.dictionary_message_geWordRequiered}"
+        	 validatorMessage="#{language.dictionary_message_enterValidValue}">
         		<f:validateLength minimum="2" maximum="50"/>
-        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z0-9]+)+" />
+        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z]+)+" />
         	</h:inputText>
         	<h:message for="geWord" styleClass="error_message" />
-        	<h:outputLabel for="enWord" value="en"/>
-        	<h:inputText id="enWord" value="#{dictionaryBean.dictionaryEntry.enEntry}" required="true">
+        	<h:outputLabel for="enWord" value="#{language.dictionary_en}"/>
+        	<h:inputText id="enWord" value="#{dictionaryBean.dictionaryEntry.enEntry}" required="true"
+        	 requiredMessage="#{language.dictionary_message_enWordRequiered}"
+        	 validatorMessage="#{language.dictionary_message_enterValidValue}">
         		<f:validateLength minimum="2" maximum="50"/>
-        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z0-9]+)+" />
+        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z]+)+" />
         	</h:inputText>
         	<h:message for="enWord" styleClass="error_message" />
-        	<h:outputLabel for="ruWord" value="ru"/>
-        	<h:inputText id="ruWord" value="#{dictionaryBean.dictionaryEntry.ruEntry}" required="true">
+        	<h:outputLabel for="ruWord" value="#{language.dictionary_ru}"/>
+        	<h:inputText id="ruWord" value="#{dictionaryBean.dictionaryEntry.ruEntry}" required="true"
+        	 requiredMessage="#{language.dictionary_message_ruWordRequiered}"
+        	 validatorMessage="#{language.dictionary_message_enterValidValue}">
         		<f:validateLength minimum="2" maximum="50"/>
-        		<f:validateRegex pattern="^([\u0410-\u044F]+[0-9]*[_\-\,]*\s{0,1}[\u0410-\u044F]+[0-9]*)+" />
+        		<f:validateRegex pattern="^([\u0410-\u044F]+[_\-\,]*\s{0,1}[\u0410-\u044F]+)+" />
         	</h:inputText>
         	<h:message for="ruWord" styleClass="error_message" />             
         </h:panelGrid>
         
         <h:panelGrid columns="3">
-        <h:commandButton value="Add a new word" action="#{dictionaryController.addNewWord}" styleClass="login_button" />
-        <h:commandButton value="Update" action="#{dictionaryController.updateUserWord}" styleClass="login_button" />
-        <h:commandButton value="Delete" action="#{dictionaryController.deleteUserWord}" styleClass="login_button" />
+        <h:commandButton value="#{language.dictionary_button_addNewWord}" action="#{dictionaryController.addNewWord}" styleClass="login_button" />
+        <h:commandButton value="#{language.dictionary_button_update}" action="#{dictionaryController.updateUserWord}" styleClass="login_button" />
+        <h:commandButton value="#{language.dictionary_button_delete}" action="#{dictionaryController.deleteUserWord}" styleClass="login_button" />
         </h:panelGrid>
      	
         <p:spacer height="30px"/>
@@ -38,39 +44,41 @@
         <p:dataTable id="userDictionaryTable" value="#{dictionaryController.userDictionaryEntries}" var="entry"
          rendered="#{loginBean.activeUser.id > 0}"
          selection="#{dictionaryController.selectedTableEntry}" selectionMode="single" rowKey="#{entry.idEntry}"
-         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom">
+         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom"
+         emptyMessage="#{language.dictionary_noRecordFound}">
          	<p:ajax event="rowSelect" listener="#{dictionaryController.onRowSelect}" update=":dictionary:dictionaryInput"></p:ajax>
          	<p:ajax event="rowUnselect" listener="#{dictionaryController.onRowUnselect}"></p:ajax>
         	<p:column>
-        		<f:facet name="header">German</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_ge}</f:facet>
         		<h:outputText value="#{entry.geEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">English</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_en}</f:facet>
         		<h:outputText value="#{entry.enEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">Russian</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_ru}</f:facet>
         		<h:outputText value="#{entry.ruEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>
         	</p:column>
         </p:dataTable>
         <p:dataTable id="dictionaryTable" value="#{dictionaryController.dictionaryEntries}" var="entry"
          rendered="#{not empty dictionaryController.dictionaryEntries and loginBean.activeUser.id == 0}"
-         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom">
+         paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom"
+         emptyMessage="#{language.dictionary_noRecordFound}">
         	<p:column>
-        		<f:facet name="header">German</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_ge}</f:facet>
         		<h:outputText value="#{entry.geEntry}"/>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">English</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_en}</f:facet>
         		<h:outputText value="#{entry.enEntry}"/>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">Russian</f:facet>
+        		<f:facet name="header">#{language.dictionary_tableColumn_ru}</f:facet>
         		<h:outputText value="#{entry.ruEntry}"/>
         	</p:column>
         </p:dataTable>
         </h:panelGroup>
     </h:form>
-
+	</f:view>
 </ui:composition>

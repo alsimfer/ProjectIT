@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
+
 import objects.*;
 
 @ManagedBean
@@ -13,6 +14,9 @@ public class LoginBean implements Serializable {
 	// Variables -------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;
     private User activeUser;
+    
+    @ManagedProperty(value="#{languageBean}")
+	private LanguageBean languageBean;
 	
     // Init ------------------------------------------------------------------------------------------------------------
     @PostConstruct
@@ -27,6 +31,15 @@ public class LoginBean implements Serializable {
 
 	public void setActiveUser(User activeUser) {
 		this.activeUser = activeUser;
+		this.languageBean.setLanguage(activeUser.getLanguage());
+	}
+
+	public LanguageBean getLanguageBean() {
+		return languageBean;
+	}
+
+	public void setLanguageBean(LanguageBean languageBean) {
+		this.languageBean = languageBean;
 	}
     
 }

@@ -1,51 +1,43 @@
 package beans;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
-import objects.*;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-
 public class LanguageBean implements Serializable {
  
 	private static final long serialVersionUID = 1L;
     
-	private String language;
-	private HashMap<String, String> languageSelect = new HashMap<String, String>();
+	private Locale locale;
 
-    public LanguageBean() {
-    	// label, value.
-        this.languageSelect.put("<img src=\"resources/images/england.png\""
-        		+ " alt=\"england\" width=\"24\" height=\"16\"> English", "english");
-        this.languageSelect.put("<img src=\"resources/images/germany.png\""
-        		+ " alt=\"deutschland\" width=\"24\" height=\"16\"> Deutsch", "german");
-        this.languageSelect.put("<img src=\"resources/images/russia.png\""
-        		+ " alt=\"russia\" width=\"24\" height=\"16\"> Русский", "russian");
+    @PostConstruct
+    public void init() {
+    	if(locale == null) {
+    		locale = FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
+    	}
     }
-    
+
+    public Locale getLocale() {
+        return locale;
+    }
+
     public String getLanguage() {
-		return language;
-	}
+        return locale.getLanguage();
+    }
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	public HashMap<String, String> getLanguageSelect() {
-		return languageSelect;
-	}
-
-	public void setLanguageSelect(HashMap<String, String> languageSelect) {
-		this.languageSelect = languageSelect;
-	}
-
+    public void setLanguage(String language) {
+    	switch(language) {
+    	case "english": locale = new Locale("en"); break;
+    	case "german": locale = new Locale("de"); break;
+    	case "russian": locale = new Locale("ru"); break;
+    		default : locale = new Locale("en"); break;
+    	}        
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+    }
 }

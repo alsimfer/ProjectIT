@@ -2,24 +2,25 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+    <f:view locale="#{languageBean.locale}">
     <h:dataTable id="userStatistics" border="1" value="#{statsBean.stats}" var="statEntry"
         rendered="#{not empty statsBean.stats and loginBean.activeUser.id > 0}">
             <h:column>
-                <f:facet name="header">Total guessed</f:facet>
+                <f:facet name="header">#{language.statistics_tableColumn_totalGuessed}</f:facet>
                 <h:outputText value="#{statEntry.totalGuessed}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">Total answered</f:facet>
+                <f:facet name="header">#{language.statistics_tableColumn_totalAnswered}</f:facet>
                 <h:outputText value="#{statEntry.totalAnswered}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">Date</f:facet>
+                <f:facet name="header">#{language.statistics_tableColumn_date}</f:facet>
                 <h:outputText value="#{statEntry.date}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">Rate</f:facet>
+                <f:facet name="header">#{language.statistics_tableColumn_rate}</f:facet>
                 <h:outputText value="#{statEntry.rate}"/>
             </h:column>
         </h:dataTable>
+      </f:view>
 </ui:composition>

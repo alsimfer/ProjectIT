@@ -2,24 +2,24 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+	<f:view locale="#{languageBean.locale}">
     <h:form>
         <!-- If user is not set in session -->
         <h:outputLabel 
             value="Hi, you are currently not logged in &#160;" 
             rendered="#{loginBean.activeUser.id == 0}" /> 
-        <h:commandLink value="Login" action="#{navigationController.moveToLogin('')}" 
+        <h:commandLink value="#{language.activeUser_login}" action="#{navigationController.moveToLogin('')}" 
         	rendered="#{loginBean.activeUser.id == 0}" /> 
         
         <!-- If user is set in session -->
         <h:outputLabel 
             value="Hi, you are logged in under #{loginBean.activeUser.email} &#160;" 
             rendered="#{loginBean.activeUser.id > 0}" />
-        <h:commandLink id="logoutButton" value="Logout" action="#{navigationController.logout()}" 
+        <h:commandLink id="logoutButton" value="#{language.activeUser_logout}" action="#{navigationController.logout()}" 
             rendered="#{loginBean.activeUser.id > 0}">
         </h:commandLink>
             
         
     </h:form>
-
+	</f:view>
 </ui:composition>
