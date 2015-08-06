@@ -3,15 +3,16 @@ MUST:
 3) Translate all buttons and all messages in Views with the help of bundles. ----> gefixt
 	---> russian (language_ru.properties) translate and english (language_en.properties) check (UTF-8 !!!!)
 	---> german total guessed translate
+ 
+Russian funktioniert nicht!
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
 12) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
 13) Documentation. Together, later
 
-19) Error TestController check -> Alex
-20) Add Message if the same word is added in dictionary -> Catch exception and print message -> how ?
-21) Test page -> Antwort in -> Menu empty
-22) Content only update not add (+), see update user date
+- Add Message if the same word is added in dictionary -> Catch exception and print message -> how ?
+- Content only update not add (+), see update user date
+- ??? saved from russian inputs -> Alex
 
 OPTIONALLY if enough time:
 21) Dictionary loads too long. Check if is possible to optimize. Alex 

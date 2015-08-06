@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -11,8 +13,10 @@ import daoimpl.UserDB;
 
 @ManagedBean
 @ViewScoped
-public class LoginController{	
-	
+public class LoginController implements Serializable {	
+
+	private static final long serialVersionUID = 1L;
+
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;	
 	

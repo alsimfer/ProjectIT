@@ -32,7 +32,7 @@
             </h:inputText>
             <h:message id="firstNameError" for="firstName" styleClass="error_message"/>
 	    
-            <h:outputLabel id="languageLabel" for="language" value="#{language.login_language}" 
+            <h:outputLabel id="languageLabel" for="languageSelect" value="#{language.login_language}" 
              rendered="#{loginController.displaySignUpForm or loginBean.activeUser.id > 0}"/>
             
             <h:selectOneMenu id="languageSelect" styleClass="language_select" value="#{loginBean.activeUser.language}"
