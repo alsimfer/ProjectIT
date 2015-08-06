@@ -5,14 +5,11 @@ MUST:
 	---> german total guessed translate
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
-12) If user dont have 5 words but checks words from other - nor error should be thrown. - Alex
+12) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
 13) Documentation. Together, later
 
-17) Commit mojarra library to webinf/lib - java-faces-2.2.9 added ---> gefixt
-18) Make the validation messages readable for user (regex for dictionary) - ---> gefixt, see properties
-
 19) Error TestController check -> Alex
-20) Add Message if the same word will added in dictionary -> Catch exception and print message -> how ?
+20) Add Message if the same word is added in dictionary -> Catch exception and print message -> how ?
 21) Test page -> Antwort in -> Menu empty
 22) Content only update not add (+), see update user date
 
