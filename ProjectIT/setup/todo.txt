@@ -1,13 +1,18 @@
 MUST:
 2) JavaDoc: each function (with the exception of get/set) and each class. Yulia, later
-3) Translate all buttons and all messages in Views with the help of bundles. ---- Sehr wichtig!!!! Yulia
+3) Translate all buttons and all messages in Views with the help of bundles. ----> gefixt
+	---> russian (language_ru.properties) translate and english (language_en.properties) check (UTF-8 !!!!)
+	---> german total guessed translate
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
 12) If user dont have 5 words but checks words from other - nor error should be thrown. - Alex
 13) Documentation. Together, later
 
-17) Commit mojarra library to webinf/lib - Yulia 
-18) Make the validation messages readable for user (regex for dictionary) - Yulia
+17) Commit mojarra library to webinf/lib - java-faces-2.2.9 added ---> gefixt
+18) Make the validation messages readable for user (regex for dictionary) - ---> gefixt, see properties
+
+19) Error TestController check -> Alex
+20) Add Message if the same word will added in dictionary -> Catch exception and print message -> how ?
 
 OPTIONALLY if enough time:
 21) Dictionary loads too long. Check if is possible to optimize. Alex 
@@ -22,3 +27,4 @@ http://balusc.blogspot.de
 http://incepttechnologies.blogspot.de/p/validation-in-jsf.html
 http://stackoverflow.com
 http://www.mkyong.com/jsf2/
+Aulis -> Internet Technologien SS2015 -> Folien JSF.pdf -> Mehrsprachiger Text
