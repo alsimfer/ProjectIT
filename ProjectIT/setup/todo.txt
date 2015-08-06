@@ -13,6 +13,8 @@ MUST:
 
 19) Error TestController check -> Alex
 20) Add Message if the same word will added in dictionary -> Catch exception and print message -> how ?
+21) Test page -> Antwort in -> Menu empty
+22) Content only update not add (+), see update user date
 
 OPTIONALLY if enough time:
 21) Dictionary loads too long. Check if is possible to optimize. Alex 
