@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import beans.*;
 import objects.*;
 import daoimpl.UserDB;
+
+/**
+ * Klasse LoginController ist für das Anmelden, das Anpassen der Benutzerdaten und das Registrieren neuer Benutzer verantwortlich.
+ *
+ */
 
 @ManagedBean
 @ViewScoped
@@ -34,14 +38,20 @@ public class LoginController implements Serializable {
     	super();
     }
 	
+	/**
+	 * Aktualisierung der Benutzerdaten.
+	 */
 	public void updateUserProfileData() {
 		userDb = getUserDB();
     	User user = userDb.getUserByEmail(loginBean.getActiveUser().getEmail());
     	
+    	// updateRows ist 1, wenn das Aktualisieren erfolgreich war, sonst 0.
     	int updatedRows = userDb.updateUserById(user.getId(), loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(), 
 				loginBean.getActiveUser().getLanguage(), loginBean.getActiveUser().getPassword());
 		if (updatedRows == 1) {
 			contentBean.setContent(contentBean.getContent() + "\n" + "The data for user with email " + loginBean.getActiveUser().getEmail() + " was successfully changed.");
+			
+			// aktualisiere den aktiven Benutzer mit neuen Daten
 			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
 			loginBean.setActiveUser(user);
 			navigationBean.setLanguage(user.getLanguage());
@@ -49,6 +59,9 @@ public class LoginController implements Serializable {
     	
 	}
 	
+	/**
+	 * Regestrierung neues Benutzer.
+	 */
 	public void newUserSignUp() {
 		// Check if the user exists (email / password). If so initialize stats, language and dictionary. Else create new user.
     	userDb = getUserDB();
@@ -70,6 +83,9 @@ public class LoginController implements Serializable {
     	}
 	}
 	
+	/**
+	 * Anmeldung eines Benutzers.
+	 */
 	public void login() {
     	// Check if the user exists (email / password). If so initialize stats, language and dictionary. Else create new user.
     	userDb = getUserDB();

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 import objects.DictionaryEntry;
 import daoimpl.DictionaryDB;
@@ -17,9 +17,17 @@ import beans.ContentBean;
 import beans.DictionaryBean;
 import beans.LoginBean;
 
+/**
+ * Klasse DictionaryController ist für das Hinzufügen neuer Wörter, das Aktualisieren und das Löschen 
+ * von vorhandenen Wörtern in einem vom Benutzer eingelegten Wörterbuch verantwortlich.
+ *
+ */
+
 @ManagedBean
 @RequestScoped
-public class DictionaryController {
+public class DictionaryController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	@ManagedProperty(value = "#{dictionaryBean}")
 	private DictionaryBean dictionaryBean;
@@ -54,14 +62,22 @@ public class DictionaryController {
 		this.dictionaryBean = dictionaryBean;
 	}
 	
+	/**
+	 * Hinzufügen neuer Wörter ins Benutzer-Wörterbuch.
+	 */
 	public void addNewWord(){		
-		if(loginBean != null) {
+		if(loginBean != null) { // prüft ob ein Benutzer angemeldet ist
 			dictionaryDB = getDictionaryDB();
-						
+			
+			// isAdded wird auf true gesetzt, wenn das Hinzufügen erfolgreich war, sonst false.
 			isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
 			
+			// aktualisiere den Wörtebucheintrag mit entsprechende id
 			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
 			if(isAdded) {
+				
+				// fügt das neue Wort dem aktiven Benutzer hinzu
+				// isAdded ist true, wenn das Hinzufügen erfolgreich war, sonst false.
 				isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
 			}
 		}
@@ -74,11 +90,17 @@ public class DictionaryController {
 		}
 	}
 	
+	/**
+	 * Löschen eines Worts aus dem Benutzer-Wörterbuch.
+	 */
 	public void deleteUserWord() {
-		if(loginBean != null) {
+		if(loginBean != null) { // prüft ob ein Benutzer angemeldet ist
 			dictionaryDB = getDictionaryDB();
 		
+			// holt den entsprechende Wörtebucheintrag aus dem DB mit id
 			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
+			
+			// isDeleted wird auf true gesetzt, wenn das Löschen erfolgreich war, sonst false.
 			isDeleted = dictionaryDB.deletWordFromUserDB(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
 		}
 		
@@ -90,11 +112,17 @@ public class DictionaryController {
 		}
 	}
 	
+	/**
+	 * Aktualisieren eines Worts im Benutzer-Wörterbuch.
+	 */
 	public void updateUserWord() {
-		if(loginBean != null) {
+		if(loginBean != null) { // prüft ob ein Benutzer angemeldet ist
 			dictionaryDB = getDictionaryDB();
 		
+			// holt den entsprechende Wörtebucheintrag aus dem DB mit id
 			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
+			
+			// isUpdated wird auf true gesetzt, wenn das Aktualisieren erfolgreich war, sonst false.
 			isUpdated = dictionaryDB.updateWordInDB(dictionaryBean.getDictionaryEntry());
 		}
 		
@@ -106,12 +134,14 @@ public class DictionaryController {
 		}
 	}
 	
+	/**
+	 * Setzt den aktuellen Wörterbucheintrag wenn ein Tabelleneintrag auf der Wörterbuch-Seite
+	 * vom Benutzer ausgewählt wird.
+	 * 
+	 * @param event wenn ein Tabelleneintrag ausgewählt wird.
+	 */
 	public void onRowSelect(SelectEvent event) {
 		dictionaryBean.setDictionaryEntry(getSelectedTableEntry());
-	}
-	
-	public void onRowUnselect(UnselectEvent event) {
-		setSelectedTableEntry(null);
 	}
 
 	public ContentBean getContentBean() {
@@ -129,6 +159,9 @@ public class DictionaryController {
 		return dictionaryDB;
 	}
 
+	/**
+	 * Gibt alle Wörterbucheintrage aus dem DB zurück.
+	 */
 	public List<DictionaryEntry> getDictionaryEntries() {
 		dictionaryDB = getDictionaryDB();
 		dictionaryEntries = dictionaryDB.getAllDictionaryEntriesFromDB();
@@ -147,6 +180,9 @@ public class DictionaryController {
 		this.loginBean = loginBean;
 	}
 
+	/**
+	 * Gibt Benutzer-Wörterbucheintrage aus dem DB zurück.
+	 */
 	public List<DictionaryEntry> getUserDictionaryEntries() {
 		dictionaryDB = getDictionaryDB();
 		userDictionaryEntries = dictionaryDB.getUserDictionaryEntriesFromDB(loginBean.getActiveUser().getId());

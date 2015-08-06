@@ -13,15 +13,14 @@ import objects.*;
 import beans.*;
 import daoimpl.*;
 
-
+/**
+ * Klasse QuestionController ist für die Durchführung von Tests verantwortlich.
+ * Speichert Statistiken nach jeder Testdurchführung.
+ *
+ */
 
 @ManagedBean
 @RequestScoped
-/**
- * A controller for test itself. A defined amount of questions are iterated in a questionForm. 
- * View: question.xhtml. 
- * Model: Test.java.
- */
 public class QuestionController implements Serializable {
 
 	// Variables -------------------------------------------------------------------------------------------------------
@@ -54,8 +53,6 @@ public class QuestionController implements Serializable {
 	/**
 	 * Check the answer for the actual question and set values for the next test-iteration.
 	 * 
-	 * @param answer
-	 * @return
 	 */
     public String next(String answer) {
     	String acceptedAnswer = "";

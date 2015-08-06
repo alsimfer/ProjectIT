@@ -3,10 +3,7 @@ package controllers;
 import static util.UtilFunctions.*;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.*;
-
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.component.UIComponent;
@@ -17,12 +14,12 @@ import objects.*;
 import beans.*;
 import daoimpl.*;
 
-@ManagedBean
-@RequestScoped
 /**
  * A controller and validator for testForm. Used e.g. for the exclusion of the same languages for the question and answer. 
- * View: testForm.xhtml.
  */
+
+@ManagedBean
+@RequestScoped
 public class TestFormController implements Serializable {
 
 	// Variables -------------------------------------------------------------------------------------------------------
@@ -41,7 +38,6 @@ public class TestFormController implements Serializable {
 	 * Function populates select field for the answer languages.
 	 * 
 	 * @param questionLanguage Value from select field of a question language of the testForm. 
-	 * @return
 	 */
     public Map<String, String> getAnswerLanguages(String questionLanguage) {
     	switch (questionLanguage) {
@@ -72,10 +68,6 @@ public class TestFormController implements Serializable {
     
     /**
      * Checks if user has enough words in the db to go through test (5).
-     * @param context
-     * @param component
-     * @param value
-     * @throws ValidatorException
      */
     public void validateTestForm(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		int setAmount = (int) value;
@@ -84,9 +76,9 @@ public class TestFormController implements Serializable {
 		DictionaryDB ddb = new DictionaryDB();
 		List<DictionaryEntry> words = ddb.getUserDictionaryEntriesFromDB(userId);
 		int totalWords = words.size();
-p("user " + userId);		
-p("setAmount " + setAmount);		
-p("totalWords " + totalWords);	
+		p("user " + userId);		
+		p("setAmount " + setAmount);		
+		p("totalWords " + totalWords);	
 	  	if ((totalWords < setAmount) && (userId > 0)) {
 		  	String msg = "You dont have enough words in your dictionary to start the test.";
 		  	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));

@@ -1,8 +1,7 @@
 package objects;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
+
 /**
  * User object.
  */

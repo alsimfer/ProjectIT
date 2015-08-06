@@ -7,6 +7,11 @@ import javax.faces.bean.*;
 
 import objects.*;
 
+/**
+ * Die Klasse LoginBean repräsentiert die Logindaten.
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class LoginBean implements Serializable {

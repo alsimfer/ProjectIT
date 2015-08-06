@@ -1,11 +1,7 @@
 package objects;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import daoimpl.NavigationDB;
 import daoimpl.StatsDB;
 
 /**

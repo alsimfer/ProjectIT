@@ -1,7 +1,5 @@
 package beans;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,15 +7,14 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
 import objects.*;
-import controllers.*;
+
+/**
+ * Die Klasse QuestionBean repräsentiert die Testfragen und mögliche Antworten.
+ *
+ */
 
 @ManagedBean
 @ViewScoped
-/**
- * A controller for test itself. A defined amount of questions are iterated in a questionForm. 
- * View: question.xhtml. 
- * Model: Test.java.
- */
 public class QuestionBean implements Serializable {
 
 	// Variables -------------------------------------------------------------------------------------------------------

@@ -1,15 +1,16 @@
 package beans;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
 
 import objects.*;
+
+/**
+ * Die Klasse NavigationBean repräsentiert das Navigationspanel.
+ *
+ */
 
 @ManagedBean
 @SessionScoped

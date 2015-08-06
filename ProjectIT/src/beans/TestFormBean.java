@@ -1,15 +1,16 @@
 package beans;
 
-import static util.UtilFunctions.invalidateSession;
 import static util.UtilFunctions.p;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
-import objects.*;
+/**
+ * Die Klasse TestFormBean repräsentiert die Testparameter, die für die Durchführung eines Tests erforderlich sind.
+ * 
+ */
 
 @ManagedBean
 @SessionScoped

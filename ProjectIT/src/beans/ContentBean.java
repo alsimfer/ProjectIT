@@ -1,14 +1,17 @@
 package beans;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
 import objects.*;
+
+
+/**
+ * Die Klasse ContentBean repräsentiert das entsprechende Seitenkontext.
+ *
+ */
 
 @ManagedBean
 @SessionScoped

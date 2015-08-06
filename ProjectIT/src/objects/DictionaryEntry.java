@@ -24,8 +24,6 @@ public class DictionaryEntry implements Serializable{
 	
 	public DictionaryEntry() {}
 	
-// In Dictionary Controller dann hinzufügen, wenn TestController angepasst wird.	
-	// Initialize page from DB using id.
 	public DictionaryEntry(int id)
 	{		
 		this.idEntry = id;

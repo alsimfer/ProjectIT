@@ -1,15 +1,17 @@
 package controllers;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import static util.UtilFunctions.*;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
 import objects.*;
 import beans.*;
+
+/**
+ * Klasse NavigationController ist für die Navigation zwischen verschiedenen Seiten verantwortlich.
+ *
+ */
 
 @ManagedBean(name = "navigationController", eager = true)
 @RequestScoped
@@ -44,6 +46,10 @@ public class NavigationController implements Serializable {
 		navigationBean.setLanguage(language);
 	}
 	
+	/**
+	 * Gibt den Pfad von der erwarteten Seite zurück.
+	 * 
+	 */
 	public String showPage() {
 		if (pageId == null) {
 			String returnString = this.moveToMain("");
@@ -60,6 +66,10 @@ public class NavigationController implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gibt den Pfad von der main-Seite zurück.
+	 * 
+	 */
 	public String moveToMain(String extra) {
     	Page page = navigationBean.getNavigation().getPageById(1);
     	headerBean.setTitle(" " + page.getTitle());
@@ -70,6 +80,10 @@ public class NavigationController implements Serializable {
     	return page.getSlug() + "?faces-redirect=true";
     }
     
+	/**
+	 * Gibt den Pfad von der Wörterbuch-Seite zurück.
+	 * 
+	 */
     public String moveToDictionary(String extra) {
     	Page page = navigationBean.getNavigation().getPageById(2);
     	headerBean.setTitle(" " + page.getTitle());
@@ -79,6 +93,10 @@ public class NavigationController implements Serializable {
     	return page.getSlug() + "?faces-redirect=true";
     }
     
+    /**
+	 * Gibt den Pfad von der Test-Seite zurück.
+	 * 
+	 */
     public String moveToTest(String extra) {
     	Page page = navigationBean.getNavigation().getPageById(3);
     	headerBean.setTitle(" " + page.getTitle());
@@ -88,6 +106,10 @@ public class NavigationController implements Serializable {
     	return page.getSlug() + "?faces-redirect=true";
     }
     
+    /**
+	 * Gibt den Pfad von der Login-Seite zurück.
+	 * 
+	 */
     public String moveToLogin(String extra) {
     	Page page = navigationBean.getNavigation().getPageById(4);
     	headerBean.setTitle(" " + page.getTitle());
@@ -97,6 +119,10 @@ public class NavigationController implements Serializable {
     	return page.getSlug() + "?faces-redirect=true";
     }
     
+    /**
+	 * Gibt den Pfad für die Durchführung des Tests zurück.
+	 * 
+	 */
     public String startTest() {
     	Page page = navigationBean.getNavigation().getPageById(3);
     	headerBean.setTitle(" " + page.getTitle());
@@ -104,6 +130,10 @@ public class NavigationController implements Serializable {
 		return "testPage.xhtml?faces-redirect=true";
     }
     
+    /**
+	 * Gibt den Pfad von der Login-Seite beim Abmelden zurück.
+	 * 
+	 */
     public String logout() {
     	navigationBean.setLanguage("english");
     	Page page = navigationBean.getNavigation().getPageById(4);

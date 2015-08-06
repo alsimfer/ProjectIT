@@ -8,6 +8,11 @@ import javax.faces.bean.ViewScoped;
 
 import objects.DictionaryEntry;
 
+/**
+ * Die Klasse DictionaryBean repräsentiert ein Wörterbucheintrag.
+ *
+ */
+
 @ManagedBean
 @ViewScoped
 public class DictionaryBean implements Serializable{

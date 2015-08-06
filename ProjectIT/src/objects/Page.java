@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static util.UtilFunctions.*;
 import daoimpl.NavigationDB;
-import db.*;
+
+/**
+ * Diese Klasse repräsentiert ein DB-Eintrag aus dictionary.navigation.
+ * 
+ */
 
 public class Page implements Serializable
 {

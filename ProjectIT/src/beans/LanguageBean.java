@@ -8,6 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+/**
+ * Die Klasse LanguageBean ist für die Internatialisierung zuständig.
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class LanguageBean implements Serializable {

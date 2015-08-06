@@ -5,7 +5,7 @@ import static util.UtilFunctions.*;
 import java.io.Serializable;
 
 /**
- * This is the Statistics object.
+ * This is the Statisticsentry object.
  */
 public class StatEntry implements Serializable {
 

@@ -1,7 +1,5 @@
 package beans;
 
-import static util.UtilFunctions.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,14 +7,14 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
 import objects.*;
-import controllers.*;
+
+/**
+ * Die Klasse StatsBean repräsentiert die Statistiken für einen Benutzer, die nach der Durchführung eines Tests erstellt werden.
+ * 
+ */
 
 @ManagedBean
 @RequestScoped
-/** 
- * View: statistics.xhtml. 
- * Model: Stats.java.
- */
 public class StatsBean implements Serializable {
 
 	// Variables -------------------------------------------------------------------------------------------------------

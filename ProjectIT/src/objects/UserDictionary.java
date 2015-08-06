@@ -1,12 +1,9 @@
 package objects;
 
 import java.io.Serializable;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static util.UtilFunctions.*;
 import daoimpl.DictionaryDB;
-import db.*;
 
 /**
  * This class represents the object from dictionary.user_dictionary db-entry.

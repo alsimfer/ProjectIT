@@ -6,10 +6,8 @@ import java.awt.image.BufferedImage;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import javax.faces.context.FacesContext;
@@ -25,7 +23,7 @@ public class UtilFunctions {
 	 * @return the random number within start-end but not one of excludes
 	 */
 	public static int nextIntInRangeButExclude(int start, int end, int... excludes){
-p(Arrays.toString(excludes));		
+		p(Arrays.toString(excludes));		
 	    int rangeLength = end - start - excludes.length;
 	    int randomInt = new Random().nextInt(rangeLength) + start;
 

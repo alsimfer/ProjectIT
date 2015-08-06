@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
@@ -47,7 +48,6 @@
          paginator="true" rows="25" rowsPerPageTemplate="10,25,50" paginatorPosition="bottom"
          emptyMessage="#{language.dictionary_noRecordFound}">
          	<p:ajax event="rowSelect" listener="#{dictionaryController.onRowSelect}" update=":dictionary:dictionaryInput"></p:ajax>
-         	<p:ajax event="rowUnselect" listener="#{dictionaryController.onRowUnselect}"></p:ajax>
         	<p:column>
         		<f:facet name="header">#{language.dictionary_tableColumn_ge}</f:facet>
         		<h:outputText value="#{entry.geEntry}" rendered="#{not empty dictionaryController.userDictionaryEntries}"/>

@@ -15,6 +15,11 @@ import javax.faces.context.FacesContext;
 
 import objects.*;
 
+/**
+ * Die Klasse HeaderBean repräsentiert die entsprechende Kopfzeile des Navigationspanels.
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class HeaderBean implements Serializable {

@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import daoimpl.NavigationDB;
-import db.*;
-import static util.UtilFunctions.*;
+
+/**
+ * Diese Klasse repräsentiert das Navigation-Objekt.
+ * 
+ */
 
 public class Navigation implements Serializable
 {
