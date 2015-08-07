@@ -3,6 +3,7 @@ package controllers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -28,6 +29,15 @@ import beans.LoginBean;
 public class DictionaryController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	final String baseName = "languageProperties.Language";
+	// Keys in Language_xx.properties
+	final String lg_key_addingSuccessful = "dictionary_message_addingIsSuccessful";
+	final String lg_key_updateSuccessful = "dictionary_message_updateIsSuccessful";
+	final String lg_key_deleteSuccessful = "dictionary_message_deleteIsSuccessful";
+	final String lg_key_updateFailed = "dictionary_message_updateIsFailed";
+	final String lg_key_addingFailed = "dictionary_message_addingIsFailed";
+	final String lg_key_deleteFailed = "dictionary_message_deleteIsFailed";
 	
 	@ManagedProperty(value = "#{dictionaryBean}")
 	private DictionaryBean dictionaryBean;
@@ -83,10 +93,13 @@ public class DictionaryController implements Serializable {
 		}
 		
 		if(isAdded) {
-			contentBean.setContent(contentBean.getContent() + "\n" + "The Adding is successful!");
+			// Internalisation der Meldungen
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_addingSuccessful);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent(contentBean.getContent() + "\n" + "The Adding is failed!");
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_addingFailed);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 		}
 	}
 	
@@ -105,10 +118,13 @@ public class DictionaryController implements Serializable {
 		}
 		
 		if(isDeleted) {
-			contentBean.setContent(contentBean.getContent() + "\n" + "Delete is successful!");
+			// Internalisation der Meldungen
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_deleteSuccessful);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent(contentBean.getContent() + "\n" + "Delete is failed!");
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_deleteFailed);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 		}
 	}
 	
@@ -127,10 +143,13 @@ public class DictionaryController implements Serializable {
 		}
 		
 		if(isUpdated) {
-			contentBean.setContent(contentBean.getContent() + "\n" + "Update is successful!");
+			// Internalisation der Meldungen
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_updateSuccessful);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
-			contentBean.setContent(contentBean.getContent() + "\n" + "Update is failed!");
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_updateFailed);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 		}
 	}
 	

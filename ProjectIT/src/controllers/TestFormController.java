@@ -4,6 +4,7 @@ import static util.UtilFunctions.*;
 
 import java.io.Serializable;
 import java.util.*;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.component.UIComponent;
@@ -22,9 +23,12 @@ import daoimpl.*;
 @RequestScoped
 public class TestFormController implements Serializable {
 
-	// Variables -------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;
+	final String baseName = "languageProperties.Language";
+	// Keys in Language_xx.properties
+	final String lg_key_notEnoughWordsForTest = "test_message_notEnoughWordsForTest";
 	
+	// Variables -------------------------------------------------------------------------------------------------------	
 	private Map<String, String> answerLanguages;
 	
 	@ManagedProperty("#{loginBean}")
@@ -80,8 +84,9 @@ public class TestFormController implements Serializable {
 		p("setAmount " + setAmount);		
 		p("totalWords " + totalWords);	
 	  	if ((totalWords < setAmount) && (userId > 0)) {
-		  	String msg = "You dont have enough words in your dictionary to start the test.";
-		  	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+	  		// Internalisation der Meldungen
+	  		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_notEnoughWordsForTest);
+		  	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
 	  	}
 	}
 

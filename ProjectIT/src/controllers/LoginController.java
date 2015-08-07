@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,6 +21,14 @@ import daoimpl.UserDB;
 public class LoginController implements Serializable {	
 
 	private static final long serialVersionUID = 1L;
+	
+	final String baseName = "languageProperties.Language";
+	// Keys in Language_xx.properties
+	final String lg_key_userDataIsChangedSuccessful = "login_message_userDataIsChangedSuccessful";
+	final String lg_key_emailAlreadyExists = "login_message_emailAlreadyExists";
+	final String lg_key_newUserCreated = "login_message_newUserCreated";
+	final String lg_key_niceToSeeYouAgain = "login_message_niceToSeeYouAgain";
+	final String lg_key_passwortOrMailIncorrect = "login_message_passwortOrMailIncorrect";
 
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;	
@@ -49,13 +58,15 @@ public class LoginController implements Serializable {
     	int updatedRows = userDb.updateUserById(user.getId(), loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(), 
 				loginBean.getActiveUser().getLanguage(), loginBean.getActiveUser().getPassword());
 		if (updatedRows == 1) {
-			contentBean.setContent(contentBean.getContent() + "\n" + "The data for user with email " + loginBean.getActiveUser().getEmail() + " was successfully changed.");
+			// Internalisation der Meldungen
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_userDataIsChangedSuccessful);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
 			
 			// aktualisiere den aktiven Benutzer mit neuen Daten
 			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
 			loginBean.setActiveUser(user);
 			navigationBean.setLanguage(user.getLanguage());
-		}    
+		}
     	
 	}
 	
@@ -68,13 +79,17 @@ public class LoginController implements Serializable {
     	User user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
     	
     	if (user != null) {
-        	contentBean.setContent(contentBean.getContent() + "\n" + "The e-mail address " + loginBean.getActiveUser().getEmail() + " already exists!");      		      	
+    		// Internalisation der Meldungen
+    		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_emailAlreadyExists);
+        	contentBean.setContent(contentBean.getContent() + "\n" + message);      		      	
     	} else {   		
     		// else create new user.
     		int updatedRows = userDb.addUser(loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(),
     				loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword(), loginBean.getActiveUser().getLanguage());
     		if (updatedRows == 1) {
-    			contentBean.setContent(contentBean.getContent() + "\n" + "New user was created. Welcome on our server, " + loginBean.getActiveUser().getFirstName());
+    			// Internalisation der Meldungen
+    			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_newUserCreated);
+    			contentBean.setContent(contentBean.getContent() + "\n" + message + loginBean.getActiveUser().getFirstName());
     			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
     			loginBean.setActiveUser(user);
     			navigationBean.setLanguage(user.getLanguage());
@@ -93,11 +108,14 @@ public class LoginController implements Serializable {
 
     	// If found - put new first name, last name and language setups for this user if needed.
     	if (user != null) {
-    		contentBean.setContent(contentBean.getContent() + "\n" + "Nice to see you again, " + user.getFirstName());   			
+    		// Internalisation der Meldungen
+    		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_niceToSeeYouAgain);
+    		contentBean.setContent(contentBean.getContent() + "\n" + message + user.getFirstName());   			
     		loginBean.setActiveUser(user);
     		navigationBean.setLanguage(user.getLanguage());
-    	} else {   		
-    		contentBean.setContent(contentBean.getContent() + "\n" + "The password or e-mail is incorrect! Please try again.");
+    	} else {   
+    		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_passwortOrMailIncorrect);
+    		contentBean.setContent(contentBean.getContent() + "\n" + message);
     	}
     	
     }

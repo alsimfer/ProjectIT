@@ -23,8 +23,12 @@ import daoimpl.*;
 @RequestScoped
 public class QuestionController implements Serializable {
 
-	// Variables -------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;
+	final String baseName = "languageProperties.Language";
+	// Keys in Language_xx.properties
+	final String lg_key_testIsPassed = "question_message_testIsPassed";
+	
+	// Variables -------------------------------------------------------------------------------------------------------
 	private Test test;    
     
     // Properties ------------------------------------------------------------------------------------------------------
@@ -81,7 +85,9 @@ public class QuestionController implements Serializable {
 
     	if (questionBean.getCounter() >= questionBean.getQuestionsAmount()) {
     		this.setStatistics();
-    		return navigationController.moveToMain("Congratulations, you have passed the test!");
+    		// Internalisation der Meldungen
+    		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_testIsPassed);
+    		return navigationController.moveToMain(message);
     	}
     	
 		this.initQuestion();
