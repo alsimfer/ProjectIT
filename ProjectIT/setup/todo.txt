@@ -6,7 +6,7 @@ MUST:
 
 
 - Content only update not add (+), see update user date
-- ??? saved from russian inputs -> Alex
+- ??? saved from russian inputs -----> gefixt
 
 OPTIONALLY if enough time:
 21) Dictionary loads too long. Check if is possible to optimize. Alex 
