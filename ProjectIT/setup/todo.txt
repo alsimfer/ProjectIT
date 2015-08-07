@@ -26,3 +26,5 @@ http://incepttechnologies.blogspot.de/p/validation-in-jsf.html
 http://stackoverflow.com
 http://www.mkyong.com/jsf2/
 Aulis -> Internet Technologien SS2015 -> Folien JSF.pdf -> Mehrsprachiger Text
+http://stackoverflow.com/questions/13359683/how-to-use-useunicode-yes-characterencoding-utf-8-with-dbcp
+http://stackoverflow.com/questions/28266065/using-jsf-2-2-9-on-springtomcat-causes-java-lang-noclassdeffounderror-javax-en
