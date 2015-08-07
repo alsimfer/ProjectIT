@@ -2,11 +2,14 @@ package db;
 
 import static util.UtilFunctions.*;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -58,20 +61,19 @@ public class DBQuery {
     	try {
     		Statement stmt;
     		stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-    		
     		boolean rc = stmt.execute(queryString);
-    		
-    		if (rc == true) {
-    			this.result = stmt.getResultSet();
-    			if (this.result != null) {
-    				this.getResult();    				
-    			} else {    		    	
-    		    	System.out.println("The result is empty");
-    			}
-    		} else {
-    			int amount = stmt.getUpdateCount();
-    			this.updateResult = amount;
+    		// rc = true if the first result is a ResultSet object and false if it is an update count
+    		if(rc) {
+	    		this.result = stmt.getResultSet();
+	    		if (this.result != null) {
+	    			this.getResult();    				
+	    		} else {    		    	
+	    		    System.out.println("The result is empty");
+	    		}
+    		} else {   		
+    			this.updateResult = stmt.getUpdateCount();
     		}
+    		
     	} catch (SQLException e) {
     		System.out.println("The query " + queryString + " could not be processed\n" + e.toString());
     	}
