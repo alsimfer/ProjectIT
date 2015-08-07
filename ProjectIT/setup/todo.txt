@@ -1,17 +1,10 @@
 MUST:
-2) JavaDoc: each function (with the exception of get/set) and each class.  -----> gefixt
-3) Translate all buttons and all messages in Views with the help of bundles. ----> gefixt
-	---> russian (language_ru.properties) translate and english (language_en.properties) check (UTF-8 !!!!)
- 
-Russian funktioniert nicht! ---> gefixt ->>> Bitte andere Übersetzungen auf russisch korrekt anpassen.
-und login_login -> was hast du da gemeint auf russisch? --> anpassen
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
 12) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
 13) Documentation. Together, later
 
-- Add Message if the same word is added in dictionary -> Catch exception and print message -> how ? 
-	------> gefixt
+
 - Content only update not add (+), see update user date
 - ??? saved from russian inputs -----> gefixt
 
