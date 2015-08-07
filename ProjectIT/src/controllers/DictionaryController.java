@@ -38,6 +38,7 @@ public class DictionaryController implements Serializable {
 	final String lg_key_updateFailed = "dictionary_message_updateIsFailed";
 	final String lg_key_addingFailed = "dictionary_message_addingIsFailed";
 	final String lg_key_deleteFailed = "dictionary_message_deleteIsFailed";
+	final String lg_key_duplicateEntry = "dictionary_message_duplicateEntry";
 	
 	@ManagedProperty(value = "#{dictionaryBean}")
 	private DictionaryBean dictionaryBean;
@@ -53,6 +54,7 @@ public class DictionaryController implements Serializable {
 	private boolean isAdded = false;
 	private boolean isDeleted = false;
 	private boolean isUpdated = false;
+	private boolean isDuplicateInDB = false;
 	
 	private List<DictionaryEntry> dictionaryEntries = new ArrayList<DictionaryEntry>();
 	
@@ -79,16 +81,25 @@ public class DictionaryController implements Serializable {
 		if(loginBean != null) { // prüft ob ein Benutzer angemeldet ist
 			dictionaryDB = getDictionaryDB();
 			
-			// isAdded wird auf true gesetzt, wenn das Hinzufügen erfolgreich war, sonst false.
-			isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
+			isDuplicateInDB = checkForDuplicatesInDB(dictionaryBean.getDictionaryEntry());
 			
-			// aktualisiere den Wörtebucheintrag mit entsprechende id
-			dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
-			if(isAdded) {
+			if(!isDuplicateInDB) {
+			
+				// isAdded wird auf true gesetzt, wenn das Hinzufügen erfolgreich war, sonst false.
+				isAdded = dictionaryDB.addNewWordToDictionary(dictionaryBean.getDictionaryEntry());
 				
-				// fügt das neue Wort dem aktiven Benutzer hinzu
-				// isAdded ist true, wenn das Hinzufügen erfolgreich war, sonst false.
-				isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
+				// aktualisiere den Wörtebucheintrag mit entsprechende id
+				dictionaryBean.setDictionaryEntry(dictionaryDB.getDictionaryEntryFromDB(dictionaryBean.getDictionaryEntry()));
+				if(isAdded) {
+					
+					// fügt das neue Wort dem aktiven Benutzer hinzu
+					// isAdded ist true, wenn das Hinzufügen erfolgreich war, sonst false.
+					isAdded = dictionaryDB.addNewUserWordToDictionary(dictionaryBean.getDictionaryEntry(), loginBean.getActiveUser());
+				}
+			} else {
+				// Internalisation der Meldungen
+				String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_duplicateEntry);
+				contentBean.setContent(contentBean.getContent() + "\n" + message);
 			}
 		}
 		
@@ -101,6 +112,22 @@ public class DictionaryController implements Serializable {
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_addingFailed);
 			contentBean.setContent(contentBean.getContent() + "\n" + message);
 		}
+	}
+	
+	/**
+	 * Prüft ob das vom Benutzer eingegebene Wort im DB bereits vorhanden ist.
+	 * Duplikate dürfen nicht vorkommen!
+	 * @param entry neues Benutzer-Wörterbuchintrag
+	 * @return true, wenn das neue Wort im DB bereits existiert.
+	 */
+	public boolean checkForDuplicatesInDB(DictionaryEntry entry) {
+		for(DictionaryEntry e: getDictionaryEntries()) {
+			if(e.getEnEntry().equals(entry.getEnEntry()) || e.getGeEntry().equals(entry.getGeEntry()) ||
+					e.getRuEntry().equals(entry.getRuEntry())) {
+				return true; // is duplicate in DB
+			}
+		}
+		return false;
 	}
 	
 	/**
