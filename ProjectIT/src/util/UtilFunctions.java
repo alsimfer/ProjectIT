@@ -16,26 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 public class UtilFunctions {
 	
 	/**
-	 * Random int in the given range excluding... 
-	 * @param start start of range (inclusive)
-	 * @param end end of range (exclusive)
-	 * @param excludes numbers to exclude
-	 * @return the random number within start-end but not one of excludes
+	 * Pick random number from the array <numbers> excluding numbers from <exclude>. 
 	 */
-	public static int nextIntInRangeButExclude(int start, int end, int... excludes){
-		p(Arrays.toString(excludes));		
-	    int rangeLength = end - start - excludes.length;
-	    int randomInt = new Random().nextInt(rangeLength) + start;
-
-	    for(int i = 0; i < excludes.length; i++) {
-	        if(excludes[i] > randomInt) {
-	            return randomInt;
-	        }
-
-	        randomInt++;
+	public static int nextIntInRangeButExclude(int[] numbers, ArrayList<Integer> exclude) {
+	    Random rand = new Random();
+	    int max = numbers.length;
+	    
+	    int random = rand.nextInt(max);
+	    while(exclude.contains(numbers[random])) {
+	        random = rand.nextInt(max);
 	    }
-
-	    return randomInt;
+p(numbers[random]);
+	    return numbers[random];
 	}
 	
 	public static String date2String(Date date) {

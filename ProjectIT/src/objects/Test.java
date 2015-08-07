@@ -75,9 +75,7 @@ public class Test implements Serializable {
 		
 		if (this.amount > this.counter) {
 			// pick a random word from all relevant and save it as question and correct answer value.
-			int max = this.dictionary_ids.length;
-			int[] asked = convertIntegers(this.askedWordsIds);
-			int rand = nextIntInRangeButExclude(1, max, asked);
+			int rand = nextIntInRangeButExclude(this.dictionary_ids, this.askedWordsIds);
 			this.askedWordsIds.add((Integer) rand);
 			
 			DictionaryEntry questionWord = new DictionaryEntry(rand);
@@ -86,14 +84,13 @@ public class Test implements Serializable {
 			answers.add(this.correctAnswer);
 	
 			// Get another 3 random answers from all relevant and exclude those already added as possible answer.
-			asked = convertIntegers(this.askedWordsIds);
-			int[] answerIds = {0, 0, 0};
+			ArrayList<Integer> answerIds = new ArrayList<Integer>();
+			answerIds.addAll(this.askedWordsIds);
 			for (int i = 0; i <= 2; i++) {
-				int[] exclude = concatIntArrays(asked, answerIds);
-				rand = nextIntInRangeButExclude(1, max, exclude);
+				rand = nextIntInRangeButExclude(this.dictionary_ids, answerIds);
 				DictionaryEntry possibleAnswerWord = new DictionaryEntry(rand);
 				answers.add(possibleAnswerWord.getWordByLanguage(this.getLangAnswer()));
-				answerIds[i] = rand;
+				answerIds.add((Integer) rand);
 			}
 			
 			// Shuffle values to avoid correct answer being on the first place. 
