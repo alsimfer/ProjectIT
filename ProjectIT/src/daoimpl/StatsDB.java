@@ -9,6 +9,11 @@ import db.DBQuery;
 import objects.*;
 import static util.UtilFunctions.*;
 
+/**
+ * Klasse StatsDB ist für den Zugriff auf die Daten aus der Tabelle stats im DB zuständig.
+ *
+ */
+
 public class StatsDB extends DBQuery{
 	
 	public ArrayList<StatEntry> getStatsByUserId(int userId, boolean groupByDate) {

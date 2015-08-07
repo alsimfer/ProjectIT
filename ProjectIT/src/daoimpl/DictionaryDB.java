@@ -8,6 +8,12 @@ import objects.DictionaryEntry;
 import objects.User;
 import db.DBQuery;
 
+/**
+ * Klasse DictionaryDB ist für den Zugriff auf die Daten aus der Tabellen dictionary und user_dictionary im DB zuständig.
+ * Hinzufügen, Löschen und Aktualisieren der Daten in den oben genannten Tabellen im DB.
+ *
+ */
+
 public class DictionaryDB extends DBQuery{
 	
 	public DictionaryDB() {
@@ -52,12 +58,9 @@ public class DictionaryDB extends DBQuery{
 		String query1 = "Delete from user_dictionary where "
 				+ "user_id = " + user.getId() + " and "
 				+ "dictionary_id = " + getDictionaryEntryFromDB(entry).getIdEntry() + ";";
-//		String query2 = "Delete from dictionary where "
-//				+ "id = " + getDictionaryEntryFromDB(entry).getIdEntry() + ";";
 		if(getDbc() != null) {
 			Connection con = getDbc().connect();
 			query(query1, con);
-//			query(query2, con);
 			if(getUpdateResult() == 1) {
 				closeConnection();
 				return true;

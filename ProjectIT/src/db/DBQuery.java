@@ -2,27 +2,17 @@ package db;
 
 import static util.UtilFunctions.*;
 
-import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-
-import objects.*;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
- * This class has an access to the DB. All Objects should be getting DB-values through this class. 
+ * This class has an access to the DB.
  * 
- * @author Alex
  */
 public class DBQuery {
 

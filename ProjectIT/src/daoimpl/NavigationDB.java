@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import db.DBQuery;
 import objects.Page;
 
+/**
+ * Klasse NavigationDB ist für den Zugriff auf die Daten aus der Tabelle navigation im DB zuständig.
+ * Holt die aktuellen Daten aus der Tabelle im DB.
+ * 
+ */
+
 public class NavigationDB extends DBQuery implements Serializable {
 
 	private static final long serialVersionUID = 1L;

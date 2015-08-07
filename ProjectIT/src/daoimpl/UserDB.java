@@ -5,6 +5,12 @@ import java.sql.Connection;
 import db.DBQuery;
 import objects.User;
 
+/**
+ * Klasse UserDB ist für den Zugriff auf die Daten aus der Tabelle user_table im DB zuständig.
+ * Hinzufügen neuer Benutzer und Aktualisieren der vorhandenen Benutzerdaten wie Name, Sprache und Passwort. 
+ *
+ */
+
 public class UserDB extends DBQuery{
 	
 	public User getUserByEmailPassword(String email, String password) {

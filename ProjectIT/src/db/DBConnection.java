@@ -1,9 +1,13 @@
 package db;
 
 import java.sql.*;
-import java.util.*;
 
 import static util.UtilFunctions.*;
+
+/**
+ * Diese Klasse ist für die Datenbank-Kommunikation verantwortlich.
+ *
+ */
 
 public class DBConnection {
 	 

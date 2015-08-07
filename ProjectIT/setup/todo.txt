@@ -1,16 +1,17 @@
 MUST:
-2) JavaDoc: each function (with the exception of get/set) and each class. Yulia, later
+2) JavaDoc: each function (with the exception of get/set) and each class.  -----> gefixt
 3) Translate all buttons and all messages in Views with the help of bundles. ----> gefixt
 	---> russian (language_ru.properties) translate and english (language_en.properties) check (UTF-8 !!!!)
-	---> german total guessed translate
  
-Russian funktioniert nicht!
+Russian funktioniert nicht! ---> gefixt ->>> Bitte andere Übersetzungen auf russisch korrekt anpassen.
+und login_login -> was hast du da gemeint auf russisch? --> anpassen
 
 11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
 12) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
 13) Documentation. Together, later
 
-- Add Message if the same word is added in dictionary -> Catch exception and print message -> how ?
+- Add Message if the same word is added in dictionary -> Catch exception and print message -> how ? 
+	------> gefixt
 - Content only update not add (+), see update user date
 - ??? saved from russian inputs -> Alex
 
@@ -20,7 +21,11 @@ OPTIONALLY if enough time:
 	-> set Unique index for dictionary table Yulia 
 	-> gefixt
 	-> Message ausgeben über die gleiche Wörter: MySQLIntegrityConstraintViolationException geht mit try und catch nicht.
+	->>>> gefixt. Wenn ein Wort im DB vorhanden ist und nicht im User-Wörterbuch, kann der Benutzer das Wort trotzdem
+		nicht zu seinem eigenem Wörterbuch hinzufügen. Hier sollte es eigentlich anderes sein. Aber es gibt keine Zeit
+		das noch anzupassen. Ist zu aufwändig!
 23) Make date in stats a Date-Object. Alex
+24) Ist das normal, wenn beim Update user data kann sofort Passwort geändert werden?
 
 Quellen:
 http://balusc.blogspot.de
