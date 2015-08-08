@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import beans.*;
 import objects.*;
@@ -57,15 +57,15 @@ public class LoginController implements Serializable {
     	// updateRows ist 1, wenn das Aktualisieren erfolgreich war, sonst 0.
     	int updatedRows = userDb.updateUserById(user.getId(), loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(), 
 				loginBean.getActiveUser().getLanguage(), loginBean.getActiveUser().getPassword());
-		if (updatedRows == 1) {			
+		if (updatedRows == 1) {
+			// Internalisation der Meldungen
+			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_userDataIsChangedSuccessful);
+			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			
 			// aktualisiere den aktiven Benutzer mit neuen Daten
 			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
 			loginBean.setActiveUser(user);
 			navigationBean.setLanguage(user.getLanguage());
-			
-			// Internalisation der Meldungen
-			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_userDataIsChangedSuccessful);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
 		}
     	
 	}
@@ -86,14 +86,13 @@ public class LoginController implements Serializable {
     		// else create new user.
     		int updatedRows = userDb.addUser(loginBean.getActiveUser().getLastName(), loginBean.getActiveUser().getFirstName(),
     				loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword(), loginBean.getActiveUser().getLanguage());
-    		if (updatedRows == 1) {    			
-    			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
-    			loginBean.setActiveUser(user);
-    			navigationBean.setLanguage(user.getLanguage());
-    			
+    		if (updatedRows == 1) {
     			// Internalisation der Meldungen
     			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_newUserCreated);
     			contentBean.setContent(contentBean.getContent() + "\n" + message + loginBean.getActiveUser().getFirstName());
+    			user = userDb.getUserByEmailPassword(loginBean.getActiveUser().getEmail(), loginBean.getActiveUser().getPassword());
+    			loginBean.setActiveUser(user);
+    			navigationBean.setLanguage(user.getLanguage());
     			setDisplaySignUpForm(false);
     		}
     	}
@@ -109,12 +108,11 @@ public class LoginController implements Serializable {
 
     	// If found - put new first name, last name and language setups for this user if needed.
     	if (user != null) {
-    		loginBean.setActiveUser(user);
-    		navigationBean.setLanguage(user.getLanguage());
-    		
     		// Internalisation der Meldungen
     		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_niceToSeeYouAgain);
     		contentBean.setContent(contentBean.getContent() + "\n" + message + user.getFirstName());   			
+    		loginBean.setActiveUser(user);
+    		navigationBean.setLanguage(user.getLanguage());
     	} else {   
     		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_passwortOrMailIncorrect);
     		contentBean.setContent(contentBean.getContent() + "\n" + message);

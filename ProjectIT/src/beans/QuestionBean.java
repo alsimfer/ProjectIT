@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
-import javax.faces.view.ViewScoped;
 
 import objects.*;
 
