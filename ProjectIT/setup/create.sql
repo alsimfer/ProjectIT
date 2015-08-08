@@ -1,17 +1,11 @@
-DROP TABLE IF EXISTS dictionary;
-DROP TABLE IF EXISTS navigation;
-DROP TABLE IF EXISTS stats;
-DROP TABLE IF EXISTS user_table;
-DROP TABLE IF EXISTS user_dictionary;
-
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.4.3
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 02, 2015 at 10:10 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Host: localhost
+-- Erstellungszeit: 08. Aug 2015 um 19:34
+-- Server-Version: 5.6.24
+-- PHP-Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,24 +17,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dictionary`
+-- Datenbank: `dictionary`
 --
+CREATE DATABASE IF NOT EXISTS `dictionary` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `dictionary`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dictionary`
+-- Tabellenstruktur für Tabelle `dictionary`
 --
 
+DROP TABLE IF EXISTS `dictionary`;
 CREATE TABLE IF NOT EXISTS `dictionary` (
-`id` int(8) NOT NULL,
+  `id` int(8) NOT NULL,
   `english` varchar(250) COLLATE utf8_bin NOT NULL,
   `german` varchar(250) COLLATE utf8_bin NOT NULL,
   `russian` varchar(250) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `dictionary`
+-- Daten für Tabelle `dictionary`
 --
 
 INSERT INTO `dictionary` (`id`, `english`, `german`, `russian`) VALUES
@@ -107,17 +104,17 @@ INSERT INTO `dictionary` (`id`, `english`, `german`, `russian`) VALUES
 (61, 'frequent', 'gehäuft', 'частый, повторяющийся'),
 (62, 'prioritization', 'die Priorisierung', 'определение приоритета'),
 (63, 'reward', 'verleihen', 'награждать, присваивать'),
-(64, 'flake off', 'sich (schichtweise) ablösen', 'отслаиваться'),
-(67, 'asd', 'hallo', '123');
+(64, 'flake off', 'sich (schichtweise) ablösen', 'отслаиваться');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `navigation`
+-- Tabellenstruktur für Tabelle `navigation`
 --
 
+DROP TABLE IF EXISTS `navigation`;
 CREATE TABLE IF NOT EXISTS `navigation` (
-`id` int(8) unsigned NOT NULL,
+  `id` int(8) unsigned NOT NULL,
   `slug` varchar(50) COLLATE utf8_bin NOT NULL,
   `title_en` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'title on tab',
   `link_en` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'button or link name',
@@ -128,56 +125,87 @@ CREATE TABLE IF NOT EXISTS `navigation` (
   `title_ru` varchar(50) CHARACTER SET utf8 NOT NULL,
   `link_ru` varchar(50) CHARACTER SET utf8 NOT NULL,
   `content_ru` text CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `navigation`
+-- Daten für Tabelle `navigation`
 --
 
 INSERT INTO `navigation` (`id`, `slug`, `title_en`, `link_en`, `content_en`, `title_de`, `link_de`, `content_de`, `title_ru`, `link_ru`, `content_ru`) VALUES
-(1, 'main.xhtml', 'Home Page', 'Home', 'Here is a content for the home page. Can be said something about statistics if the user is logged in and invitation message if not ', 'Home Seite', 'Home', 'Hier wird ein Content für die Home-Seite geschrieben', 'Главная страница', 'Главная', 'Что-нить про статистику или приглашение создать учётку'),
-(2, 'dictionary.xhtml', 'Dictionary', 'Dictionary', 'Here will be an interface to save new words to the personal dictionary', 'Wörterbuch', 'Wörterbuch', '', 'Словарь', 'Словарь', ''),
-(3, 'test.xhtml', 'Test', 'Test', 'Here you can take a test with all the words that you have already added to your personal dictionary. You also have an option to go through words that were assigned to other users. Good luck!', 'Test', 'Test', 'Hier können Sie sich mit allen bis jetzt erfassten Wörtern testen. Optional können Sie auch die Wörter anderer Nutzer raten. Viel Erfolg!', 'Тест', 'Тест', 'Здесь вы можете протестировать, насколько хорошо вы выучили свой словарь. Вы можете также включить в свой тест слова других пользователей'),
-(4, 'login.xhtml', 'Personal settings', 'Personal settings', 'Please sign up to our server or login if you already have a profile.', 'Persönliche Einstellungen', 'Persönliche Einstellungen', 'Bitte melden Sie sich auf unserem Server oder erstellen Sie ein neues Profil.', 'Учётная запись', 'Учётная запись', 'Пожалуйста, зарегистрируйтесь на нашем сервере или создайте новую учётную запись.');
+(1, 'main.xhtml', 'Home Page', 'Home', 'This site was developed for those people, who would like to learn new words in English, German or Russian languages. Using it you will be able to create a personal profile and manage your own dictionary. Just add those words you would like to learn and control your progress with the regular testing. \r\n<br/>\r\nThe statistics of all your tests will be shown here, on the main page so that you can check how are your skills improving over the time! :)', 'Home Seite', 'Home', 'Diese Website wurde für die Menschen entwickelt, die gerne neue Wörter in Englisch, Deutsch oder Russisch lernen möchten. Hier sind Sie in der Lage, ein persönliches Profil zu erstellen um ein eigenes Wörterbuch zu führen. Fügen Sie einfach alle neue Worte die Sie lernen wollen, wiederholen sie regelmäßig und testen Sie sich um Ihren Fortschritt zu kontrollieren.\r\n<br/>\r\nDie Ergebnisse aller Ihren Tests werden hier, auf der Haupt-Seite, angezeigt. Damit können Sie sich freuen über die immer steigenden Leistungen! :)', 'Главная страница', 'Главная', 'Этот сайт был создан для тех людей, которые хотели бы выучить новые слова на английском, немецком или русском языках. С его помощью вы сможете создать личный профиль и управлять своим собственным словарем. Просто добавляйте те новые слова, которые вы хотели бы выучить и контролируйте свой прогресс с помощью регулярного тестирования.\r\n<br/>\r\nСтатистика всех ваших тестов будет показано здесь, на главной странице, так что вы видите, как ваши полиглотские навыки улучшаются со временем! :)'),
+(2, 'dictionary.xhtml', 'Dictionary', 'Dictionary', 'If you are not logged in, you are seeing all the words from other users below. You are not able to manage it. If you want to get your own dictionary and save only those words which you are interested in, you need to sign up / log in.\r\n<br/>\r\nFor the logged in users it is possible to add new words using the form below. If the word should be changed or deleted, just select it in the table and it will be loaded to the form.', 'Wörterbuch', 'Wörterbuch', 'Wenn Sie nicht eingeloggt sind, können Sie alle Worte von anderen Usern unten sehen. Sie sind nicht in der Lage die Tabelle zu verwalten. Wenn Sie Ihr eigenes Wörterbuch haben wollen und nur die für Sie interessanten Worte speichern möchten, müssen Sie sich anmelden / registrieren.\r\n<br/>\r\nFür das angemeldete Benutzer ist es möglich, neue Wörter mit der untenstehenden Form hinzuzufügen. Wenn das Wort geändert oder gelöscht werden sollte, wählen Sie es einfach in der Tabelle, und es wird auf die Form eingelegt.', 'Словарь', 'Словарь', 'Если вы не зарегистрированы, вы видите все слова от других пользователей. Вы не можете управлять этим словарем. Если вы хотите, чтобы вести свой собственный словарь и сохранять только те слова, которые вас интересуют, вы должны зарегистрироваться / войти в систему.\r\n<br/>\r\nДля зарегистрированных пользователей есть возможность добавлять новые слова, используя форму ниже. Слова также можно изменять или удалять, кликая по ним в таблице и редактируя значения, загруженные в форму.'),
+(3, 'test.xhtml', 'Test', 'Test', 'Here you can take a test and check how well did you learn new words lately. Also if you are not logged in, you can go through the words of other users. \r\n<br/>\r\nTo set up the test use the form below. If you are logged in, you can check your result on the main page in the statistic table.\r\n<br/>\r\nGood luck!', 'Test', 'Test', 'Hier können Sie sich testen und prüfen, wie gut haben Sie neue Wörter in letzter Zeit gelernt. Selbst wenn Sie nicht eingeloggt sind, gibt es die Möglichkeit durch die Worte von anderen Benutzern zu gehen.\r\n<br/>\r\nUm den Test einzustellen, benutzen Sie das folgende Form. Wenn Sie angemeldet sind, können Sie Ihr Ergebnis auf der Hauptseite in der Statistik-Tabelle sehen.\r\n<br/>\r\nViel Glück!', 'Тест', 'Тест', 'Здесь вы можете пройти тест и проверить, насколько хорошо вы учили новые слова в последнее время. Даже если вы не зарегистрированы, вы можете протестировать свои знания, используя словари других пользователей.\r\n<br/>\r\nЧтобы настроить тест используйте форму ниже. Если вы зарегистрированы, вы можете проверить свой результат на главной странице в таблице со статистикой.\r\n<br/>\r\nУдачи!'),
+(4, 'login.xhtml', 'Personal settings', 'Personal settings', 'Please sign up to our server or login if you already have a profile. \r\n<br />\r\nIf you are logged in, you can change your personal user data on this page.', 'Persönliche Einstellungen', 'Persönliche Einstellungen', 'Bitte melden Sie sich auf unserem Server oder erstellen Sie ein neues Profil.\r\n<br />\r\nWenn Sie eingeloggt sind, können Sie Ihre persönlichen Daten an dieser Seite ändern.', 'Учётная запись', 'Учётная запись', 'Пожалуйста, зарегистрируйтесь на нашем сервере или создайте новую учётную запись.\r\n<br />\r\nЕсли вы зарегистрированы, вы можете также изменить свои персональные данные на этой странице.');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stats`
+-- Tabellenstruktur für Tabelle `stats`
 --
 
+DROP TABLE IF EXISTS `stats`;
 CREATE TABLE IF NOT EXISTS `stats` (
-`id` int(8) unsigned NOT NULL,
+  `id` int(8) unsigned NOT NULL,
   `user_id` int(8) unsigned NOT NULL,
   `date` date NOT NULL,
   `total_guessed` int(8) unsigned NOT NULL,
   `total_answered` int(8) unsigned NOT NULL,
   `question_language` enum('en','de','ru') COLLATE utf8_bin NOT NULL,
   `answer_language` enum('en','de','ru') COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `stats`
+-- Daten für Tabelle `stats`
 --
 
 INSERT INTO `stats` (`id`, `user_id`, `date`, `total_guessed`, `total_answered`, `question_language`, `answer_language`) VALUES
 (4, 13, '2015-06-26', 0, 15, 'en', 'ru'),
 (5, 1, '2015-06-26', 10, 15, 'en', 'ru'),
-(6, 1, '2015-06-27', 4, 25, 'de', 'ru');
+(6, 1, '2015-06-27', 4, 25, 'de', 'ru'),
+(7, 0, '2015-08-02', 1, 5, 'en', 'ru'),
+(8, 0, '2015-08-02', 1, 5, 'en', 'ru'),
+(9, 0, '2015-08-02', 0, 5, 'en', 'ru'),
+(10, 0, '2015-08-02', 5, 15, 'en', 'ru'),
+(11, 0, '2015-08-05', 1, 5, 'en', 'de'),
+(12, 0, '2015-08-05', 2, 5, 'en', 'de'),
+(13, 0, '2015-08-05', 1, 5, 'en', 'de'),
+(14, 0, '2015-08-05', 2, 5, 'en', 'de'),
+(15, 0, '2015-08-05', 2, 5, 'en', 'de'),
+(16, 0, '2015-08-05', 1, 5, 'en', 'de'),
+(17, 0, '2015-08-05', 8, 15, 'en', 'de'),
+(18, 0, '2015-08-05', 3, 15, 'en', 'de'),
+(19, 0, '2015-08-05', 5, 15, 'en', 'de'),
+(20, 0, '2015-08-05', 1, 6, 'en', 'de'),
+(21, 1, '2015-08-05', 1, 6, 'en', 'de'),
+(22, 0, '2015-08-06', 2, 5, 'en', 'de'),
+(23, 1, '2015-08-06', 1, 5, 'en', 'de'),
+(24, 1, '2015-08-06', 0, 5, 'en', 'de'),
+(25, 1, '2015-08-06', 2, 5, 'en', 'de'),
+(26, 0, '2015-08-07', 5, 15, 'en', 'de'),
+(27, 0, '2015-08-07', 4, 15, 'en', 'de'),
+(28, 0, '2015-08-07', 2, 15, 'en', 'de'),
+(29, 0, '2015-08-07', 9, 15, 'en', 'de'),
+(30, 0, '2015-08-08', 9, 15, 'en', 'de'),
+(31, 0, '2015-08-08', 15, 15, 'en', 'de'),
+(32, 0, '2015-08-08', 2, 15, 'en', 'de'),
+(33, 0, '2015-08-08', 2, 15, 'en', 'de'),
+(34, 0, '2015-08-08', 4, 15, 'en', 'de'),
+(35, 16, '2015-08-08', 1, 5, 'de', 'en');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_dictionary`
+-- Tabellenstruktur für Tabelle `user_dictionary`
 --
 
+DROP TABLE IF EXISTS `user_dictionary`;
 CREATE TABLE IF NOT EXISTS `user_dictionary` (
   `user_id` int(8) NOT NULL,
   `dictionary_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `user_dictionary`
+-- Daten für Tabelle `user_dictionary`
 --
 
 INSERT INTO `user_dictionary` (`user_id`, `dictionary_id`) VALUES
@@ -226,82 +254,79 @@ INSERT INTO `user_dictionary` (`user_id`, `dictionary_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_table`
+-- Tabellenstruktur für Tabelle `user_table`
 --
 
+DROP TABLE IF EXISTS `user_table`;
 CREATE TABLE IF NOT EXISTS `user_table` (
-`id` int(8) unsigned NOT NULL,
+  `id` int(8) unsigned NOT NULL,
   `last_name` varchar(50) COLLATE utf8_bin NOT NULL,
   `first_name` varchar(50) COLLATE utf8_bin NOT NULL,
   `email` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` varchar(50) COLLATE utf8_bin NOT NULL,
   `language` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT 'english',
   `status` int(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `user_table`
+-- Daten für Tabelle `user_table`
 --
 
 INSERT INTO `user_table` (`id`, `last_name`, `first_name`, `email`, `password`, `language`, `status`) VALUES
-(1, 'Smith', 'Alex', 'qwerty', '123456', 'english', 1),
-(12, 'Pupkin', 'Vasya', 'vasy', '1', 'english', 1),
-(13, 'Smith', 'Alex', '3', '4', 'english', 1),
-(14, 'qwe', 'rty', '6', '5', 'english', 1),
-(15, '1', '1', '4', '5', 'russian', 1);
+(1, 'Smith', 'Alex', 'qwerty@asd.com', '123456', 'russian', 1),
+(16, 'Schmalex', 'Alex', 'qwe@asd.com', '123456', 'english', 1);
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `dictionary`
+-- Indizes für die Tabelle `dictionary`
 --
 ALTER TABLE `dictionary`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `english` (`english`), ADD UNIQUE KEY `german` (`german`), ADD UNIQUE KEY `russian` (`russian`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `english` (`english`),
+  ADD UNIQUE KEY `german` (`german`),
+  ADD UNIQUE KEY `russian` (`russian`);
 
 --
--- Indexes for table `navigation`
+-- Indizes für die Tabelle `navigation`
 --
 ALTER TABLE `navigation`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `stats`
+-- Indizes für die Tabelle `stats`
 --
 ALTER TABLE `stats`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_table`
+-- Indizes für die Tabelle `user_table`
 --
 ALTER TABLE `user_table`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `dictionary`
---
-ALTER TABLE `dictionary`
-MODIFY `id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
---
--- AUTO_INCREMENT for table `navigation`
+-- AUTO_INCREMENT für Tabelle `navigation`
 --
 ALTER TABLE `navigation`
-MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `stats`
+-- AUTO_INCREMENT für Tabelle `stats`
 --
 ALTER TABLE `stats`
-MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
--- AUTO_INCREMENT for table `user_table`
+-- AUTO_INCREMENT für Tabelle `user_table`
 --
 ALTER TABLE `user_table`
-MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

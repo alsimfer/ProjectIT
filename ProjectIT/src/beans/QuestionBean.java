@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
-import javax.faces.view.ViewScoped;
 
 import objects.*;
+import sun.net.www.content.text.plain;
+import static util.UtilFunctions.*;
 
 /**
  * Die Klasse QuestionBean repräsentiert die Testfragen und mögliche Antworten.

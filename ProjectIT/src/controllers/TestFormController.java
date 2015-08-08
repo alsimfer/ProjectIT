@@ -25,8 +25,11 @@ public class TestFormController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	final String baseName = "languageProperties.Language";
+	boolean checked;
+	
 	// Keys in Language_xx.properties
 	final String lg_key_notEnoughWordsForTest = "test_message_notEnoughWordsForTest";
+	final String lg_key_amountOfQuestionsRequiered = "test_message_amountOfQuestionsRequiered";
 	
 	// Variables -------------------------------------------------------------------------------------------------------	
 	private Map<String, String> answerLanguages;
@@ -44,24 +47,21 @@ public class TestFormController implements Serializable {
 	 * @param questionLanguage Value from select field of a question language of the testForm. 
 	 */
     public Map<String, String> getAnswerLanguages(String questionLanguage) {
+		answerLanguages = new LinkedHashMap<String, String>();
     	switch (questionLanguage) {
 	    	case "english": 
-	    		answerLanguages = new LinkedHashMap<String, String>();
 	        	answerLanguages.put("Deutsch", "german");
 	        	answerLanguages.put("Русский", "russian");
 	        	break;
 	    	case "german": 
-	    		answerLanguages = new LinkedHashMap<String, String>();
 	        	answerLanguages.put("English", "english");
 	        	answerLanguages.put("Русский", "russian");
 	        	break;
 	    	case "russian": 
-	    		answerLanguages = new LinkedHashMap<String, String>();
 	        	answerLanguages.put("English", "english");
 	        	answerLanguages.put("Deutsch", "german");
 	        	break;
 	    	default: 
-	    		answerLanguages = new LinkedHashMap<String, String>();
 	        	answerLanguages.put("Deutsch", "german");
 	        	answerLanguages.put("Русский", "russian");
 	        	break;
@@ -75,21 +75,41 @@ public class TestFormController implements Serializable {
      */
     public void validateTestForm(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		int setAmount = (int) value;
+		String param = "off";
+		
+		 // param = "on" if checked, else "off".
+		try {
+			param = (String) component.getAttributes().get("param");
+		} catch (NullPointerException e) {
+		}
+		finally {
+			if (param == null) {
+				param = "off";
+			}
+		}
 		
 		int userId = loginBean.getActiveUser().getId();
 		DictionaryDB ddb = new DictionaryDB();
 		List<DictionaryEntry> words = ddb.getUserDictionaryEntriesFromDB(userId);
 		int totalWords = words.size();
-		p("user " + userId);		
-		p("setAmount " + setAmount);		
-		p("totalWords " + totalWords);	
-	  	if ((totalWords < setAmount) && (userId > 0)) {
+
+	  	if (setAmount < 5) {
+	  		// Internalisation der Meldungen
+	  		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_amountOfQuestionsRequiered);
+		  	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+	  	}
+		
+	  	if ((totalWords < setAmount) && (userId > 0) && (!param.equals("on"))) {
 	  		// Internalisation der Meldungen
 	  		String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_notEnoughWordsForTest);
 		  	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
 	  	}
 	}
 
+    public void other(Boolean checked) {
+    	this.checked = checked;
+    }
+    
 	public LoginBean getLoginBean() {
 		return loginBean;
 	}

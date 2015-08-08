@@ -26,7 +26,7 @@ public class UtilFunctions {
 	    while(exclude.contains(numbers[random])) {
 	        random = rand.nextInt(max);
 	    }
-p(numbers[random]);
+	    
 	    return numbers[random];
 	}
 	

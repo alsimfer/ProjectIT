@@ -1,13 +1,6 @@
 MUST:
-
-1) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
-2) Documentation. Together, later
-3) Content only update not add (+), see update user date -----> iwie gefixt
-
-4) Content in db anpassen
-5) beim test nach 2 fragen wird zähler nicht richtig inkrementiert. Unendliche Testdurchführung
-6) Insert neu machen in db, nur korrekte eintrage in dictionary table
-	(; - Zeichen ist nicht zulässig, Trennung mit ,)
+2) Documentation
+7) neuer user erstellen - funktioniert nicht.
 
 Quellen:
 http://balusc.blogspot.de
