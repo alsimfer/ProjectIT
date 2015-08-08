@@ -1,8 +1,24 @@
 MUST:
 
-1) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
-2) Documentation. Together, later
-3) Content only update not add (+), see update user date
+11) Test nextIntInRangeButExclude with JUnit. Seems to be a problem there. - Alex
+12) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
+13) Documentation. Together, later
+
+
+- Content only update not add (+), see update user date
+- ??? saved from russian inputs -----> gefixt
+
+OPTIONALLY if enough time:
+21) Dictionary loads too long. Check if is possible to optimize. Alex 
+22) Gleiche Wörte dürfen nicht in DB hinzugefügt werden, bzw. um eine neue Bedeutung erweitert. 
+	-> set Unique index for dictionary table Yulia 
+	-> gefixt
+	-> Message ausgeben über die gleiche Wörter: MySQLIntegrityConstraintViolationException geht mit try und catch nicht.
+	->>>> gefixt. Wenn ein Wort im DB vorhanden ist und nicht im User-Wörterbuch, kann der Benutzer das Wort trotzdem
+		nicht zu seinem eigenem Wörterbuch hinzufügen. Hier sollte es eigentlich anderes sein. Aber es gibt keine Zeit
+		das noch anzupassen. Ist zu aufwändig!
+23) Make date in stats a Date-Object. Alex
+24) Ist das normal, wenn beim Update user data kann sofort Passwort geändert werden?
 
 Quellen:
 http://balusc.blogspot.de
@@ -10,4 +26,3 @@ http://incepttechnologies.blogspot.de/p/validation-in-jsf.html
 http://stackoverflow.com
 http://www.mkyong.com/jsf2/
 Aulis -> Internet Technologien SS2015 -> Folien JSF.pdf -> Mehrsprachiger Text
-
