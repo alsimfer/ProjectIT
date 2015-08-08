@@ -99,18 +99,18 @@ public class DictionaryController implements Serializable {
 			} else {
 				// Internalisation der Meldungen
 				String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_duplicateEntry);
-				contentBean.setContent(contentBean.getContent() + "\n" + message);
+				contentBean.setContent(message);
 			}
 		}
 		
 		if(isAdded) {
 			// Internalisation der Meldungen
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_addingSuccessful);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			contentBean.setContent(message);
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_addingFailed);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			contentBean.setContent(message);
 		}
 	}
 	
@@ -147,11 +147,11 @@ public class DictionaryController implements Serializable {
 		if(isDeleted) {
 			// Internalisation der Meldungen
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_deleteSuccessful);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			contentBean.setContent(message);
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_deleteFailed);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			contentBean.setContent(message);
 		}
 	}
 	
@@ -176,7 +176,7 @@ public class DictionaryController implements Serializable {
 			dictionaryBean.setDictionaryEntry(new DictionaryEntry());
 		} else {
 			String message = ResourceBundle.getBundle(baseName, loginBean.getLanguageBean().getLocale()).getString(lg_key_updateFailed);
-			contentBean.setContent(contentBean.getContent() + "\n" + message);
+			contentBean.setContent(message);
 		}
 	}
 	

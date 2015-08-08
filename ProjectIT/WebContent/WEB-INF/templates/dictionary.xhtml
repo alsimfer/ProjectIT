@@ -9,9 +9,9 @@
         	<h:outputLabel for="geWord" value="#{language.dictionary_ge}"/>
         	<h:inputText id="geWord" value="#{dictionaryBean.dictionaryEntry.geEntry}" required="true"
         	 requiredMessage="#{language.dictionary_message_geWordRequiered}"
-        	 validatorMessage="#{language.dictionary_message_enterValidValue}">
+        	 validatorMessage="#{language.dictionary_message_enterValidValueGe}">
         		<f:validateLength minimum="2" maximum="50"/>
-        		<f:validateRegex pattern="^([a-zA-Z]+[_\-\,]*\s{0,1}[a-zA-Z]+)+" />
+        		<f:validateRegex pattern="^([a-zA-ZüÜöÖßäÄ]+[_\-\,]*\s{0,1}[a-zA-ZüÜöÖßäÄ]+)+" />
         	</h:inputText>
         	<h:message for="geWord" styleClass="error_message" />
         	<h:outputLabel for="enWord" value="#{language.dictionary_en}"/>
