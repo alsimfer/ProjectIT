@@ -1,16 +1,8 @@
 MUST:
 
-<<<<<<< HEAD
-- If user dont have 5 words but checks words from other - no error should be thrown.
-- Documentation.
-
-
-- Content only update not add (+), see update user date
-=======
 1) If user dont have 5 words but checks words from other - no error should be thrown. - Alex
 2) Documentation. Together, later
 3) Content only update not add (+), see update user date
->>>>>>> parent of d4ea043... Merge branch 'master' of git@github.com:alsimfer/ProjectIT.git
 
 Quellen:
 http://balusc.blogspot.de
@@ -18,9 +10,6 @@ http://incepttechnologies.blogspot.de/p/validation-in-jsf.html
 http://stackoverflow.com
 http://www.mkyong.com/jsf2/
 Aulis -> Internet Technologien SS2015 -> Folien JSF.pdf -> Mehrsprachiger Text
-<<<<<<< HEAD
 http://stackoverflow.com/questions/13359683/how-to-use-useunicode-yes-characterencoding-utf-8-with-dbcp
 http://stackoverflow.com/questions/28266065/using-jsf-2-2-9-on-springtomcat-causes-java-lang-noclassdeffounderror-javax-en
-=======
 
->>>>>>> parent of d4ea043... Merge branch 'master' of git@github.com:alsimfer/ProjectIT.git
