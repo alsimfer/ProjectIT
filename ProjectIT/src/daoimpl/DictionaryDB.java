@@ -3,7 +3,6 @@ package daoimpl;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import static util.UtilFunctions.*;
 
 import objects.DictionaryEntry;
 import objects.User;
