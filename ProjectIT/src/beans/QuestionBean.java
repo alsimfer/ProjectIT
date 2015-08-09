@@ -7,8 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 
 import objects.*;
-import sun.net.www.content.text.plain;
-import static util.UtilFunctions.*;
 
 /**
  * Die Klasse QuestionBean repräsentiert die Testfragen und mögliche Antworten.

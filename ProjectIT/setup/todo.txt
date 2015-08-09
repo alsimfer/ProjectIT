@@ -1,6 +1,6 @@
 MUST:
 2) Documentation
-7) neuer user erstellen - funktioniert nicht.
+7) neuer user erstellen - funktioniert nicht. --> gefixt , war wegen import ViewScoped
 
 Quellen:
 http://balusc.blogspot.de

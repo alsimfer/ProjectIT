@@ -3,9 +3,7 @@ package controllers;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.*;
 
 import beans.*;
 import objects.*;
